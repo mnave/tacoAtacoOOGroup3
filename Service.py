@@ -83,6 +83,17 @@ class Service(object):
         self.setServiceCircuitKms("0")
         self.setServiceDriverStatus(STATUSStandBy)
 
+    def noService(self):
+        """Update a service's list when there is no service."""
+
+        self.setServiceClient(NOCLIENT)
+        self.setServiceCircuit(NOCIRCUIT)
+        self.setServiceCircuitKms("0")
+        self.setServiceDriverStatus(STATUSStandBy)
+
+
+
+
     def __str__(self):
         """String representation of the service."""
 
