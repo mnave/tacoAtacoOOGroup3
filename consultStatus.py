@@ -70,7 +70,6 @@ def readVehiclesFile(file_name):
     return vehiclesDict
 
 
-
 def readServicesFile(file_name):
     """Reads a file with a list of services into a collection.
 
@@ -188,9 +187,8 @@ def waiting4ServicesList(drivers_p, vehicles_p, services_p):
         driver = service[INDEXDriverName]
         driverTerminated = service[INDEXDriverStatus] == STATUSTerminated
         if (driver not in driversInWaitingList) and (not driverTerminated):
-            # DEPRECATED: service = resetVehic(service, mode="standby")
-            if service[INDEXDriverStatus] == STATUSCharging:  # REPLACEMENT
-                service = resetVehic(service)  # REPLACEMENT
+            if service[INDEXDriverStatus] == STATUSCharging:
+                service = resetVehic(service)
             driversInWaitingList.append(driver)
             detailedWaitingList.append(service)
 
