@@ -5,6 +5,7 @@
 # 43134 Luís Filipe Leal Campos
 # 48392 Mariana Vieira De Almeida Nave
 
+from constants import *
 
 class Service(object):
     def __init__(self, servDriver, servPlate, servClient, servDepartHour, servArrivalHour, servCircuit, \
@@ -66,4 +67,9 @@ class Service(object):
     def setServiceDriverStatus(self, servDriverStatus):
         self._servDriverStatus = servDriverStatus
 
+
+    def resetVehic(self):
+        """Changes the status of a driver/vehicle to 'standby'."""
+
+        self.setServiceDriverStatus(STATUSStandBy)
 
