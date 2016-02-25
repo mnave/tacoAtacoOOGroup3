@@ -5,25 +5,17 @@
 # 43134 Luís Filipe Leal Campos
 # 48392 Mariana Vieira De Almeida Nave
 
-
-import constants
+from constants import *
 import copy
-import timeTT
 from operator import itemgetter
+from serviceListManipulation import resetVehic
+from headerRelated import removeHeader
 import Driver
 import Vehicle
 import Reservation
 import Service
 
-
-
-def removeHeader(file):
-    return file.readlines()[constants.NUMBEROfLinesInHeader:]
-
-
-def getHeader(file):
-    return file.readlines()[:constants.NUMBEROfLinesInHeader]
-
+#DOCUMENTATION NOT UPDATED
 
 def readDriversFile(file_name):
     """Reads a file with a list of drivers into a collection.
@@ -43,9 +35,9 @@ def readDriversFile(file_name):
     driversDict = {}
     for line in inFile:
         driverData = line.rstrip().split(", ")
-        driverName = driverData[constants.INDEXDriverName]
-        driverEntryHour = driverData[constants.INDEXStartingHour]
-        driverAccumTime = driverData[constants.INDEXWorkingHours]
+        driverName = driverData[INDEXDriverName]
+        driverEntryHour = driverData[INDEXStartingHour]
+        driverAccumTime = driverData[INDEXWorkingHours]
         newDriver = Driver(driverName, driverEntryHour, driverAccumTime)
         driversDict[driverName] = newDriver
 
@@ -71,10 +63,10 @@ def readVehiclesFile(file_name):
     vehiclesDict = {}
     for line in inFile:
         vehicleData = line.rstrip().split(", ")
-        vehiclePlate = vehicleData[constants.INDEXVehiclePlateInDict]
-        vehicleModel = vehicleData[constants.INDEXVehicleModel]
-        vehicleAutonomy = vehicleData[constants.INDEXVehicleAutonomyInDict]
-        vehicleKms = vehicleData[constants.INDEXVehicleAccumulatedKms]
+        vehiclePlate = vehicleData[INDEXVehiclePlateInDict]
+        vehicleModel = vehicleData[INDEXVehicleModel]
+        vehicleAutonomy = vehicleData[INDEXVehicleAutonomyInDict]
+        vehicleKms = vehicleData[INDEXVehicleAccumulatedKms]
         newVehicle = Vehicle(vehiclePlate, vehicleModel, vehicleAutonomy, vehicleKms)
         vehiclesDict[vehiclePlate] = newVehicle
 
@@ -106,14 +98,14 @@ def readServicesFile(file_name):
     servicesList = []
     for line in inFile:
         servData = line.rstrip().split(", ")
-        servDriver = servData[constants.INDEXDriverName]
-        servPlate = servData[constants.INDEXVehiclePlate]
-        servClient = servData[constants.INDEXClientName]
-        servDeparHour = servData[constants.INDEXDepartureHour]
-        servArrivalHour = servData[constants.INDEXArrivalHour]
-        servCircuit = servData[constants.INDEXCircuitId]
-        servCircuitKms = servData[constants.INDEXCircuitKms]
-        servDriverStatus = servData[constants.INDEXDriverStatus]
+        servDriver = servData[INDEXDriverName]
+        servPlate = servData[INDEXVehiclePlate]
+        servClient = servData[INDEXClientName]
+        servDeparHour = servData[INDEXDepartureHour]
+        servArrivalHour = servData[INDEXArrivalHour]
+        servCircuit = servData[INDEXCircuitId]
+        servCircuitKms = servData[INDEXCircuitKms]
+        servDriverStatus = servData[INDEXDriverStatus]
         newService = Service(servDriver, servPlate, servClient, servDeparHour, servArrivalHour, \
                               servCircuit, servCircuitKms, servDriverStatus)
         servicesList.append(newService)
@@ -144,38 +136,19 @@ def readReservationsFile(file_name):
 
     for line in inFile:
         reservData = line.rstrip().split(", ")
-        reservClient = reservData[constants.INDEXClientNameInReservation]
-        reservRequestedStartHour = reservData[constants.INDEXRequestedStartHour]
-        reservRequestedEndHour = reservData[constants.INDEXRequestedEndHour]
-        reservCircuit = reservData[constants.INDEXCircuitInReservation]
-        reservCircuitKms = reservData[constants.INDEXCircuitKmsInReservation]
+        reservClient = reservData[INDEXClientNameInReservation]
+        reservRequestedStartHour = reservData[INDEXRequestedStartHour]
+        reservRequestedEndHour = reservData[INDEXRequestedEndHour]
+        reservCircuit = reservData[INDEXCircuitInReservation]
+        reservCircuitKms = reservData[INDEXCircuitKmsInReservation]
         newReserv = Reservation(reservClient, reservRequestedStartHour, reservRequestedEndHour, reservCircuit,
                                  reservCircuitKms)
         reservationsList.append(newReserv)
 
     return reservationsList
 
-#not seen so far:
-def resetVehic(service_p):
-    """ Resets the vehicle after charging.
 
-    Requires:
-    services_p is a list of services where p stands for the working period
-    Ensures:
-    an updated List with the reset of driver/vehicle details after charging
-    (eg: _no_client_| _no_circuit_| accumulated Kms = 0)
-    """
-
-    serv = copy.deepcopy(service_p)
-    serv[constants.INDEXArrivalHour] = timeTT.add(serv[constants.INDEXArrivalHour], constants.RECHDURATION)
-    serv[constants.INDEXDepartureHour] = serv[constants.INDEXArrivalHour]
-    serv[constants.INDEXClientName] = constants.NOCLIENT
-    serv[constants.INDEXCircuitId] = constants.NOCIRCUIT
-    serv[constants.INDEXCircuitKms] = '0'
-    serv[constants.INDEXDriverStatus] = constants.STATUSStandBy
-    return serv
-
-
+#NOT UPDATED TO OO
 def waiting4ServicesList(drivers_p, vehicles_p, services_p):
     """Organizes a list of active drivers with their assigned
     vehicles that can take further services.
@@ -215,22 +188,22 @@ def waiting4ServicesList(drivers_p, vehicles_p, services_p):
 
     # Obtains sublist SL
     for service in serviceList:
-        driver = service[constants.INDEXDriverName]
-        driverTerminated = service[constants.INDEXDriverStatus] == constants.STATUSTerminated
+        driver = service[INDEXDriverName]
+        driverTerminated = service[INDEXDriverStatus] == STATUSTerminated
         if (driver not in driversInWaitingList) and (not driverTerminated):
             # DEPRECATED: service = resetVehic(service, mode="standby")
-            if service[constants.INDEXDriverStatus] == constants.STATUSCharging:  # REPLACEMENT
+            if service[INDEXDriverStatus] == STATUSCharging:  # REPLACEMENT
                 service = resetVehic(service)  # REPLACEMENT
             driversInWaitingList.append(driver)
             detailedWaitingList.append(service)
 
     # Enriches SL with 3 further data items
     for service in detailedWaitingList:
-        driverName = service[constants.INDEXDriverName]
-        driverAccumulatedTime = drivers_p[driverName][constants.INDEXAccumulatedTimeInDict]
+        driverName = service[INDEXDriverName]
+        driverAccumulatedTime = drivers_p[driverName][INDEXAccumulatedTimeInDict]
         service.append(driverAccumulatedTime)
-        vehiclePlate = service[constants.INDEXVehiclePlate]
-        vehicleKms = vehicles_p[vehiclePlate][constants.INDEXVehicleAutonomyInDict:]
+        vehiclePlate = service[INDEXVehiclePlate]
+        vehicleKms = vehicles_p[vehiclePlate][INDEXVehicleAutonomyInDict:]
         service.extend(vehicleKms)
 
     # Puts it back to the original order
@@ -239,8 +212,8 @@ def waiting4ServicesList(drivers_p, vehicles_p, services_p):
     # Sorting according to increasing availability time,
     # untying with drivers's names
     detailedWaitingList = sorted(detailedWaitingList,
-                                 key=itemgetter(constants.INDEXArrivalHour,
-                                                constants.INDEXAccumulatedTime,
-                                                constants.INDEXDriverName))
+                                 key=itemgetter(INDEXArrivalHour,
+                                                INDEXAccumulatedTime,
+                                                INDEXDriverName))
 
     return detailedWaitingList
