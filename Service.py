@@ -6,6 +6,7 @@
 # 48392 Mariana Vieira De Almeida Nave
 
 from constants import *
+from calculations import add
 
 class Service(object):
     def __init__(self, servDriver, servPlate, servClient, servDepartHour, servArrivalHour, servCircuit, \
@@ -67,12 +68,20 @@ class Service(object):
     def setServiceDriverStatus(self, servDriverStatus):
         self._servDriverStatus = servDriverStatus
 
-
     def resetVehic(self):
         """Changes the status of a driver/vehicle to 'standby'."""
 
         self.setServiceDriverStatus(STATUSStandBy)
 
+    def afterCharge(self):
+        """Updates a service to a after charge status."""
+
+        self.setServiceDriver(NOCLIENT)
+        self.setServiceArrivalHour(add(self.getServiceArrivalHour(), "01:00"))
+        self.setServiceDepartHour(self.getServiceArrivalHour())
+        self.setServiceCircuit(NOCIRCUIT)
+        self.setServiceCircuitKms("0")
+        self.setServiceDriverStatus(STATUSStandBy)
 
     def __str__(self):
         """String representation of the service."""
@@ -85,13 +94,3 @@ class Service(object):
                "\nCircuit: " + self.getServiceCircuit() + \
                "\nCircuit Kms: " + str(self.getServiceCircuitKms()) + \
                "\nDriver Status: " + self.getServiceDriverStatus()
-
-    # def afterCharge(self):
-    # """Updates a service to a after charge status."""
-#
-    # self.setServiceDriver = NOCLIENT
-    # self.[INDEXArrivalHour] = add(self.[INDEXArrivalHour], "01:00")
-    # self.[INDEXDepartureHour] = self.[INDEXArrivalHour]
-    # self.[INDEXCircuitId] = NOCIRCUIT
-    # self.[INDEXCircuitKms] = "0"
-    # self.[INDEXDriverStatus] = STATUSStandBy
