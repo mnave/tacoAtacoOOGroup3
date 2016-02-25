@@ -1,15 +1,19 @@
-# -*- coding: utf-8 -*-
+#-*- coding: utf-8 -*-
 
-# 2015-2016 Programacao 1 (LTI)
-# Grupo 25
-# 41515 Sílvia Carvalho
-# 48392 Mariana Nave
+# 2015-2016 Complementos de Programacao
+# Grupo 3
+# 43134 Luís Filipe Leal Campos
+# 48392 Mariana Vieira De Almeida Nave
 
 
 import constants
 import copy
 import timeTT
 from operator import itemgetter
+import Driver
+import Vehicle
+import Reservation
+import Service
 
 
 
@@ -110,7 +114,7 @@ def readServicesFile(file_name):
         servCircuit = servData[constants.INDEXCircuitId]
         servCircuitKms = servData[constants.INDEXCircuitKms]
         servDriverStatus = servData[constants.INDEXDriverStatus]
-        newService = Services(servDriver, servPlate, servClient, servDeparHour, servArrivalHour, \
+        newService = Service(servDriver, servPlate, servClient, servDeparHour, servArrivalHour, \
                               servCircuit, servCircuitKms, servDriverStatus)
         servicesList.append(newService)
 
@@ -145,7 +149,7 @@ def readReservationsFile(file_name):
         reservRequestedEndHour = reservData[constants.INDEXRequestedEndHour]
         reservCircuit = reservData[constants.INDEXCircuitInReservation]
         reservCircuitKms = reservData[constants.INDEXCircuitKmsInReservation]
-        newReserv = Reservations(reservClient, reservRequestedStartHour, reservRequestedEndHour, reservCircuit,
+        newReserv = Reservation(reservClient, reservRequestedStartHour, reservRequestedEndHour, reservCircuit,
                                  reservCircuitKms)
         reservationsList.append(newReserv)
 
