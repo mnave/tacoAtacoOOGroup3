@@ -73,3 +73,25 @@ class Service(object):
 
         self.setServiceDriverStatus(STATUSStandBy)
 
+
+    def __str__(self):
+        """String representation of the service."""
+
+        return "Driver: " + self.getServiceDriver() + \
+               "\nPlate: " + self.getServicePlate() + \
+               "\nClient: " + self.getServiceClient() + \
+               "\nDepartHour: " + self.getServiceDepartHour() + \
+               "\nArrivalHour: " + self.getServiceArrivalHour() + \
+               "\nCircuit: " + self.getServiceCircuit() + \
+               "\nCircuit Kms: " + str(self.getServiceCircuitKms()) + \
+               "\nDriver Status: " + self.getServiceDriverStatus()
+
+    # def afterCharge(self):
+    # """Updates a service to a after charge status."""
+#
+    # self.setServiceDriver = NOCLIENT
+    # self.[INDEXArrivalHour] = add(self.[INDEXArrivalHour], "01:00")
+    # self.[INDEXDepartureHour] = self.[INDEXArrivalHour]
+    # self.[INDEXCircuitId] = NOCIRCUIT
+    # self.[INDEXCircuitKms] = "0"
+    # self.[INDEXDriverStatus] = STATUSStandBy
