@@ -62,10 +62,8 @@ def readVehiclesFile(file_name):
     vehiclesDict = {}
     for line in inFile:
         vehicleData = line.rstrip().split(", ")
-        vehiclePlate = vehicleData[INDEXVehiclePlateInDict]
-        vehicleModel = vehicleData[INDEXVehicleModel]
-        vehicleAutonomy = vehicleData[INDEXVehicleAutonomyInDict]
-        vehicleKms = vehicleData[INDEXVehicleAccumulatedKms]
+        vehiclePlate = vehicleData.pop(INDEXVehiclePlateInDict)
+        vehicleModel, vehicleAutonomy, vehicleKms = vehicleData
         newVehicle = Vehicle(vehiclePlate, vehicleModel, vehicleAutonomy, vehicleKms)
         vehiclesDict[vehiclePlate] = newVehicle
 
