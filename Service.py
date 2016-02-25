@@ -41,3 +41,29 @@ class Service(object):
 
     def getServiceDriverStatus(self):
         return self._servDriverStatus
+
+    def setServiceDriver(self, servDriver):
+        self._servDriver = servDriver
+
+    def setServicePlate(self, servPlate):
+        self._servPlate = servPlate
+
+    def setServiceClient(self, servClient):
+        self._servClient = servClient
+
+    def setServiceDepartHour(self, servDepartHour):
+        self._servDepartHour = servDepartHour
+
+    def setServiceArrivalHour(self, servArrivalHour):
+        self._servArrivalHour = servArrivalHour
+
+    def setServiceCircuit(self, servCircuit):
+        self._servCircuit = servCircuit
+
+    def setServiceCircuitKms(self, servCircuitKms):
+        self._servCircuitKms = servCircuitKms
+
+    def setServiceDriverStatus(self, servDriverStatus):
+        self._servDriverStatus = servDriverStatus
+
+
