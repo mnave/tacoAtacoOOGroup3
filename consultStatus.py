@@ -10,10 +10,10 @@ import copy
 from operator import itemgetter
 from serviceListManipulation import resetVehic
 from headerRelated import removeHeader
-import Driver
-import Vehicle
-import Reservation
-import Service
+from Driver import Driver
+from Vehicle import Vehicle
+from Reservation import Reservation
+from Service import Service
 
 #DOCUMENTATION NOT UPDATED
 
@@ -35,9 +35,8 @@ def readDriversFile(file_name):
     driversDict = {}
     for line in inFile:
         driverData = line.rstrip().split(", ")
-        driverName = driverData[INDEXDriverName]
-        driverEntryHour = driverData[INDEXStartingHour]
-        driverAccumTime = driverData[INDEXWorkingHours]
+        driverName = driverData.pop(INDEXDriverName)
+        driverEntryHour, driverAccumTime = driverData
         newDriver = Driver(driverName, driverEntryHour, driverAccumTime)
         driversDict[driverName] = newDriver
 
