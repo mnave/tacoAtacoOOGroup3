@@ -7,8 +7,6 @@
 
 from constants import *
 import copy
-from operator import itemgetter
-from serviceListManipulation import *
 from headerRelated import removeHeader
 from Driver import Driver
 from Vehicle import Vehicle
