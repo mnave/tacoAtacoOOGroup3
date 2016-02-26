@@ -63,9 +63,10 @@ def sortWaitingServices(waiting4Services):
     """
 
     sorted_Waiting4Services = sorted(waiting4Services,
-                                     key=itemgetter(INDEXArrivalHour,
-                                                    INDEXAccumulatedTime,
-                                                    INDEXDriverName))
+                                     key=itemgetter("servArrivalHour",
+                                                    "accumTime",
+                                                    "DriverName"))
+
 
     return sorted_Waiting4Services
 
@@ -81,8 +82,8 @@ def sortServices(services):
     """
 
     sorted_Services = sorted(services,
-                             key=itemgetter(INDEXArrivalHour,
-                                            INDEXDriverName))
+                             key=itemgetter("servArrivalHour",
+                                            "DriverName"))
 
     return sorted_Services
 

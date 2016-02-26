@@ -50,5 +50,5 @@ Temporary Items
 .apdisk
 
 # Others
-.txt
-.pyc
+*.txt
+*.pyc

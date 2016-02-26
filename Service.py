@@ -109,6 +109,13 @@ class Service(object):
         else:
             return False
 
+    def __getitem__(self, item):
+        if item =="servArrivalHour":
+            return self._servArrivalHour
+
+        if item == "DriverName":
+            return self._servDriver
+
     def __str__(self):
         """String representation of the service."""
 
@@ -120,3 +127,46 @@ class Service(object):
                "\nCircuit: " + self.getServiceCircuit() + \
                "\nCircuit Kms: " + str(self.getServiceCircuitKms()) + \
                "\nDriver Status: " + self.getServiceDriverStatus()
+
+
+
+#herrança da class Service; macaquice para criar já a detailedServiceList do ConstulStatus
+class DetailedService(Service):
+    def __init__(self, driver, vehicle, service):
+        Service.__init__(self, service.getServiceDriver(),service.getServicePlate(),service.getServiceClient(),\
+                         service.getServiceDepartHour(),service.getServiceArrivalHour(),service.getServiceCircuit(),\
+                         service.getServiceCircuitKms(),service.getServiceDriverStatus())
+        self._accumTime = driver.getDriverAccumTime()
+        self._vehiclePlate = vehicle.getPlate()
+        self._vehicleKmsLeft = vehicle.getVehicleKmsLeft()
+        self._vehicleAutonomy = vehicle.getVehicleAutonomy()
+
+    def getAccumTime(self):
+        return self._accumTime
+
+    def getVehiclePlate(self):
+        return self._vehiclePlate
+
+    def getVehicleKmsLeft(self):
+        return self._vehicleKmsLeft
+
+    def getVehicleAutonomy(self):
+        return self._vehicleAutonomy
+
+    def __str__(self):
+        return Service.__str__(self)+\
+            "\nAccum Time: "+self._accumTime+\
+            "\nvehiclePlate: "+self._vehiclePlate+\
+            "\nvehicleKmsLeft: " + self._vehicleKmsLeft+\
+            "\nvehicleAutonomy: " + self._vehicleAutonomy
+
+
+    def __getitem__(self, item):
+        if item =="accumTime":
+            return self._accumTime
+
+        if item =="servArrivalHour":
+            return self._servArrivalHour
+
+        if item == "DriverName":
+            return self._servDriver
