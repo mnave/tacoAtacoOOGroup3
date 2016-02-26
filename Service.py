@@ -91,8 +91,23 @@ class Service(object):
         self.setServiceCircuitKms("0")
         self.setServiceDriverStatus(STATUSStandBy)
 
+    def __lt__(self, other_service):
+        """Services with a lower _servArrivalHour are considered less than ones with a higher
+        _servArrivalHour attribute. In case of equal _servArrivalHour values, the lower service
+        is the one with the lower _servDriver.
+        """
 
-
+        # compare by arrival hour
+        if self.getServiceArrivalHour() < other_service.getServiceArrivalHour():
+            return True
+        elif self.getServiceArrivalHour() == other_service.getServiceArrivalHour():
+            # compare by driver name
+            if self.getServiceDriver() < other_service.getServiceDriver():
+                return True
+            else:
+                return False
+        else:
+            return False
 
     def __str__(self):
         """String representation of the service."""
