@@ -8,6 +8,7 @@
 from constants import *
 from calculations import add
 
+
 class Service(object):
     def __init__(self, servDriver, servPlate, servClient, servDepartHour, servArrivalHour, servCircuit, \
                  servCircuitKms, servDriverStatus):
@@ -110,14 +111,6 @@ class Service(object):
             else:
                 return False
 
-
-    def __getitem__(self, item):
-        if item =="servArrivalHour":
-            return self._servArrivalHour
-
-        if item == "DriverName":
-            return self._servDriver
-
     def __str__(self):
         """String representation of the service."""
 
@@ -185,7 +178,6 @@ class DetailedService(Service):
                 else:
                     return False
 
-
     def __str__(self):
         return Service.__str__(self)+\
             "\nAccum Time: "+self._accumTime+\
@@ -194,12 +186,3 @@ class DetailedService(Service):
             "\nvehicleAutonomy: " + self._vehicleAutonomy
 
 
-    def __getitem__(self, item):
-        if item =="accumTime":
-            return self._accumTime
-
-        if item =="servArrivalHour":
-            return self._servArrivalHour
-
-        if item == "DriverName":
-            return self._servDriver
