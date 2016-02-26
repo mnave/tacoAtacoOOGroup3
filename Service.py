@@ -100,14 +100,16 @@ class Service(object):
         # compare by arrival hour
         if self.getServiceArrivalHour() < other_service.getServiceArrivalHour():
             return True
-        elif self.getServiceArrivalHour() == other_service.getServiceArrivalHour():
+        elif self.getServiceArrivalHour() > other_service.getServiceArrivalHour():
+            return False
+        else:
+
             # compare by driver name
             if self.getServiceDriver() < other_service.getServiceDriver():
                 return True
             else:
                 return False
-        else:
-            return False
+
 
     def __getitem__(self, item):
         if item =="servArrivalHour":
