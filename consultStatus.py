@@ -8,12 +8,13 @@
 from constants import *
 import copy
 from operator import itemgetter
-from serviceListManipulation import resetVehic
+from serviceListManipulation import *
 from headerRelated import removeHeader
 from Driver import Driver
 from Vehicle import Vehicle
 from Reservation import Reservation
-from Service import Service
+from Service import *
+
 
 #DOCUMENTATION NOT UPDATED
 
@@ -144,7 +145,6 @@ def readReservationsFile(file_name):
     return reservationsList
 
 
-#NOT UPDATED TO OO
 def waiting4ServicesList(drivers_p, vehicles_p, services_p):
     """Organizes a list of active drivers with their assigned
     vehicles that can take further services.
@@ -184,31 +184,29 @@ def waiting4ServicesList(drivers_p, vehicles_p, services_p):
 
     # Obtains sublist SL
     for service in serviceList:
-        driver = service[INDEXDriverName]
-        driverTerminated = service[INDEXDriverStatus] == STATUSTerminated
+        driver = service.getServiceDriver()
+        driverTerminated = service.getServiceDriverStatus() == STATUSTerminated
         if (driver not in driversInWaitingList) and (not driverTerminated):
-            if service[INDEXDriverStatus] == STATUSCharging:
+            if service.getServiceDriverStatus() == STATUSCharging:
                 service = resetVehic(service)
             driversInWaitingList.append(driver)
             detailedWaitingList.append(service)
 
-    # Enriches SL with 3 further data items
+    detailedList = []
+    # Creates a list of services with further data items
     for service in detailedWaitingList:
-        driverName = service[INDEXDriverName]
-        driverAccumulatedTime = drivers_p[driverName][INDEXAccumulatedTimeInDict]
-        service.append(driverAccumulatedTime)
-        vehiclePlate = service[INDEXVehiclePlate]
-        vehicleKms = vehicles_p[vehiclePlate][INDEXVehicleAutonomyInDict:]
-        service.extend(vehicleKms)
+        drivername = service.getServiceDriver()
+        driver = drivers_p[drivername]
+        vehicleplate = service.getServicePlate()
+        vehicle = vehicles_p[vehicleplate]
+        detailedList.append(DetailedService(driver, vehicle, service))
 
     # Puts it back to the original order
-    detailedWaitingList.reverse()
+    detailedList.reverse()
 
     # Sorting according to increasing availability time,
     # untying with drivers's names
-    detailedWaitingList = sorted(detailedWaitingList,
-                                 key=itemgetter(INDEXArrivalHour,
-                                                INDEXAccumulatedTime,
-                                                INDEXDriverName))
 
-    return detailedWaitingList
+    detailedList = sortWaitingServices(detailedList)
+
+    return detailedList
