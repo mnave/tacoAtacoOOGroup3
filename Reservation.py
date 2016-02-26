@@ -29,3 +29,19 @@ class Reservation(object):
 
     def getReservCircuitKms(self):
         return self._reservCircuitKms
+
+    def setReservClient(self, reservClient):
+        self._reservClient = reservClient
+
+    def setReservRequestedStartHour(self, reservRequestedStartHour):
+        self._reservRequestedStartHour = reservRequestedStartHour
+
+    def setReservRequestedEndHour(self, reservRequestedEndHour):
+        self._reservRequestedEndHour = reservRequestedEndHour
+
+    def setReservCircuit(self, reservCircuit):
+        self._reservCircuit = reservCircuit
+
+    def setReservCircuitKms(self, reservCircuitKms):
+        self._reservCircuitKms = reservCircuitKms
+
