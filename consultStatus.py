@@ -162,7 +162,6 @@ def waiting4ServicesList(drivers_p, vehicles_p, services_p):
     that sublist SL corresponds to the last representation of an active
     driver, converted to a “standby” status (older representations of active
     drivers and representations of terminated drivers are excluded),
-
     and by appending to each list of that subset SL 3 further elements:
     one with the accumulated time of the driver, another with the autonomy
     of his vehicle in kilometers for a fully charged batery, and yet
@@ -188,7 +187,7 @@ def waiting4ServicesList(drivers_p, vehicles_p, services_p):
         driverTerminated = service.getServiceDriverStatus() == STATUSTerminated
         if (driver not in driversInWaitingList) and (not driverTerminated):
             if service.getServiceDriverStatus() == STATUSCharging:
-                service = resetVehic(service)
+                service.resetVehic()
             driversInWaitingList.append(driver)
             detailedWaitingList.append(service)
 
@@ -207,6 +206,6 @@ def waiting4ServicesList(drivers_p, vehicles_p, services_p):
     # Sorting according to increasing availability time,
     # untying with drivers's names
 
-    detailedList = sortWaitingServices(detailedList)
+    detailedList = sorted(detailedList)
 
     return detailedList
