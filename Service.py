@@ -124,16 +124,11 @@ class Service(object):
                "\nDriver Status: " + self.getServiceDriverStatus()
 
 
-
-
-
-
-#herrança da class Service; macaquice para criar já a detailedServiceList do ConstulStatus
 class DetailedService(Service):
     def __init__(self, driver, vehicle, service):
-        Service.__init__(self, service.getServiceDriver(),service.getServicePlate(),service.getServiceClient(),\
-                         service.getServiceDepartHour(),service.getServiceArrivalHour(),service.getServiceCircuit(),\
-                         service.getServiceCircuitKms(),service.getServiceDriverStatus())
+        Service.__init__(self, service.getServiceDriver(), service.getServicePlate(), service.getServiceClient(), \
+                         service.getServiceDepartHour(), service.getServiceArrivalHour(), service.getServiceCircuit(), \
+                         service.getServiceCircuitKms(), service.getServiceDriverStatus())
         self._accumTime = driver.getDriverAccumTime()
         self._vehiclePlate = vehicle.getPlate()
         self._vehicleKmsLeft = vehicle.getVehicleKmsLeft()
@@ -179,10 +174,8 @@ class DetailedService(Service):
                     return False
 
     def __str__(self):
-        return Service.__str__(self)+\
-            "\nAccum Time: "+self._accumTime+\
-            "\nvehiclePlate: "+self._vehiclePlate+\
-            "\nvehicleKmsLeft: " + self._vehicleKmsLeft+\
+        return Service.__str__(self) + \
+            "\nAccum Time: " + self._accumTime + \
+            "\nvehiclePlate: " + self._vehiclePlate + \
+            "\nvehicleKmsLeft: " + self._vehicleKmsLeft + \
             "\nvehicleAutonomy: " + self._vehicleAutonomy
-
-
