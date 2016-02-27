@@ -35,20 +35,6 @@ def calculateDelay(old_service, reservation):
     return [startHour, endHour]
 
 
-def durationReservation(reservation):
-    """Calculates duration of a service.
-
-    Requires:
-    reservation is a sublist of a list with the structure as in the output of
-    consultStatus.readReservationsFile.
-    Ensures:
-    string in the format 'HH:MM' corresponding to the duration of the service
-    corresponding to the reservation.
-    """
-
-    return diff(reservation[INDEXRequestedEndHour], reservation[INDEXRequestedStartHour])
-
-
 def kmsLeftVehicle(service):
     """Calculates how many kilometers a vehicle can still do.
 
