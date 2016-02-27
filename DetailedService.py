@@ -15,7 +15,7 @@ class DetailedService(Service):
                          service.getServiceCircuitKms(), service.getServiceDriverStatus())
         self._accumTime = driver.getDriverAccumTime()
         self._vehiclePlate = vehicle.getPlate()
-        self._vehicleKmsLeft = vehicle.getVehicleKmsLeft()
+        self._vehicleKmsLeft = vehicle.getVehicleKmsDone()
         self._vehicleAutonomy = vehicle.getVehicleAutonomy()
 
     def getAccumTime(self):
@@ -24,11 +24,15 @@ class DetailedService(Service):
     def getVehiclePlate(self):
         return self._vehiclePlate
 
-    def getVehicleKmsLeft(self):
-        return self._vehicleKmsLeft
+    def getVehicleKmsDone(self):
+        return self._vehicleKmsDone
 
     def getVehicleAutonomy(self):
         return self._vehicleAutonomy
+
+    #def calculateKmsLeft(self):
+    #    """Calculates how many kilometers the vehicle of this service can still do."""
+
 
     def __lt__(self, other_detailedService):
         """Services with a lower _servArrivalHour are considered less than ones with a higher

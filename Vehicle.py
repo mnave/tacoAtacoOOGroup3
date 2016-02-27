@@ -9,18 +9,19 @@
 class Vehicle(object):
     """A tuk tuk from Taco-a-Taco."""
 
-    def __init__(self, Plate, Model, Autonomy, Kms_left):
+    def __init__(self, Plate, Model, Autonomy, Kms_done):
         """Creates a new vehicle.
 
         Requires: Plate is a string representing the license plate. Model is a string representing
         the model of the vehicle. Autonomy is an int representing the autonomy of the vehicle in kms.
-        Kms is an int representing the number of kms left for the vehicle to reach the autonomy.
+        Kms_done is an int representing the number of kms already done by the vehicle since the last time
+        it was charged.
         Ensures: Creation of a new Vehicle object.
         """
         self._plate = Plate
         self._model = Model
         self._autonomy = Autonomy
-        self._kms_left = Kms_left
+        self._kms_done = Kms_done
 
     def getPlate(self):
         """The license plate of the vehicle."""
@@ -37,10 +38,10 @@ class Vehicle(object):
 
         return self._autonomy
 
-    def getVehicleKmsLeft(self):
-        """The number of kms left for the vehicle to reach the autonomy."""
+    def getVehicleKmsDone(self):
+        """The number of kms done for the vehicle to reach the autonomy."""
 
-        return self._kms_left
+        return self._kms_done
 
     def setPlate(self, Plate):
         """Set the plate of the vehicle.
@@ -69,12 +70,12 @@ class Vehicle(object):
 
         self._autonomy = Autonomy
 
-    def setVehicleKmsLeft(self, Kms_left):
-        """Set the the kms left for the vehicle.
+    def setVehicleKmsDone(self, Kms_done):
+        """Set the the kms done for the vehicle.
 
         Requires: Kms_left is an int representing the number of kms left for the vehicle to reach the autonomy.
-        Ensures: getVehicle == Kms_left
+        Ensures: getVehicle == Kms_done
         """
 
-        self._kms_left = Kms_left
+        self._kms_done = Kms_done
 
