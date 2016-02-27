@@ -26,23 +26,12 @@ def calculateDelay(old_service, reservation):
     """
     delay = '00:00'
 
-    if diff(old_service[INDEXArrivalHour], reservation[INDEXRequestedStartHour]) > '00:00':
-        delay = diff(old_service[INDEXArrivalHour], reservation[INDEXRequestedStartHour])
+    if diff(old_service.getServiceArrivalHour(), reservation.getReservRequestedStartHour()) > '00:00':
+        delay = diff(old_service.getServiceArrivalHour(), reservation.getReservRequestedStartHour())
 
-    startHour = add(reservation[INDEXRequestedStartHour], delay)
-    endHour = add(reservation[INDEXRequestedEndHour], delay)
+    startHour = add(reservation.getReservRequestedStartHour(), delay)
+    endHour = add(reservation.getReservRequestedEndHour(), delay)
 
     return [startHour, endHour]
 
 
-def kmsLeftVehicle(service):
-    """Calculates how many kilometers a vehicle can still do.
-
-    Requires:
-    service is a sublist of a list with the structure as in the output of
-    consultStatus.waiting4ServicesList.
-    Ensures:
-    An int corresponding to the number of km a vehicle can still make.
-    """
-
-    return int(service[INDEXINDEXVehicAutonomy]) - int(service[INDEXAccumulatedKms])
