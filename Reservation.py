@@ -5,6 +5,7 @@
 # 43134 Luís Filipe Leal Campos
 # 48392 Mariana Vieira De Almeida Nave
 
+from timeTT import *
 
 # LUÍS - Tinhas o nome da class no plural
 class Reservation(object):
@@ -44,4 +45,9 @@ class Reservation(object):
 
     def setReservCircuitKms(self, reservCircuitKms):
         self._reservCircuitKms = reservCircuitKms
+
+    def duration(self):
+        """Calculates the duration of the service requested by this reservation"""
+
+        return diff(self.getReservRequestedEndHour(), self.getReservRequestedStartHour())
 
