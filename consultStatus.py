@@ -11,7 +11,8 @@ from headerRelated import removeHeader
 from Driver import Driver
 from Vehicle import Vehicle
 from Reservation import Reservation
-from Service import *
+from Service import Service
+from DetailedService import DetailedService
 
 
 #DOCUMENTATION NOT UPDATED
@@ -207,3 +208,6 @@ def waiting4ServicesList(drivers_p, vehicles_p, services_p):
     detailedList = sorted(detailedList)
 
     return detailedList
+
+
+
