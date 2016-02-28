@@ -120,3 +120,8 @@ INDEXDriverBeginInDict = 0
 
 # Index of element with driver's accumulated time
 INDEXAccumulatedTimeInDict = 1
+
+#in a drivers list
+INDEXDriverEntryHour = 1
+
+INDEXVehiclePlateinList = 0
