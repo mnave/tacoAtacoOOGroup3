@@ -1,4 +1,4 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
 # 2015-2016 Complementos de Programacao
 # Grupo 3
@@ -15,7 +15,7 @@ from Service import Service
 from DetailedService import DetailedService
 
 
-#DOCUMENTATION NOT UPDATED
+# DOCUMENTATION NOT UPDATED
 
 def readDriversFile(file_name):
     """Reads a file with a list of drivers into a collection.
@@ -103,7 +103,7 @@ def readServicesFile(file_name):
         servCircuitKms = servData[INDEXCircuitKms]
         servDriverStatus = servData[INDEXDriverStatus]
         newService = Service(servDriver, servPlate, servClient, servDeparHour, servArrivalHour, \
-                              servCircuit, servCircuitKms, servDriverStatus)
+                             servCircuit, servCircuitKms, servDriverStatus)
         servicesList.append(newService)
 
     return servicesList
@@ -138,7 +138,7 @@ def readReservationsFile(file_name):
         reservCircuit = reservData[INDEXCircuitInReservation]
         reservCircuitKms = reservData[INDEXCircuitKmsInReservation]
         newReserv = Reservation(reservClient, reservRequestedStartHour, reservRequestedEndHour, reservCircuit,
-                                 reservCircuitKms)
+                                reservCircuitKms)
         reservationsList.append(newReserv)
 
     return reservationsList
@@ -208,6 +208,3 @@ def waiting4ServicesList(drivers_p, vehicles_p, services_p):
     detailedList = sorted(detailedList)
 
     return detailedList
-
-
-
