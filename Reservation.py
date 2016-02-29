@@ -7,7 +7,7 @@
 
 from timeTT import *
 
-# LUÍS - Tinhas o nome da class no plural
+
 class Reservation(object):
     def __init__(self, reservClient, reservRequestedStartHour, reservRequestedEndHour, reservCircuit, reservCircuitKms):
         self._reservClient = reservClient

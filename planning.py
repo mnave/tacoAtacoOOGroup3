@@ -1,4 +1,4 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
 # 2015-2016 Complementos de Programacao
 # Grupo 3
@@ -9,7 +9,8 @@ from constants import *
 from timeTT import *
 from calculations import *
 from copy import deepcopy
-from serviceListManipulation import *
+from Service import *
+from DetailedService import *
 
 
 def addNoServiceDriver(new_services, waiting4Services):
@@ -18,7 +19,7 @@ def addNoServiceDriver(new_services, waiting4Services):
 
     Requires:
     new_services is a list of lists with the structure of the output of
-    consultStatus.readServicesFile although not necessarilly ordered;
+    consultStatus.readServicesFile although not necessarily ordered;
     waiting4Services is a list of lists with the structure of
     consultStatus.waiting4ServicesList
     Ensures:
@@ -26,13 +27,14 @@ def addNoServiceDriver(new_services, waiting4Services):
     to drivers/vehicles which had no service in the current, appended to it.
     """
     # list of names of drivers with services
-    drivers_with_services = [service[INDEXDriverName] for service in new_services]
+    drivers_with_services = [service.getServiceDriver() for service in new_services]
 
     # services of the previous period of the drivers which got no services in this period
-    drivers_with_no_services = [driver[:INDEXDriverStatus + 1] for driver in waiting4Services if driver[INDEXDriverName] not in drivers_with_services]
+    drivers_with_no_services = [service.Service() for driver in waiting4Services if
+                                driver.getServiceDriver() not in drivers_with_services]
 
     for driver in drivers_with_no_services:
-        driver = noService(driver)
+        driver = driver.noService()
         new_services.append(driver)
 
     return new_services
@@ -54,8 +56,8 @@ def nextDriver(reservation, waiting4Services):
     # checks if reservation would pass km limit of vehicle or time limit of driver and chooses another driver if that's the case
     # while cycle stops also when all the drivers were checked
     while i < len(waiting4Services) and \
-            (int(reservation[INDEXCircuitKmsInReservation]) >= kmsLeftVehicle(waiting4Services[i]) or
-             durationReservation(reservation) >= diff(TIMELimit, waiting4Services[i][INDEXAccumulatedTime])):
+            (int(reservation.getReservCircuitKms()) >= waiting4Services[i].calculateKmsLeft() or
+                     reservation.duration() >= diff(TIMELimit, waiting4Services[i].getAccumTime())):
         i += 1
 
     return i
@@ -77,48 +79,52 @@ def updateOneService(reservation, old_service):
     information.
     """
     # Adds information to the new service
-    new_service = []
-    new_service.append(old_service[INDEXDriverName])
-    new_service.append(old_service[INDEXVehiclePlate])
-    new_service.append(reservation[INDEXClientNameInReservation])
+    new_service = DetailedService()
+
+    new_service.setServiceDriver(old_service.getServiceDriver())
+    new_service.setServicePlate(old_service.getServicePlate())
+    new_service.setServiceClient(reservation.getReservClient())
 
     # checks if it's going to be a delay, that is, if the driver/vehicle is not available at the requested time
     startHour, endHour = calculateDelay(old_service, reservation)
 
-    new_service.append(startHour)
-    new_service.append(endHour)
+    new_service.setServiceDepartHour(startHour)
+    new_service.setServiceArrivalHour(endHour)
 
-    new_service.append(reservation[INDEXCircuitInReservation])
-    new_service.append(reservation[INDEXCircuitKmsInReservation])
+    new_service.setServiceCircuit(reservation.getReservCircuit())
+    new_service.setServiceCircuitKms(reservation.getReservCircuitKms())
 
     # Calculates how much work time is left for the driver after this service
-    duration = durationReservation(reservation)
-    new_accumulated_hours = add(old_service[INDEXAccumulatedTime], duration)
+    duration = reservation.duration()
+    new_accumulated_hours = add(old_service.getAccumTime(), duration)
     allowed_time_left = diff(TIMELimit, new_accumulated_hours)
 
-    # Calculates how much kms are left fot the vehivle after this service
-    new_accumulated_kms = int(old_service[INDEXAccumulatedKms]) + int(new_service[INDEXCircuitKms])
-    allowed_kms_left = int(old_service[INDEXINDEXVehicAutonomy]) - new_accumulated_kms
+    # Calculates how much kms are left fot the vehicle after this service
+    new_accumulated_kms = int(old_service.getVehicleKmsDone()) + int(new_service.getServiceCircuitKms())
+    allowed_kms_left = int(old_service.getVehicleAutonomy()) - new_accumulated_kms
 
     # Adds the rest of the information, depending on the allowed time and kms left
     if allowed_time_left < TIMEThreshold:
-        new_service.append(STATUSTerminated)
+        new_service.setServiceDriverStatus(STATUSTerminated)
+
     elif allowed_kms_left < AUTONThreshold:
-        new_service.append(STATUSCharging)
-        new_service.append(new_accumulated_hours)
-        new_service.append(old_service[INDEXINDEXVehicAutonomy])
-        new_service.append('0')
+        new_service.setServiceDriverStatus(STATUSCharging)
+        new_service.setNewAccumTime(new_accumulated_hours)
+        new_service.setServiceCircuitKms(reservation.getReservCircuitKms())
+        new_service.setVehicleKmsDone(new_accumulated_kms)
+
+
     else:
-        new_service.append(STATUSStandBy)
-        new_service.append(new_accumulated_hours)
-        new_service.append(old_service[INDEXINDEXVehicAutonomy])
-        new_service.append(str(new_accumulated_kms))
+        new_service.setServiceDriverStatus(STATUSStandBy)
+        new_service.setNewAccumTime(new_accumulated_hours)
+        new_service.setVehicleKmsDone(str(new_accumulated_kms))
+
+    new_service.setVehicleAutonomy(old_service.getVehicleAutonomy())
 
     return new_service
 
 
 def updateServices(reservations_p, waiting4ServicesList_prevp):
-
     """Assigns drivers with their vehicles to services that were reserved.
 
     Requires:
@@ -160,7 +166,8 @@ def updateServices(reservations_p, waiting4ServicesList_prevp):
 
     for reservation in reservations_p:
 
-        # checks if reservation would pass km limit of vehicle or time limit of driver and chooses another driver if that's the case
+        # checks if reservation would pass km limit of vehicle or time limit of driver
+        # and chooses another driver if that's the case
         i = nextDriver(reservation, waiting4Services)
 
         # if there is no driver available to a reservation, try get some to work on the next reservation
@@ -170,21 +177,38 @@ def updateServices(reservations_p, waiting4ServicesList_prevp):
 
             old_service = waiting4Services.pop(i)
             new_service = updateOneService(reservation, old_service)
-            new_services.append(new_service[:INDEXDriverStatus + 1])
+            new_services.append(new_service)
 
             # makes driver and vehicle available again, after charging
-            if new_service[INDEXDriverStatus] == STATUSCharging:
-                charged = afterCharge(new_service)
-                new_services.append(charged[:INDEXDriverStatus + 1])
+            if new_service.getServiceDriverStatus() == STATUSCharging:
+                charged = DetailedService()
+                # copying the object
+                charged.setServiceCircuitKms(new_service.getServiceCircuitKms())
+                charged.setServiceCircuit(new_service.getServiceCircuit())
+                charged.setServiceDriverStatus(new_service.getServiceDriverStatus())
+                charged.setServiceDepartHour(new_service.getServiceDepartHour())
+                charged.setNewAccumTime(new_service.getAccumTime())
+                charged.setServiceDriver(new_service.getServiceDriver())
+                charged.setServiceArrivalHour(new_service.getServiceArrivalHour())
+                charged.setServicePlate(new_service.getServicePlate())
+                charged.setServiceClient(new_service.getServiceClient())
+                charged.setVehicleAutonomy(new_service.getVehicleAutonomy())
+                charged.setVehicleKmsDone("0")
+
+                charged.afterCharge()
+                new_services.append(charged)
                 waiting4Services.append(charged)
 
-            elif new_service[INDEXDriverStatus] == STATUSStandBy:
+            elif new_service.getServiceDriverStatus() == STATUSStandBy:
                 waiting4Services.append(new_service)
 
             # sorts waiting4Services so that drivers available earlier are assigned services first
-            waiting4Services = sortWaitingServices(waiting4Services)
+            waiting4Services = sorted(waiting4Services)
 
     # adds to new_services the drivers that had no service in this period
     new_services = addNoServiceDriver(new_services, waiting4Services)
 
-    return sortServices(new_services)
+    return sorted(new_services)
+
+
+

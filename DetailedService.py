@@ -9,20 +9,22 @@ from Service import Service
 
 
 class DetailedService(Service):
-    def __init__(self, driver, vehicle, service):
+    def __init__(self, driver=None, vehicle=None, service=None):
+        if driver is None:
+            return
         Service.__init__(self, service.getServiceDriver(), service.getServicePlate(), service.getServiceClient(), \
                          service.getServiceDepartHour(), service.getServiceArrivalHour(), service.getServiceCircuit(), \
                          service.getServiceCircuitKms(), service.getServiceDriverStatus())
         self._accumTime = driver.getDriverAccumTime()
-        self._vehiclePlate = vehicle.getPlate()
+     #   self._vehiclePlate = vehicle.getPlate()
         self._vehicleKmsDone = vehicle.getVehicleKmsDone()
         self._vehicleAutonomy = vehicle.getVehicleAutonomy()
 
     def getAccumTime(self):
         return self._accumTime
 
-    def getVehiclePlate(self):
-        return self._vehiclePlate
+#    def getVehiclePlate(self):
+#        return self._vehiclePlate
 
     def getVehicleKmsDone(self):
         return self._vehicleKmsDone
@@ -34,6 +36,16 @@ class DetailedService(Service):
         """Calculates how many kilometers the vehicle of this service can still do."""
 
         return int(self.getVehicleAutonomy()) - int(self.getVehicleKmsDone())
+
+    def setNewAccumTime(self, newAccumTime):
+        self._accumTime = newAccumTime
+
+    def setVehicleAutonomy(self, vehicAutonomy):
+        self._vehicleAutonomy = vehicAutonomy
+
+    def setVehicleKmsDone(self,  kmsDone):
+        self._vehicleKmsDone = kmsDone
+
 
     def __lt__(self, other_detailedService):
         """Services with a lower _servArrivalHour are considered less than ones with a higher
@@ -65,6 +77,5 @@ class DetailedService(Service):
     def __str__(self):
         return Service.__str__(self) + \
             "\nAccum Time: " + self._accumTime + \
-            "\nvehiclePlate: " + self._vehiclePlate + \
-            "\nvehicleKmsLeft: " + self._vehicleKmsLeft + \
-            "\nvehicleAutonomy: " + self._vehicleAutonomy
+            "\nvehicleKmsDone: " + str(self._vehicleKmsDone) + \
+            "\nvehicleAutonomy: " + str(self._vehicleAutonomy)
