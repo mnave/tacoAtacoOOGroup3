@@ -1,9 +1,11 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
 # 2015-2016 Complementos de Programacao
 # Grupo 3
 # 43134 Luís Filipe Leal Campos
 # 48392 Mariana Vieira De Almeida Nave
+
+from operator import attrgetter
 
 
 def writeServicesFile(services_p, file_name_p, header_p):
@@ -32,8 +34,12 @@ def writeServicesFile(services_p, file_name_p, header_p):
     for line in h:
         f.write(line + '\n')
 
-    for line in services_p:
-        line = ', '.join(line)
+    services_p = sorted(services_p, key=attrgetter('_servArrivalHour', '_servDriver'))
+
+    for service in services_p:
+        line = service.getServiceDriver() + ", " + service.getServicePlate() + ", " + service.getServiceClient() + ", " + \
+               service.getServiceDepartHour() + ", " + service.getServiceArrivalHour() + ", " + service.getServiceCircuit() + ", " + \
+               service.getServiceCircuitKms() + ", " + service.getServiceDriverStatus()
         f.write(line + '\n')
 
     f.close()
