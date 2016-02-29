@@ -30,11 +30,13 @@ def addNoServiceDriver(new_services, waiting4Services):
     drivers_with_services = [service.getServiceDriver() for service in new_services]
 
     # services of the previous period of the drivers which got no services in this period
-    drivers_with_no_services = [service.Service() for driver in waiting4Services if
-                                driver.getServiceDriver() not in drivers_with_services]
+    drivers_with_no_services = []
+    for service in waiting4Services:
+        if service.getServiceDriver() not in drivers_with_services:
+            drivers_with_no_services.append(service)
 
     for driver in drivers_with_no_services:
-        driver = driver.noService()
+        driver.noService()
         new_services.append(driver)
 
     return new_services
@@ -103,21 +105,20 @@ def updateOneService(reservation, old_service):
     new_accumulated_kms = int(old_service.getVehicleKmsDone()) + int(new_service.getServiceCircuitKms())
     allowed_kms_left = int(old_service.getVehicleAutonomy()) - new_accumulated_kms
 
+    # set common parameters
+    new_service.setAccumTime(new_accumulated_hours)
+    new_service.setVehicleKmsDone(new_accumulated_kms)
+
     # Adds the rest of the information, depending on the allowed time and kms left
     if allowed_time_left < TIMEThreshold:
         new_service.setServiceDriverStatus(STATUSTerminated)
 
     elif allowed_kms_left < AUTONThreshold:
         new_service.setServiceDriverStatus(STATUSCharging)
-        new_service.setNewAccumTime(new_accumulated_hours)
         new_service.setServiceCircuitKms(reservation.getReservCircuitKms())
-        new_service.setVehicleKmsDone(new_accumulated_kms)
-
 
     else:
         new_service.setServiceDriverStatus(STATUSStandBy)
-        new_service.setNewAccumTime(new_accumulated_hours)
-        new_service.setVehicleKmsDone(str(new_accumulated_kms))
 
     new_service.setVehicleAutonomy(old_service.getVehicleAutonomy())
 
@@ -187,7 +188,7 @@ def updateServices(reservations_p, waiting4ServicesList_prevp):
                 charged.setServiceCircuit(new_service.getServiceCircuit())
                 charged.setServiceDriverStatus(new_service.getServiceDriverStatus())
                 charged.setServiceDepartHour(new_service.getServiceDepartHour())
-                charged.setNewAccumTime(new_service.getAccumTime())
+                charged.setAccumTime(new_service.getAccumTime())
                 charged.setServiceDriver(new_service.getServiceDriver())
                 charged.setServiceArrivalHour(new_service.getServiceArrivalHour())
                 charged.setServicePlate(new_service.getServicePlate())
@@ -209,6 +210,3 @@ def updateServices(reservations_p, waiting4ServicesList_prevp):
     new_services = addNoServiceDriver(new_services, waiting4Services)
 
     return sorted(new_services)
-
-
-

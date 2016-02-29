@@ -1,4 +1,4 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
 # 2015-2016 Complementos de Programacao
 # Grupo 3
@@ -50,4 +50,3 @@ class Reservation(object):
         """Calculates the duration of the service requested by this reservation"""
 
         return diff(self.getReservRequestedEndHour(), self.getReservRequestedStartHour())
-
