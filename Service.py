@@ -1,4 +1,4 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
 # 2015-2016 Complementos de Programacao
 # Grupo 3
@@ -77,7 +77,7 @@ class Service(object):
     def afterCharge(self):
         """Updates a service to a after charge status."""
 
-        self.setServiceDriver(NOCLIENT)
+        self.setServiceClient(NOCLIENT)
         self.setServiceArrivalHour(add(self.getServiceArrivalHour(), "01:00"))
         self.setServiceDepartHour(self.getServiceArrivalHour())
         self.setServiceCircuit(NOCIRCUIT)
@@ -122,6 +122,3 @@ class Service(object):
                "\nCircuit: " + self.getServiceCircuit() + \
                "\nCircuit Kms: " + str(self.getServiceCircuitKms()) + \
                "\nDriver Status: " + self.getServiceDriverStatus()
-
-
-
