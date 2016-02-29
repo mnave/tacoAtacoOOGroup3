@@ -16,15 +16,11 @@ class DetailedService(Service):
                          service.getServiceDepartHour(), service.getServiceArrivalHour(), service.getServiceCircuit(), \
                          service.getServiceCircuitKms(), service.getServiceDriverStatus())
         self._accumTime = driver.getDriverAccumTime()
-     #   self._vehiclePlate = vehicle.getPlate()
         self._vehicleKmsDone = vehicle.getVehicleKmsDone()
         self._vehicleAutonomy = vehicle.getVehicleAutonomy()
 
     def getAccumTime(self):
         return self._accumTime
-
-#    def getVehiclePlate(self):
-#        return self._vehiclePlate
 
     def getVehicleKmsDone(self):
         return self._vehicleKmsDone
@@ -37,8 +33,8 @@ class DetailedService(Service):
 
         return int(self.getVehicleAutonomy()) - int(self.getVehicleKmsDone())
 
-    def setNewAccumTime(self, newAccumTime):
-        self._accumTime = newAccumTime
+    def setAccumTime(self, AccumTime):
+        self._accumTime = AccumTime
 
     def setVehicleAutonomy(self, vehicAutonomy):
         self._vehicleAutonomy = vehicAutonomy
