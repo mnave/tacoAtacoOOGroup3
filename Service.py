@@ -106,6 +106,7 @@ class Service(object):
         self.setServiceCircuit(NOCIRCUIT)
         self.setServiceCircuitKms("0")
         self.setServiceDriverStatus(STATUSStandBy)
+        self.setVehicleKmsDone("0")
 
     def noService(self):
         """Update a service's list when there is no service."""
@@ -119,7 +120,6 @@ class Service(object):
         """Calculates how many kilometers the vehicle of this service can still do."""
 
         return int(self.getVehicleAutonomy()) - int(self.getVehicleKmsDone())
-
 
     # not DRY
     def __lt__(self, other_detailedService):
