@@ -190,21 +190,26 @@ def waiting4ServicesList(drivers_p, vehicles_p, services_p):
             driversInWaitingList.append(driver)
             detailedWaitingList.append(service)
 
-    detailedList = []
     # Creates a list of services with further data items
     for service in detailedWaitingList:
         drivername = service.getServiceDriver()
         driver = drivers_p[drivername]
         vehicleplate = service.getServicePlate()
         vehicle = vehicles_p[vehicleplate]
-        detailedList.append(DetailedService(driver, vehicle, service))
-
-    # Puts it back to the original order
-    detailedList.reverse()
+        service.setDetailedInformation(driver, vehicle)
 
     # Sorting according to increasing availability time,
     # untying with drivers's names
+    detailedWaitingList = sorted(detailedWaitingList)
 
-    detailedList = sorted(detailedList)
+    return detailedWaitingList
 
-    return detailedList
+# FOR TESTING
+# d = readDriversFile("examples\example2\drivers1719.txt")
+# s = readServicesFile("examples\example2\services1719.txt")
+# v = readVehiclesFile("examples\example2\\vehicles1719.txt")
+#
+# w = waiting4ServicesList(d, v, s)
+#
+# for i in w:
+#     print i.getServiceDriver()

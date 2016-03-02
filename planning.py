@@ -10,7 +10,6 @@ from timeTT import *
 from calculations import *
 from copy import deepcopy
 from Service import *
-from DetailedService import *
 
 
 def addNoServiceDriver(new_services, waiting4Services):
@@ -81,10 +80,7 @@ def updateOneService(reservation, old_service):
     information.
     """
     # Adds information to the new service
-    new_service = DetailedService()
-
-    new_service.setServiceDriver(old_service.getServiceDriver())
-    new_service.setServicePlate(old_service.getServicePlate())
+    new_service = deepcopy(old_service)
     new_service.setServiceClient(reservation.getReservClient())
 
     # checks if it's going to be a delay, that is, if the driver/vehicle is not available at the requested time
@@ -182,19 +178,8 @@ def updateServices(reservations_p, waiting4ServicesList_prevp):
 
             # makes driver and vehicle available again, after charging
             if new_service.getServiceDriverStatus() == STATUSCharging:
-                charged = DetailedService()
                 # copying the object
-                charged.setServiceCircuitKms(new_service.getServiceCircuitKms())
-                charged.setServiceCircuit(new_service.getServiceCircuit())
-                charged.setServiceDriverStatus(new_service.getServiceDriverStatus())
-                charged.setServiceDepartHour(new_service.getServiceDepartHour())
-                charged.setAccumTime(new_service.getAccumTime())
-                charged.setServiceDriver(new_service.getServiceDriver())
-                charged.setServiceArrivalHour(new_service.getServiceArrivalHour())
-                charged.setServicePlate(new_service.getServicePlate())
-                charged.setServiceClient(new_service.getServiceClient())
-                charged.setVehicleAutonomy(new_service.getVehicleAutonomy())
-                charged.setVehicleKmsDone("0")
+                charged = deepcopy(new_service)
 
                 charged.afterCharge()
                 new_services.append(charged)

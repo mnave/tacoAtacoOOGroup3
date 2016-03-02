@@ -45,6 +45,15 @@ class Service(object):
     def getServiceDriverStatus(self):
         return self._servDriverStatus
 
+    def getAccumTime(self):
+        return self._accumTime
+
+    def getVehicleKmsDone(self):
+        return self._vehicleKmsDone
+
+    def getVehicleAutonomy(self):
+        return self._vehicleAutonomy
+
     def setServiceDriver(self, servDriver):
         self._servDriver = servDriver
 
@@ -69,6 +78,20 @@ class Service(object):
     def setServiceDriverStatus(self, servDriverStatus):
         self._servDriverStatus = servDriverStatus
 
+    def setAccumTime(self, AccumTime):
+        self._accumTime = AccumTime
+
+    def setVehicleAutonomy(self, vehicAutonomy):
+        self._vehicleAutonomy = vehicAutonomy
+
+    def setVehicleKmsDone(self,  kmsDone):
+        self._vehicleKmsDone = kmsDone
+
+    def setDetailedInformation(self, driver, vehicle):
+        self._accumTime = driver.getDriverAccumTime()
+        self._vehicleKmsDone = vehicle.getVehicleKmsDone()
+        self._vehicleAutonomy = vehicle.getVehicleAutonomy()
+
     def resetVehic(self):
         """Changes the status of a driver/vehicle to 'standby'."""
 
@@ -83,6 +106,7 @@ class Service(object):
         self.setServiceCircuit(NOCIRCUIT)
         self.setServiceCircuitKms("0")
         self.setServiceDriverStatus(STATUSStandBy)
+        self.setVehicleKmsDone("0")
 
     def noService(self):
         """Update a service's list when there is no service."""
@@ -92,25 +116,46 @@ class Service(object):
         self.setServiceCircuitKms("0")
         self.setServiceDriverStatus(STATUSStandBy)
 
-    def __lt__(self, other_service):
+    def calculateKmsLeft(self):
+        """Calculates how many kilometers the vehicle of this service can still do."""
+
+        return int(self.getVehicleAutonomy()) - int(self.getVehicleKmsDone())
+
+    # not DRY
+    def __lt__(self, other_detailedService):
         """Services with a lower _servArrivalHour are considered less than ones with a higher
-        _servArrivalHour attribute. In case of equal _servArrivalHour values, the lower service
+        _servArrivalHour attribute. In case of equal _servArrivalHour values, the lower DetailedService
+        if the one with the lower _accumTime. In the case of equal _accumTime values, the lower service
         is the one with the lower _servDriver.
         """
 
         # compare by arrival hour
-        if self.getServiceArrivalHour() < other_service.getServiceArrivalHour():
+        if self.getServiceArrivalHour() < other_detailedService.getServiceArrivalHour():
             return True
-        elif self.getServiceArrivalHour() > other_service.getServiceArrivalHour():
+        elif self.getServiceArrivalHour() > other_detailedService.getServiceArrivalHour():
             return False
         else:
 
-            # compare by driver name
-            if self.getServiceDriver() < other_service.getServiceDriver():
-                return True
+            # compare by accumulated time
+            if hasattr(self, "_accumTime"):
+                if self.getAccumTime() < other_detailedService.getAccumTime():
+                    return True
+                elif self.getAccumTime() > other_detailedService.getAccumTime():
+                    return False
+                else:
+                    # compare by driver name
+                    if self.getServiceDriver() < other_detailedService.getServiceDriver():
+                        return True
+                    else:
+                        return False
             else:
-                return False
+                # compare by driver name
+                if self.getServiceDriver() < other_detailedService.getServiceDriver():
+                    return True
+                else:
+                    return False
 
+    # detailed service information is missing
     def __str__(self):
         """String representation of the service."""
 
