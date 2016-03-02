@@ -87,6 +87,11 @@ class Service(object):
     def setVehicleKmsDone(self,  kmsDone):
         self._vehicleKmsDone = kmsDone
 
+    def setDetailedInformation(self, driver, vehicle):
+        self._accumTime = driver.getDriverAccumTime()
+        self._vehicleKmsDone = vehicle.getVehicleKmsDone()
+        self._vehicleAutonomy = vehicle.getVehicleAutonomy()
+
     def resetVehic(self):
         """Changes the status of a driver/vehicle to 'standby'."""
 
@@ -149,7 +154,6 @@ class Service(object):
                     return True
                 else:
                     return False
-
 
     # detailed service information is missing
     def __str__(self):
