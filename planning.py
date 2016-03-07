@@ -9,36 +9,7 @@ from constants import *
 from timeTT import *
 from calculations import *
 from copy import deepcopy
-from Service import *
-
-
-def addNoServiceDriver(new_services, waiting4Services):
-    """Adds the drivers/vehicles that had no service in the current period to the list
-    of new services.
-
-    Requires:
-    new_services is a list of lists with the structure of the output of
-    consultStatus.readServicesFile although not necessarily ordered;
-    waiting4Services is a list of lists with the structure of
-    consultStatus.waiting4ServicesList
-    Ensures:
-    a list of lists similar to new_services but with list(s), corresponding
-    to drivers/vehicles which had no service in the current, appended to it.
-    """
-    # list of names of drivers with services
-    drivers_with_services = [service.getServiceDriver() for service in new_services]
-
-    # services of the previous period of the drivers which got no services in this period
-    drivers_with_no_services = []
-    for service in waiting4Services:
-        if service.getServiceDriver() not in drivers_with_services:
-            drivers_with_no_services.append(service)
-
-    for driver in drivers_with_no_services:
-        driver.noService()
-        new_services.append(driver)
-
-    return new_services
+from ServicesList import ServicesList
 
 
 def nextDriver(reservation, waiting4Services):
@@ -102,7 +73,7 @@ def updateServices(reservations_p, waiting4ServicesList_prevp):
 
     waiting4ServicesList = deepcopy(waiting4ServicesList_prevp)
 
-    new_services_list = []
+    new_services_list = ServicesList()
 
     for reservation in reservations_p:
 
@@ -133,6 +104,6 @@ def updateServices(reservations_p, waiting4ServicesList_prevp):
             waiting4ServicesList = sorted(waiting4ServicesList)
 
     # adds to new_services_list the drivers that had no service in this period
-    new_services_list = addNoServiceDriver(new_services_list, waiting4ServicesList)
+    new_services_list.addNoServiceDriver(waiting4ServicesList)
 
     return sorted(new_services_list)
