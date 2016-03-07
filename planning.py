@@ -121,12 +121,10 @@ def updateServices(reservations_p, waiting4ServicesList_prevp):
 
             # makes driver and vehicle available again, after charging
             if service.getServiceDriverStatus() == STATUSCharging:
-                # copying the object
-                charged = deepcopy(service)
 
-                charged.afterCharge()
-                new_services.append(charged)
-                waiting4Services.append(deepcopy(charged))
+                service.afterCharge()
+                new_services.append(service)
+                waiting4Services.append(deepcopy(service))
 
             elif service.getServiceDriverStatus() == STATUSStandBy:
                 waiting4Services.append(deepcopy(service))
