@@ -64,63 +64,6 @@ def nextDriver(reservation, waiting4Services):
     return i
 
 
-def updateOneService(reservation, old_service):
-    """Assign a driver with her vehicle to a service that was reserved.
-
-    Requires:
-    reservation is a sublist of a list with the structure as in the output of
-    consultStatus.readReservationsFile; service is a sublist of a list with
-    the structure as in the output of consultStatus.waiting4ServicesList.
-    Ensures:
-    a list with the structure of the sublists of consultStatus.waiting4ServicesList
-    where the driver and her vehicle are assigned to a reservation
-    (unless the first condition of the ifelse block is true. In that case the
-    structure of the list is the same as the sublists of the output of
-    consultStatus.readServicesFile). See specifications of UpdateServices for more
-    information.
-    """
-    # Adds information to the new service
-    new_service = deepcopy(old_service)
-    new_service.setServiceClient(reservation.getReservClient())
-
-    # checks if it's going to be a delay, that is, if the driver/vehicle is not available at the requested time
-    startHour, endHour = calculateDelay(old_service, reservation)
-
-    new_service.setServiceDepartHour(startHour)
-    new_service.setServiceArrivalHour(endHour)
-
-    new_service.setServiceCircuit(reservation.getReservCircuit())
-    new_service.setServiceCircuitKms(reservation.getReservCircuitKms())
-
-    # Calculates how much work time is left for the driver after this service
-    duration = reservation.duration()
-    new_accumulated_hours = add(old_service.getAccumTime(), duration)
-    allowed_time_left = diff(TIMELimit, new_accumulated_hours)
-
-    # Calculates how much kms are left fot the vehicle after this service
-    new_accumulated_kms = int(old_service.getVehicleKmsDone()) + int(new_service.getServiceCircuitKms())
-    allowed_kms_left = int(old_service.getVehicleAutonomy()) - new_accumulated_kms
-
-    # set common parameters
-    new_service.setAccumTime(new_accumulated_hours)
-    new_service.setVehicleKmsDone(new_accumulated_kms)
-
-    # Adds the rest of the information, depending on the allowed time and kms left
-    if allowed_time_left < TIMEThreshold:
-        new_service.setServiceDriverStatus(STATUSTerminated)
-
-    elif allowed_kms_left < AUTONThreshold:
-        new_service.setServiceDriverStatus(STATUSCharging)
-        new_service.setServiceCircuitKms(reservation.getReservCircuitKms())
-
-    else:
-        new_service.setServiceDriverStatus(STATUSStandBy)
-
-    new_service.setVehicleAutonomy(old_service.getVehicleAutonomy())
-
-    return new_service
-
-
 def updateServices(reservations_p, waiting4ServicesList_prevp):
     """Assigns drivers with their vehicles to services that were reserved.
 
@@ -172,21 +115,21 @@ def updateServices(reservations_p, waiting4ServicesList_prevp):
             next
         else:
 
-            old_service = waiting4Services.pop(i)
-            new_service = updateOneService(reservation, old_service)
-            new_services.append(new_service)
+            service = waiting4Services.pop(i)
+            service.updateOneService(reservation)
+            new_services.append(deepcopy(service))
 
             # makes driver and vehicle available again, after charging
-            if new_service.getServiceDriverStatus() == STATUSCharging:
+            if service.getServiceDriverStatus() == STATUSCharging:
                 # copying the object
-                charged = deepcopy(new_service)
+                charged = deepcopy(service)
 
                 charged.afterCharge()
                 new_services.append(charged)
-                waiting4Services.append(charged)
+                waiting4Services.append(deepcopy(charged))
 
-            elif new_service.getServiceDriverStatus() == STATUSStandBy:
-                waiting4Services.append(new_service)
+            elif service.getServiceDriverStatus() == STATUSStandBy:
+                waiting4Services.append(deepcopy(service))
 
             # sorts waiting4Services so that drivers available earlier are assigned services first
             waiting4Services = sorted(waiting4Services)

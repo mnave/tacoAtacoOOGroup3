@@ -7,6 +7,8 @@
 
 from constants import *
 from calculations import add
+from timeTT import *
+from calculations import *
 
 
 class Service(object):
@@ -120,6 +122,59 @@ class Service(object):
         """Calculates how many kilometers the vehicle of this service can still do."""
 
         return int(self.getVehicleAutonomy()) - int(self.getVehicleKmsDone())
+
+    def updateOneService(self, reservation):
+        """Assign a driver with her vehicle to a service that was reserved.
+
+        Requires:
+        reservation is a sublist of a list with the structure as in the output of
+        consultStatus.readReservationsFile; service is a sublist of a list with
+        the structure as in the output of consultStatus.waiting4ServicesList.
+        Ensures:
+        a list with the structure of the sublists of consultStatus.waiting4ServicesList
+        where the driver and her vehicle are assigned to a reservation
+        (unless the first condition of the ifelse block is true. In that case the
+        structure of the list is the same as the sublists of the output of
+        consultStatus.readServicesFile). See specifications of UpdateServices for more
+        information.
+        """
+        # Adds information to the new service
+        self.setServiceClient(reservation.getReservClient())
+
+        # checks if it's going to be a delay, that is, if the driver/vehicle is not available at the requested time
+        startHour, endHour = calculateDelay(self, reservation)
+
+        self.setServiceDepartHour(startHour)
+        self.setServiceArrivalHour(endHour)
+
+        self.setServiceCircuit(reservation.getReservCircuit())
+        self.setServiceCircuitKms(reservation.getReservCircuitKms())
+
+        # Calculates how much work time is left for the driver after this service
+        duration = reservation.duration()
+        new_accumulated_hours = add(self.getAccumTime(), duration)
+        allowed_time_left = diff(TIMELimit, new_accumulated_hours)
+
+        # Calculates how much kms are left fot the vehicle after this service
+        new_accumulated_kms = int(self.getVehicleKmsDone()) + int(self.getServiceCircuitKms())
+        allowed_kms_left = int(self.getVehicleAutonomy()) - new_accumulated_kms
+
+        # set common parameters
+        self.setAccumTime(new_accumulated_hours)
+        self.setVehicleKmsDone(new_accumulated_kms)
+
+        # Adds the rest of the information, depending on the allowed time and kms left
+        if allowed_time_left < TIMEThreshold:
+            self.setServiceDriverStatus(STATUSTerminated)
+
+        elif allowed_kms_left < AUTONThreshold:
+            self.setServiceDriverStatus(STATUSCharging)
+            self.setServiceCircuitKms(reservation.getReservCircuitKms())
+
+        else:
+            self.setServiceDriverStatus(STATUSStandBy)
+
+        self.setVehicleAutonomy(self.getVehicleAutonomy())
 
     # not DRY
     def __lt__(self, other_detailedService):
