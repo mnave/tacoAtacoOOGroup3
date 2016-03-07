@@ -12,7 +12,7 @@ from Driver import Driver
 from Vehicle import Vehicle
 from Reservation import Reservation
 from Service import Service
-from DetailedService import DetailedService
+from ServicesList import ServicesList
 
 
 # DOCUMENTATION NOT UPDATED
@@ -105,6 +105,8 @@ def readServicesFile(file_name):
         newService = Service(servDriver, servPlate, servClient, servDeparHour, servArrivalHour, \
                              servCircuit, servCircuitKms, servDriverStatus)
         servicesList.append(newService)
+
+    servicesList = ServicesList(servicesList)
 
     return servicesList
 
