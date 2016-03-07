@@ -127,16 +127,9 @@ class Service(object):
         """Assign a driver with her vehicle to a service that was reserved.
 
         Requires:
-        reservation is a sublist of a list with the structure as in the output of
-        consultStatus.readReservationsFile; service is a sublist of a list with
-        the structure as in the output of consultStatus.waiting4ServicesList.
+        reservation is a Reservation object.
         Ensures:
-        a list with the structure of the sublists of consultStatus.waiting4ServicesList
-        where the driver and her vehicle are assigned to a reservation
-        (unless the first condition of the ifelse block is true. In that case the
-        structure of the list is the same as the sublists of the output of
-        consultStatus.readServicesFile). See specifications of UpdateServices for more
-        information.
+        self attributes get updated considering the new reservation.
         """
         # Adds information to the new service
         self.setServiceClient(reservation.getReservClient())
