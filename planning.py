@@ -100,39 +100,39 @@ def updateServices(reservations_p, waiting4ServicesList_prevp):
     in each case above.
     """
 
-    waiting4Services = deepcopy(waiting4ServicesList_prevp)
+    waiting4ServicesList = deepcopy(waiting4ServicesList_prevp)
 
-    new_services = []
+    new_services_list = []
 
     for reservation in reservations_p:
 
         # checks if reservation would pass km limit of vehicle or time limit of driver
         # and chooses another driver if that's the case
-        i = nextDriver(reservation, waiting4Services)
+        i = nextDriver(reservation, waiting4ServicesList)
 
         # if there is no driver available to a reservation, try get some to work on the next reservation
-        if i == len(waiting4Services):
+        if i == len(waiting4ServicesList):
             next
         else:
 
-            service = waiting4Services.pop(i)
+            service = waiting4ServicesList.pop(i)
             service.updateOneService(reservation)
-            new_services.append(deepcopy(service))
+            new_services_list.append(deepcopy(service))
 
             # makes driver and vehicle available again, after charging
             if service.getServiceDriverStatus() == STATUSCharging:
 
                 service.afterCharge()
-                new_services.append(service)
-                waiting4Services.append(deepcopy(service))
+                new_services_list.append(service)
+                waiting4ServicesList.append(deepcopy(service))
 
             elif service.getServiceDriverStatus() == STATUSStandBy:
-                waiting4Services.append(deepcopy(service))
+                waiting4ServicesList.append(deepcopy(service))
 
-            # sorts waiting4Services so that drivers available earlier are assigned services first
-            waiting4Services = sorted(waiting4Services)
+            # sorts waiting4ServicesList so that drivers available earlier are assigned services first
+            waiting4ServicesList = sorted(waiting4ServicesList)
 
-    # adds to new_services the drivers that had no service in this period
-    new_services = addNoServiceDriver(new_services, waiting4Services)
+    # adds to new_services_list the drivers that had no service in this period
+    new_services_list = addNoServiceDriver(new_services_list, waiting4ServicesList)
 
-    return sorted(new_services)
+    return sorted(new_services_list)
