@@ -6,7 +6,7 @@
 # 48392 Mariana Vieira De Almeida Nave
 
 import sys
-from operator import itemgetter
+
 
 from planning import updateServices
 from outputStatus import writeServicesFile
@@ -61,6 +61,7 @@ def checkPreConditions(nextPeriod, driversFileName, vehiclesFileName,
 
     # The files whose names are driversFileName, vehiclesFileName, servicesFileName concern the period
     # immediately preceding the period indicated by nextPeriod;
+
     elif not (headerDrivers[INDEXPeriod].strip() == headerVehicles[INDEXPeriod].strip() ==
               headerServices[INDEXPeriod].strip() == previousPeriodOther):
         return False
@@ -129,37 +130,19 @@ def update(nextPeriod, driversFileName, vehiclesFileName,
         services = readServicesFile(servicesFileName)
         reservations = readReservationsFile(reservationsFileName)
 
-        waiting4services = waiting4ServicesList(drivers, vehicles, services)
+        #1st period
+        if nextPeriod == "0911" and ("0911" in reservationsFileName):
+            empty_services = emptyServices(drivers, vehicles)
+            waiting4services = waiting4ServicesList(drivers,vehicles,empty_services)
+        else:
+            waiting4services = waiting4ServicesList(drivers, vehicles, services)
 
         new_services = updateServices(reservations, waiting4services)
 
         writeServicesFile(new_services, file_name, header)
 
-#    if nextPeriod == "0911" and ("0911" in reservationsFileName):
-        # drivers_list = []
-        # vehicleList = removeHeader(open(vehiclesFileName, 'r'))
-        # for key in drivers:
-        #     driversListItem = [key]
-        #     driversListItem.extend(drivers[key])
-        #     drivers_list.append(driversListItem)
-        # drivers_list = sorted(drivers_list,
-        #                       key=itemgetter(INDEXDriverEntryHour,
-        #                                      INDEXDriverName))
-        # vehicle = 0
-        # for driver in drivers_list:
-        #     vehicleString = vehicleList[vehicle]
-        #     vehicleStringList = vehicleString.split(',')
-        #     services_aux = [driver[INDEXDriverName], vehicleStringList[INDEXVehiclePlateInDict], \
-        #                     NOCLIENT, driver[INDEXDriverEntryHour], \
-        #                     driver[INDEXDriverEntryHour], NOCIRCUIT, '0', STATUSStandBy]
-        #     services.append(services_aux)
-        #     vehicle += 1
-
     else:
         raise IOError('File names and/or headers not consistent.')
-
-
-
 
 
 update(nextPeriod, driversFileName, vehiclesFileName, servicesFileName, reservationsFileName)
