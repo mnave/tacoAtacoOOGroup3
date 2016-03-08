@@ -28,6 +28,11 @@ class Time:
         self._minutes = minutes
 
     def add(self, other_time):
+        """The result of the addition of the two times in the arguments.
+
+        Requires: other_time is a Time object.
+        Ensures: result of the addition of self with other_time
+        """
 
         result = Time()
 
@@ -42,6 +47,11 @@ class Time:
         return result
 
     def diff(self, other_time):
+        """The result of the subtraction of the two times in the arguments.
+
+        Requires: other_time is a Time object.
+        Ensures: result of the subtraction of self with other_time
+        """
         result = Time()
 
         H = self.getHours() - other_time.getHours()
