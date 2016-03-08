@@ -10,6 +10,7 @@ from timeTT import *
 from calculations import *
 from copy import deepcopy
 from ServicesList import ServicesList
+from Time import Time
 
 
 def nextDriver(reservation, waiting4Services):
@@ -25,11 +26,12 @@ def nextDriver(reservation, waiting4Services):
     of waiting4Services then neither of the drivers got the reservation.
     """
     i = 0
+
     # checks if reservation would pass km limit of vehicle or time limit of driver and chooses another driver if that's the case
     # while cycle stops also when all the drivers were checked
     while i < len(waiting4Services) and \
             (int(reservation.getReservCircuitKms()) >= waiting4Services[i].calculateKmsLeft() or
-                     reservation.duration() >= diff(TIMELimit, waiting4Services[i].getAccumTime())):
+                     reservation.duration() >= Time(TIMELimit).diff(waiting4Services[i].getAccumTime())):
         i += 1
 
     return i

@@ -6,7 +6,6 @@
 # 48392 Mariana Vieira De Almeida Nave
 
 from constants import *
-from calculations import add
 from timeTT import *
 from calculations import *
 
@@ -103,7 +102,7 @@ class Service(object):
         """Updates a service to a after charge status."""
 
         self.setServiceClient(NOCLIENT)
-        self.setServiceArrivalHour(add(self.getServiceArrivalHour(), "01:00"))
+        self.setServiceArrivalHour(self.getServiceArrivalHour().add(Time("01:00")))
         self.setServiceDepartHour(self.getServiceArrivalHour())
         self.setServiceCircuit(NOCIRCUIT)
         self.setServiceCircuitKms("0")
@@ -145,8 +144,8 @@ class Service(object):
 
         # Calculates how much work time is left for the driver after this service
         duration = reservation.duration()
-        new_accumulated_hours = add(self.getAccumTime(), duration)
-        allowed_time_left = diff(TIMELimit, new_accumulated_hours)
+        new_accumulated_hours = self.getAccumTime().add(duration)
+        allowed_time_left = Time(TIMELimit).diff(new_accumulated_hours)
 
         # Calculates how much kms are left fot the vehicle after this service
         new_accumulated_kms = int(self.getVehicleKmsDone()) + int(self.getServiceCircuitKms())
@@ -157,7 +156,7 @@ class Service(object):
         self.setVehicleKmsDone(new_accumulated_kms)
 
         # Adds the rest of the information, depending on the allowed time and kms left
-        if allowed_time_left < TIMEThreshold:
+        if allowed_time_left < Time(TIMEThreshold):
             self.setServiceDriverStatus(STATUSTerminated)
 
         elif allowed_kms_left < AUTONThreshold:

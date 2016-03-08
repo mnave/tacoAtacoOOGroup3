@@ -14,6 +14,7 @@ from Reservation import Reservation
 from Service import Service
 from ServicesList import ServicesList
 from operator import attrgetter
+from Time import Time
 
 
 
@@ -38,8 +39,10 @@ def readDriversFile(file_name):
     for line in inFile:
         driverData = line.rstrip().split(", ")
         driverName = driverData.pop(INDEXDriverName)
-        driverEntryHour, driverAccumTime = driverData
-        newDriver = Driver(driverName, driverEntryHour, driverAccumTime)
+        driverEntryTime, driverAccumTime = driverData
+        driverEntryTime = Time(driverEntryTime)
+        driverAccumTime = Time(driverAccumTime)
+        newDriver = Driver(driverName, driverEntryTime, driverAccumTime)
         driversDict[driverName] = newDriver
 
     return driversDict
@@ -99,12 +102,12 @@ def readServicesFile(file_name):
         servDriver = servData[INDEXDriverName]
         servPlate = servData[INDEXVehiclePlate]
         servClient = servData[INDEXClientName]
-        servDeparHour = servData[INDEXDepartureHour]
-        servArrivalHour = servData[INDEXArrivalHour]
+        servDeparTime = Time(servData[INDEXDepartureHour])
+        servArrivalTime = Time(servData[INDEXArrivalHour])
         servCircuit = servData[INDEXCircuitId]
         servCircuitKms = servData[INDEXCircuitKms]
         servDriverStatus = servData[INDEXDriverStatus]
-        newService = Service(servDriver, servPlate, servClient, servDeparHour, servArrivalHour, \
+        newService = Service(servDriver, servPlate, servClient, servDeparTime, servArrivalTime, \
                              servCircuit, servCircuitKms, servDriverStatus)
         servicesList.append(newService)
 
@@ -137,11 +140,11 @@ def readReservationsFile(file_name):
     for line in inFile:
         reservData = line.rstrip().split(", ")
         reservClient = reservData[INDEXClientNameInReservation]
-        reservRequestedStartHour = reservData[INDEXRequestedStartHour]
-        reservRequestedEndHour = reservData[INDEXRequestedEndHour]
+        reservRequestedStartTime = Time(reservData[INDEXRequestedStartHour])
+        reservRequestedEndTime = Time(reservData[INDEXRequestedEndHour])
         reservCircuit = reservData[INDEXCircuitInReservation]
         reservCircuitKms = reservData[INDEXCircuitKmsInReservation]
-        newReserv = Reservation(reservClient, reservRequestedStartHour, reservRequestedEndHour, reservCircuit,
+        newReserv = Reservation(reservClient, reservRequestedStartTime, reservRequestedEndTime, reservCircuit,
                                 reservCircuitKms)
         reservationsList.append(newReserv)
 
@@ -212,6 +215,8 @@ def waiting4ServicesList(drivers_p, vehicles_p, services_p):
 # d = readDriversFile("examples\example2\drivers1719.txt")
 # s = readServicesFile("examples\example2\services1719.txt")
 # v = readVehiclesFile("examples\example2\\vehicles1719.txt")
+# r = readReservationsFile("examples\example2\\reservations1921.txt")
+
 #
 # w = waiting4ServicesList(d, v, s)
 #

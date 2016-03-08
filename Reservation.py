@@ -49,4 +49,6 @@ class Reservation(object):
     def duration(self):
         """Calculates the duration of the service requested by this reservation"""
 
-        return diff(self.getReservRequestedEndHour(), self.getReservRequestedStartHour())
+        return self.getReservRequestedEndHour().diff(self.getReservRequestedStartHour())
+
+

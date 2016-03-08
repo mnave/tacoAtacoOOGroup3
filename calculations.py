@@ -10,6 +10,7 @@
 
 from constants import *
 from timeTT import *
+from Time import Time
 
 
 def calculateDelay(old_service, reservation):
@@ -24,13 +25,13 @@ def calculateDelay(old_service, reservation):
     with or without delay and the second element is the end time of the service with
     or without delay.
     """
-    delay = '00:00'
+    delay = Time('00:00')
 
-    if diff(old_service.getServiceArrivalHour(), reservation.getReservRequestedStartHour()) > '00:00':
-        delay = diff(old_service.getServiceArrivalHour(), reservation.getReservRequestedStartHour())
+    if old_service.getServiceArrivalHour().diff(reservation.getReservRequestedStartHour()) > Time('00:00'):
+        delay = old_service.getServiceArrivalHour().diff(reservation.getReservRequestedStartHour())
 
-    startHour = add(reservation.getReservRequestedStartHour(), delay)
-    endHour = add(reservation.getReservRequestedEndHour(), delay)
+    startHour = reservation.getReservRequestedStartHour().add(delay)
+    endHour = reservation.getReservRequestedEndHour().add(delay)
 
     return [startHour, endHour]
 

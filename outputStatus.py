@@ -38,7 +38,7 @@ def writeServicesFile(services_p, file_name_p, header_p):
 
     for service in services_p:
         line = service.getServiceDriver() + ", " + service.getServicePlate() + ", " + service.getServiceClient() + ", " + \
-               service.getServiceDepartHour() + ", " + service.getServiceArrivalHour() + ", " + service.getServiceCircuit() + ", " + \
+               str(service.getServiceDepartHour()) + ", " + str(service.getServiceArrivalHour()) + ", " + service.getServiceCircuit() + ", " + \
                service.getServiceCircuitKms() + ", " + service.getServiceDriverStatus()
         f.write(line + '\n')
 
