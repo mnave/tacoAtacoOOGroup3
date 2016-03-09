@@ -7,7 +7,7 @@
 
 from constants import *
 from timeTT import *
-from calculations import *
+from Time import Time
 
 
 class Service(object):

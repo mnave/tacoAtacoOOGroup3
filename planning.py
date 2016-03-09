@@ -7,7 +7,6 @@
 
 from constants import *
 from timeTT import *
-from calculations import *
 from copy import deepcopy
 from ServicesList import ServicesList
 from Time import Time
