@@ -102,7 +102,7 @@ def updateServices(reservations_p, waiting4ServicesList_prevp):
                 waiting4ServicesList.append(deepcopy(service))
 
             # sorts waiting4ServicesList so that drivers available earlier are assigned services first
-            waiting4ServicesList = sorted(waiting4ServicesList)
+            waiting4ServicesList.sort()
 
     # adds to new_services_list the drivers that had no service in this period
     new_services_list.addNoServiceDriver(waiting4ServicesList)

@@ -185,7 +185,7 @@ def waiting4ServicesList(drivers_p, vehicles_p, services_p):
     serviceList.reverse()
 
     driversInWaitingList = []
-    detailedWaitingList = []
+    detailedWaitingList = ServicesList()
 
     # Obtains sublist SL
     for service in serviceList:
@@ -208,7 +208,8 @@ def waiting4ServicesList(drivers_p, vehicles_p, services_p):
     # Sorting according to increasing availability time,
     # untying with drivers's names
 
-    detailedWaitingList = sorted(detailedWaitingList)
+    detailedWaitingList.sort()
+
     return detailedWaitingList
 
 # FOR TESTING
