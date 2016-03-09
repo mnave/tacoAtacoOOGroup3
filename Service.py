@@ -134,10 +134,7 @@ class Service(object):
         self.setServiceClient(reservation.getReservClient())
 
         # checks if it's going to be a delay, that is, if the driver/vehicle is not available at the requested time
-        startHour, endHour = calculateDelay(self, reservation)
-
-        self.setServiceDepartHour(startHour)
-        self.setServiceArrivalHour(endHour)
+        self.calculateNewStartAnfEndHour(reservation)
 
         self.setServiceCircuit(reservation.getReservCircuit())
         self.setServiceCircuitKms(reservation.getReservCircuitKms())
@@ -167,6 +164,25 @@ class Service(object):
             self.setServiceDriverStatus(STATUSStandBy)
 
         self.setVehicleAutonomy(self.getVehicleAutonomy())
+
+    def calculateNewStartAnfEndHour(self, reservation):
+        """Updates the Service starting and end time considering the new reservation.
+
+        Requires:
+        reservation is a Reservation object.
+        Ensures:
+        self depart and arrival hour get changed considering the new reservation.
+        """
+        delay = Time('00:00')
+
+        if self.getServiceArrivalHour().diff(reservation.getReservRequestedStartHour()) > Time('00:00'):
+            delay = self.getServiceArrivalHour().diff(reservation.getReservRequestedStartHour())
+
+        startHour = reservation.getReservRequestedStartHour().add(delay)
+        endHour = reservation.getReservRequestedEndHour().add(delay)
+
+        self.setServiceDepartHour(startHour)
+        self.setServiceArrivalHour(endHour)
 
     # not DRY
     def __lt__(self, other_detailedService):
