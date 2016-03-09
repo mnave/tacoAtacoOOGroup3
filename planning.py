@@ -11,31 +11,6 @@ from copy import deepcopy
 from ServicesList import ServicesList
 from Time import Time
 
-
-def nextDriver(reservation, waiting4Services):
-    """Returns the index of the driver/vehicle to work on the reservation.
-
-    Requires:
-    reservation is a sublist of a list with the structure as in the output of
-    consultStatus.readReservationsFile; waiting4ServicesList_prevp is a list
-    with the structure as in the output of consultStatus.waiting4Services.
-    Ensures:
-    An int corresponding to the index of waiting4Services of the driver/vehicle
-    to work on the reservation. If the int returned is equal to the length
-    of waiting4Services then neither of the drivers got the reservation.
-    """
-    i = 0
-
-    # checks if reservation would pass km limit of vehicle or time limit of driver and chooses another driver if that's the case
-    # while cycle stops also when all the drivers were checked
-    while i < len(waiting4Services) and \
-            (int(reservation.getReservCircuitKms()) >= waiting4Services[i].calculateKmsLeft() or
-                     reservation.duration() >= Time(TIMELimit).diff(waiting4Services[i].getAccumTime())):
-        i += 1
-
-    return i
-
-
 def updateServices(reservations_p, waiting4ServicesList_prevp):
     """Assigns drivers with their vehicles to services that were reserved.
 
@@ -80,7 +55,7 @@ def updateServices(reservations_p, waiting4ServicesList_prevp):
 
         # checks if reservation would pass km limit of vehicle or time limit of driver
         # and chooses another driver if that's the case
-        i = nextDriver(reservation, waiting4ServicesList)
+        i = waiting4ServicesList.nextDriver(reservation)
 
         # if there is no driver available to a reservation, try get some to work on the next reservation
         if i == len(waiting4ServicesList):

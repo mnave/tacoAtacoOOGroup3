@@ -1,4 +1,6 @@
 from UserList import UserList
+from Time import Time
+from constants import *
 
 
 class ServicesList(UserList):
@@ -34,3 +36,25 @@ class ServicesList(UserList):
         for service in ex_services_of_drivers_with_no_services:
             service.noService()
             self.append(service)
+
+    def nextDriver(self, reservation):
+        """Returns the index of the driver/vehicle to work on the reservation.
+
+        Requires:
+        reservation is a Reservation object.
+        self is a ServiceList object containing Services with the detailed attributes defined.
+        Ensures:
+
+        """
+        i = 0
+
+        # checks if reservation would pass km limit of vehicle or time limit of driver and chooses another driver if that's the case
+        # while cycle stops also when all the drivers were checked
+        while i < len(self) and \
+                (int(reservation.getReservCircuitKms()) >= self[i].calculateKmsLeft() or
+                         reservation.duration() >= Time(TIMELimit).diff(self[i].getAccumTime())):
+            i += 1
+
+        return i
+
+
