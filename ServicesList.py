@@ -6,7 +6,6 @@ from Service import Service
 
 
 class ServicesList(UserList):
-
     def __init__(self, file_name=None):
         UserList.__init__(self)
 
@@ -26,7 +25,3 @@ class ServicesList(UserList):
                 newService = Service(servDriver, servPlate, servClient, servDeparTime, servArrivalTime, \
                                      servCircuit, servCircuitKms, servDriverStatus)
                 self.append(newService)
-
-
-
-

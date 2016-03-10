@@ -5,8 +5,6 @@
 # 43134 Luís Filipe Leal Campos
 # 48392 Mariana Vieira De Almeida Nave
 
-from timeTT import *
-
 
 class Reservation(object):
     def __init__(self, reservClient, reservRequestedStartHour, reservRequestedEndHour, reservCircuit, reservCircuitKms):
@@ -50,5 +48,3 @@ class Reservation(object):
         """Calculates the duration of the service requested by this reservation"""
 
         return self.getReservRequestedEndHour().diff(self.getReservRequestedStartHour())
-
-

@@ -1,4 +1,4 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
 # 2015-2016 Complementos de Programacao
 # Grupo 3

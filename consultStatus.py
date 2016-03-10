@@ -6,14 +6,9 @@
 # 48392 Mariana Vieira De Almeida Nave
 
 
-from constants import *
-import copy
-from headerRelated import removeHeader
 from Service import Service
-from DetailedService import DetailedService
 from ServicesList import ServicesList
-from Time import Time
-import operator
+from operator import attrgetter
 
 
 def emptyServices(drivers, vehicles):
@@ -39,7 +34,7 @@ def emptyServices(drivers, vehicles):
         lstVehicles.append(j._plate)
 
     # sort drivers for the 1st period: 0911
-    d = sorted(lstDrivers, key=operator.attrgetter("_entryHour"))
+    d = sorted(lstDrivers, key=attrgetter("_entryHour"))
     v = sorted(lstVehicles)
 
     for i in range(len(d)):

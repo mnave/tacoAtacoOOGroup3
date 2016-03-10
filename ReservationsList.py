@@ -4,6 +4,7 @@ from constants import *
 from Time import Time
 from Reservation import Reservation
 
+
 class ReservationsList(UserList):
     ''' Collection of Reservations.
     UserList works as wrapper for list objects, allowing to manipulate ReservationsList
@@ -45,5 +46,3 @@ class ReservationsList(UserList):
             output += reservation.getReservClient() + '\n'
 
         return output
-
-

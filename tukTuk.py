@@ -1,4 +1,4 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
 # 2015-2016 Complementos de Programacao
 # Grupo 3
@@ -6,10 +6,7 @@
 # 48392 Mariana Vieira De Almeida Nave
 
 import sys
-
-
 from planning import updateServices
-from outputStatus import writeServicesFile
 from headerRelated import createNewHeader, getHeader
 from timeTT import changeFormatTime, getPreviousPeriod
 from consultStatus import *
@@ -18,8 +15,6 @@ from VehiclesDict import VehiclesDict
 from ReservationsList import ReservationsList
 from ServicesList import ServicesList
 from DetailedServicesList import DetailedServicesList
-
-
 
 nextPeriod = sys.argv[1]
 driversFileName = sys.argv[2]
@@ -57,7 +52,7 @@ def checkPreConditions(nextPeriod, driversFileName, vehiclesFileName,
     # The files whose names are driversFileName, vehiclesFileName, servicesFileName and reservationsFileName
     # concern the same company and the same day;
     elif not (headerDrivers[INDEXCompany:INDEXDate + 1] == headerVehicles[INDEXCompany:INDEXDate + 1] ==
-              headerServices[INDEXCompany:INDEXDate + 1] == headerReservations[INDEXCompany:INDEXDate + 1]):
+                  headerServices[INDEXCompany:INDEXDate + 1] == headerReservations[INDEXCompany:INDEXDate + 1]):
         return False
 
     # The file whose name is reservationsFileName concerns the period indicated by nextPeriod
@@ -68,7 +63,7 @@ def checkPreConditions(nextPeriod, driversFileName, vehiclesFileName,
     # immediately preceding the period indicated by nextPeriod;
 
     elif not (headerDrivers[INDEXPeriod].strip() == headerVehicles[INDEXPeriod].strip() ==
-              headerServices[INDEXPeriod].strip() == previousPeriodOther):
+                  headerServices[INDEXPeriod].strip() == previousPeriodOther):
         return False
 
     # The file name reservationsFileName ends (before the .txt extension) with
@@ -135,7 +130,7 @@ def update(nextPeriod, driversFileName, vehiclesFileName,
         services = ServicesList(servicesFileName)
         reservations = ReservationsList(reservationsFileName)
 
-        #1st period
+        # 1st period
         if nextPeriod == "0911" and ("0911" in reservationsFileName):
             empty_services = emptyServices(drivers, vehicles)
             waiting4services = DetailedServicesList(drivers, vehicles, empty_services)

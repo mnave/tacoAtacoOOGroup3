@@ -1,4 +1,4 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
 # 2015-2016 Complementos de Programacao
 # Grupo 3
@@ -34,7 +34,7 @@ class DetailedService(Service):
     def setVehicleAutonomy(self, vehicAutonomy):
         self._vehicleAutonomy = vehicAutonomy
 
-    def setVehicleKmsDone(self,  kmsDone):
+    def setVehicleKmsDone(self, kmsDone):
         self._vehicleKmsDone = kmsDone
 
     def afterCharge(self):
@@ -91,7 +91,6 @@ class DetailedService(Service):
 
         self.setVehicleAutonomy(self.getVehicleAutonomy())
 
-
     def calculateKmsLeft(self):
         """Calculates how many kilometers the vehicle of this service can still do."""
 
@@ -126,9 +125,7 @@ class DetailedService(Service):
 
     def __str__(self):
         return Service.__str__(self) + \
-            "\nAccum Time: " + self._accumTime + \
-            "\nvehiclePlate: " + self._vehiclePlate + \
-            "\nvehicleKmsLeft: " + self._vehicleKmsLeft + \
-            "\nvehicleAutonomy: " + self._vehicleAutonomy
-
-
+               "\nAccum Time: " + self._accumTime + \
+               "\nvehiclePlate: " + self._vehiclePlate + \
+               "\nvehicleKmsLeft: " + self._vehicleKmsLeft + \
+               "\nvehicleAutonomy: " + self._vehicleAutonomy
