@@ -134,7 +134,7 @@ class Service(object):
         self.setServiceClient(reservation.getReservClient())
 
         # checks if it's going to be a delay, that is, if the driver/vehicle is not available at the requested time
-        self.calculateNewStartAnfEndHour(reservation)
+        self.calculateNewStartAndEndHour(reservation)
 
         self.setServiceCircuit(reservation.getReservCircuit())
         self.setServiceCircuitKms(reservation.getReservCircuitKms())
@@ -165,7 +165,7 @@ class Service(object):
 
         self.setVehicleAutonomy(self.getVehicleAutonomy())
 
-    def calculateNewStartAnfEndHour(self, reservation):
+    def calculateNewStartAndEndHour(self, reservation):
         """Updates the Service starting and end time considering the new reservation.
 
         Requires:
