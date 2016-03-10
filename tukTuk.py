@@ -16,6 +16,7 @@ from consultStatus import *
 from DriversDict import DriversDict
 from VehiclesDict import VehiclesDict
 from ReservationsList import ReservationsList
+from ServicesList import ServicesList
 
 
 
@@ -130,7 +131,7 @@ def update(nextPeriod, driversFileName, vehiclesFileName,
 
         drivers = DriversDict(driversFileName)
         vehicles = VehiclesDict(vehiclesFileName)
-        services = readServicesFile(servicesFileName)
+        services = ServicesList(servicesFileName)
         reservations = ReservationsList(reservationsFileName)
 
         #1st period

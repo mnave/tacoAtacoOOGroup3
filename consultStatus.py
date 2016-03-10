@@ -18,47 +18,6 @@ from Time import Time
 import operator
 
 
-def readServicesFile(file_name):
-    """Reads a file with a list of services into a collection.
-
-    Requires:
-    file_name is str with the name of a .txt file containing
-    a list of services organized as in the examples provided in
-    the general specification (omitted here for the sake of readability).
-    Ensures:
-    list L of lists, where each list corresponds to a service listed
-    in file with name file_name and its elements are the elements
-    belonging to that service in the order provided in the lines of
-    the file.
-    in this list L:
-    drivers terminating their services earlier have priority over the ones
-    terminating later;
-    lexicographic order of drivers's names decides eventual ties
-    in each case above.
-    """
-
-    inFile = removeHeader(open(file_name, "r"))
-
-    servicesList = []
-    for line in inFile:
-        servData = line.rstrip().split(", ")
-        servDriver = servData[INDEXDriverName]
-        servPlate = servData[INDEXVehiclePlate]
-        servClient = servData[INDEXClientName]
-        servDeparTime = Time(servData[INDEXDepartureHour])
-        servArrivalTime = Time(servData[INDEXArrivalHour])
-        servCircuit = servData[INDEXCircuitId]
-        servCircuitKms = servData[INDEXCircuitKms]
-        servDriverStatus = servData[INDEXDriverStatus]
-        newService = Service(servDriver, servPlate, servClient, servDeparTime, servArrivalTime, \
-                             servCircuit, servCircuitKms, servDriverStatus)
-        servicesList.append(newService)
-
-    servicesList = ServicesList(servicesList)
-
-    return servicesList
-
-
 def waiting4ServicesList(drivers_p, vehicles_p, services_p):
     """Organizes a list of active drivers with their assigned
     vehicles that can take further services.
