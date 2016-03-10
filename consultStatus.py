@@ -5,17 +5,16 @@
 # 43134 Luís Filipe Leal Campos
 # 48392 Mariana Vieira De Almeida Nave
 
+
+
+
 from constants import *
 import copy
 from headerRelated import removeHeader
-from Driver import Driver
-from Vehicle import Vehicle
-from Reservation import Reservation
 from Service import Service
 from ServicesList import ServicesList
-from operator import attrgetter
 from Time import Time
-
+import operator
 
 
 def readServicesFile(file_name):
@@ -120,21 +119,9 @@ def waiting4ServicesList(drivers_p, vehicles_p, services_p):
 
     return detailedWaitingList
 
-# FOR TESTING
-# d = readDriversFile("examples\example2\drivers1719.txt")
-# s = readServicesFile("examples\example2\services1719.txt")
-# v = readVehiclesFile("examples\example2\\vehicles1719.txt")
-# r = readReservationsFile("examples\example2\\reservations1921.txt")
 
-#
-# w = waiting4ServicesList(d, v, s)
-#
-# for i in w:
-#     print i.getServiceDriver()
-
-
-def emptyServices(drivers,vehicles):
-    '''
+def emptyServices(drivers, vehicles):
+    """
     Requires: drivers is a dict with a structure as in the output
     of readDriversFile; vehicles is a dict with the structure as in
     the output of readVehiclesFile.
@@ -144,25 +131,26 @@ def emptyServices(drivers,vehicles):
     set as a "no service" (_no_client_, _no_circuit_, service kms = 0), Arrival and Departure
     hours are set as the Driver's entry hour and being ready to work,
     drivers' status is standby, of course!
-    '''
-
+    """
 
     lstDrivers = []
+    lstVehicles = []
     lstService = ServicesList()
-    for i in drivers:
-        lstDrivers.append(drivers[i])
+    for i in drivers.values():
+        lstDrivers.append(i)
 
-    #sort drivers for the 1st period: 0911
-    d = sorted(lstDrivers, key=attrgetter("_entryHour"))
-    v = sorted(vehicles)
+    for j in vehicles.values():
+        lstVehicles.append(j._plate)
+
+    # sort drivers for the 1st period: 0911
+    d = sorted(lstDrivers, key=operator.attrgetter("_entryHour"))
+    v = sorted(lstVehicles)
 
     for i in range(len(d)):
         driverName = d[i].getDriverName()
         vehiclePlate = v[i]
         drv = d[i]
-        serv = Service(driverName,vehiclePlate,"",drv.getDriverEntryHour(),drv.getDriverEntryHour(),"","","")
+        serv = Service(driverName, vehiclePlate, "", drv.getDriverEntryHour(), drv.getDriverEntryHour(), "", "", "")
         serv.noService()
         lstService.append(serv)
     return lstService
-
-
