@@ -12,6 +12,7 @@ from constants import *
 import copy
 from headerRelated import removeHeader
 from Service import Service
+from DetailedService import DetailedService
 from ServicesList import ServicesList
 from Time import Time
 import operator
@@ -104,20 +105,22 @@ def waiting4ServicesList(drivers_p, vehicles_p, services_p):
             driversInWaitingList.append(driver)
             detailedWaitingList.append(service)
 
+    detailedList = ServicesList()
     # Creates a list of services with further data items
     for service in detailedWaitingList:
         drivername = service.getServiceDriver()
         driver = drivers_p[drivername]
         vehicleplate = service.getServicePlate()
         vehicle = vehicles_p[vehicleplate]
-        service.setDetailedInformation(driver, vehicle)
+        detailedService = DetailedService(driver, vehicle, service)
+        detailedList.append(detailedService)
 
     # Sorting according to increasing availability time,
     # untying with drivers's names
 
-    detailedWaitingList.sort()
+    detailedList.sort()
 
-    return detailedWaitingList
+    return detailedList
 
 
 def emptyServices(drivers, vehicles):
