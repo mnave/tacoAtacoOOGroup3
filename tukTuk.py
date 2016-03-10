@@ -1,4 +1,4 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
 # 2015-2016 Complementos de Programacao
 # Grupo 3
@@ -6,6 +6,7 @@
 # 48392 Mariana Vieira De Almeida Nave
 
 import sys
+from planning import updateServices
 from headerRelated import createNewHeader, getHeader
 from timeTT import changeFormatTime, getPreviousPeriod
 from consultStatus import *
@@ -14,7 +15,6 @@ from VehiclesDict import VehiclesDict
 from ReservationsList import ReservationsList
 from ServicesList import ServicesList
 from DetailedServicesList import DetailedServicesList
-
 
 nextPeriod = sys.argv[1]
 driversFileName = sys.argv[2]
@@ -26,7 +26,6 @@ reservationsFileName = sys.argv[5]
 def checkPreConditions(nextPeriod, driversFileName, vehiclesFileName,
                        servicesFileName, reservationsFileName):
     """Checks the preconditions.
-
     Requires:
     The same as update (ommitted here to avoid redudancy)
     Ensures:
@@ -52,7 +51,7 @@ def checkPreConditions(nextPeriod, driversFileName, vehiclesFileName,
     # The files whose names are driversFileName, vehiclesFileName, servicesFileName and reservationsFileName
     # concern the same company and the same day;
     elif not (headerDrivers[INDEXCompany:INDEXDate + 1] == headerVehicles[INDEXCompany:INDEXDate + 1] ==
-              headerServices[INDEXCompany:INDEXDate + 1] == headerReservations[INDEXCompany:INDEXDate + 1]):
+                  headerServices[INDEXCompany:INDEXDate + 1] == headerReservations[INDEXCompany:INDEXDate + 1]):
         return False
 
     # The file whose name is reservationsFileName concerns the period indicated by nextPeriod
@@ -63,7 +62,7 @@ def checkPreConditions(nextPeriod, driversFileName, vehiclesFileName,
     # immediately preceding the period indicated by nextPeriod;
 
     elif not (headerDrivers[INDEXPeriod].strip() == headerVehicles[INDEXPeriod].strip() ==
-              headerServices[INDEXPeriod].strip() == previousPeriodOther):
+                  headerServices[INDEXPeriod].strip() == previousPeriodOther):
         return False
 
     # The file name reservationsFileName ends (before the .txt extension) with
@@ -85,7 +84,6 @@ def checkPreConditions(nextPeriod, driversFileName, vehiclesFileName,
 def update(nextPeriod, driversFileName, vehiclesFileName,
            servicesFileName, reservationsFileName):
     """Obtains the planning for a period of activity.
-
     Requires:
     nextPeriod is a str from the set 0911, 1113, ..., 1921 indicating the
     2 hour period to be planned;
@@ -137,7 +135,7 @@ def update(nextPeriod, driversFileName, vehiclesFileName,
         else:
             waiting4services = DetailedServicesList(drivers, vehicles, services)
 
-        new_services = waiting4services.updateServices(reservations)
+        new_services = updateServices(reservations, waiting4services)
 
         new_services.writeServicesFile(file_name, header)
 
