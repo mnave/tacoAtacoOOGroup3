@@ -37,6 +37,9 @@ class DetailedService(Service):
     def setVehicleKmsDone(self,  kmsDone):
         self._vehicleKmsDone = kmsDone
 
+    def resetAccumTime(self):
+        self._accumTime = 0
+
     def afterCharge(self):
         """Updates a service to a after charge status."""
 
