@@ -15,6 +15,7 @@ from timeTT import changeFormatTime, getPreviousPeriod
 from consultStatus import *
 from DriversDict import DriversDict
 from VehiclesDict import VehiclesDict
+from ReservationsList import ReservationsList
 
 
 
@@ -130,7 +131,7 @@ def update(nextPeriod, driversFileName, vehiclesFileName,
         drivers = DriversDict(driversFileName)
         vehicles = VehiclesDict(vehiclesFileName)
         services = readServicesFile(servicesFileName)
-        reservations = readReservationsFile(reservationsFileName)
+        reservations = ReservationsList(reservationsFileName)
 
         #1st period
         if nextPeriod == "0911" and ("0911" in reservationsFileName):

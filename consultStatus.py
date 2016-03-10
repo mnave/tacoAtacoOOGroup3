@@ -59,41 +59,6 @@ def readServicesFile(file_name):
     return servicesList
 
 
-def readReservationsFile(file_name):
-    """Reads a file with a list of reservations into a collection.
-
-    Requires:
-    file_name is a string with the name of a .txt file containing
-    a list of reservations organized as in the examples provided in
-    the general specification (omitted here for the sake of readability).
-    Ensures:
-    list L of lists, where each list corresponds to a reservation
-    listed in file name with file_name and its elements are
-    the elements belonging to that reservation in the order provided in
-    the lines of the file.
-    in this list L:
-    clients reserving a service with an earlier starting time have
-    priority over the ones with later starting times;
-    lexicographic order of clients's names decides eventual ties.
-    """
-
-    inFile = removeHeader(open(file_name, "r"))
-    reservationsList = []
-
-    for line in inFile:
-        reservData = line.rstrip().split(", ")
-        reservClient = reservData[INDEXClientNameInReservation]
-        reservRequestedStartTime = Time(reservData[INDEXRequestedStartHour])
-        reservRequestedEndTime = Time(reservData[INDEXRequestedEndHour])
-        reservCircuit = reservData[INDEXCircuitInReservation]
-        reservCircuitKms = reservData[INDEXCircuitKmsInReservation]
-        newReserv = Reservation(reservClient, reservRequestedStartTime, reservRequestedEndTime, reservCircuit,
-                                reservCircuitKms)
-        reservationsList.append(newReserv)
-
-    return reservationsList
-
-
 def waiting4ServicesList(drivers_p, vehicles_p, services_p):
     """Organizes a list of active drivers with their assigned
     vehicles that can take further services.
