@@ -82,4 +82,6 @@ def updateServices(reservations_p, waiting4ServicesList_prevp):
     # adds to new_services_list the drivers that had no service in this period
     new_services_list.addNoServiceDriver(waiting4ServicesList)
 
-    return sorted(new_services_list)
+    new_services_list.sort()
+
+    return new_services_list
