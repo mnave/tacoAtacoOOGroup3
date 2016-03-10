@@ -6,8 +6,6 @@
 # 48392 Mariana Vieira De Almeida Nave
 
 
-
-
 from constants import *
 import copy
 from headerRelated import removeHeader
@@ -16,70 +14,6 @@ from DetailedService import DetailedService
 from ServicesList import ServicesList
 from Time import Time
 import operator
-
-
-def waiting4ServicesList(drivers_p, vehicles_p, services_p):
-    """Organizes a list of active drivers with their assigned
-    vehicles that can take further services.
-
-    Requires:
-    drivers_p is a dict with a structure as in the output
-    of readDriversFile; vehicles_p is a dict with the structure as in
-    the output of readVehiclesFile; services_p is a list with the structure
-    as in the output of readServicesFile; the objects in drivers_p,
-    vehicles_p and services_p concern the same period p.
-    Ensures:
-    a list L of lists with a structure similar to the output of
-    readServicesFile and obtained by:
-    extracting the sublist SL of services_p where each list in
-    that sublist SL corresponds to the last representation of an active
-    driver, converted to a “standby” status (older representations of active
-    drivers and representations of terminated drivers are excluded),
-    and by appending to each list of that subset SL 3 further elements:
-    one with the accumulated time of the driver, another with the autonomy
-    of his vehicle in kilometers for a fully charged batery, and yet
-    another with the accumulated kilometers of that vehicle;
-    in this list L:
-    drivers terminating their services earlier have priority over the ones
-    terminating later;
-    in case of eventual ties, drivers with less accumulated time have
-    priority over the ones with more accumulated time;
-    lexicographic order of drivers's names decides eventual ties
-    in each case above.
-    """
-
-    serviceList = copy.deepcopy(services_p)
-    serviceList.reverse()
-
-    driversInWaitingList = []
-    detailedWaitingList = ServicesList()
-
-    # Obtains sublist SL
-    for service in serviceList:
-        driver = service.getServiceDriver()
-        driverTerminated = service.getServiceDriverStatus() == STATUSTerminated
-        if (driver not in driversInWaitingList) and (not driverTerminated):
-            if service.getServiceDriverStatus() == STATUSCharging:
-                service.resetVehic()
-            driversInWaitingList.append(driver)
-            detailedWaitingList.append(service)
-
-    detailedList = ServicesList()
-    # Creates a list of services with further data items
-    for service in detailedWaitingList:
-        drivername = service.getServiceDriver()
-        driver = drivers_p[drivername]
-        vehicleplate = service.getServicePlate()
-        vehicle = vehicles_p[vehicleplate]
-        detailedService = DetailedService(driver, vehicle, service)
-        detailedList.append(detailedService)
-
-    # Sorting according to increasing availability time,
-    # untying with drivers's names
-
-    detailedList.sort()
-
-    return detailedList
 
 
 def emptyServices(drivers, vehicles):
