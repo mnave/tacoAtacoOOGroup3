@@ -17,6 +17,7 @@ from DriversDict import DriversDict
 from VehiclesDict import VehiclesDict
 from ReservationsList import ReservationsList
 from ServicesList import ServicesList
+from DetailedServicesList import DetailedServicesList
 
 
 
@@ -137,9 +138,9 @@ def update(nextPeriod, driversFileName, vehiclesFileName,
         #1st period
         if nextPeriod == "0911" and ("0911" in reservationsFileName):
             empty_services = emptyServices(drivers, vehicles)
-            waiting4services = waiting4ServicesList(drivers,vehicles,empty_services)
+            waiting4services = DetailedServicesList(drivers, vehicles, empty_services)
         else:
-            waiting4services = waiting4ServicesList(drivers, vehicles, services)
+            waiting4services = DetailedServicesList(drivers, vehicles, services)
 
         new_services = updateServices(reservations, waiting4services)
 

@@ -8,7 +8,7 @@
 from constants import *
 from timeTT import *
 from copy import deepcopy
-from ServicesList import ServicesList
+from DetailedServicesList import DetailedServicesList
 from Time import Time
 
 def updateServices(reservations_p, waiting4ServicesList_prevp):
@@ -49,7 +49,7 @@ def updateServices(reservations_p, waiting4ServicesList_prevp):
 
     waiting4ServicesList = deepcopy(waiting4ServicesList_prevp)
 
-    new_services_list = ServicesList()
+    new_services_list = DetailedServicesList()
 
     for reservation in reservations_p:
 
