@@ -144,7 +144,7 @@ def update(nextPeriod, driversFileName, vehiclesFileName,
 
         new_services = updateServices(reservations, waiting4services)
 
-        writeServicesFile(new_services, file_name, header)
+        new_services.writeServicesFile(file_name, header)
 
     else:
         raise IOError('File names and/or headers not consistent.')
