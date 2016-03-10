@@ -15,6 +15,7 @@ class Time:
             self._hours = int(t[0])
             self._minutes = int(t[1])
 
+
     def getHours(self):
         return self._hours
 
@@ -117,3 +118,5 @@ class Time:
             result += minutes
 
         return result
+
+
