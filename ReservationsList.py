@@ -5,6 +5,17 @@ from Time import Time
 from Reservation import Reservation
 
 class ReservationsList(UserList):
+    ''' Collection of Reservations.
+    UserList works as wrapper for list objects, allowing to manipulate ReservationsList
+    object with all the built-in list methods.
+
+    Requires: a ReservationsXXYY.txt. In case of file_name = None, can be initiated
+    through the UserList constructor. All UserList methods are inherited and thus,
+    ReservationsList works as a subclass of UserList.
+
+    Ensures: Each object is a list with all the information for one reservation
+    as one can find for each line of the ReservationsXXYY.txt.
+    '''
 
     def __init__(self, file_name=None):
         UserList.__init__(self)
@@ -24,6 +35,10 @@ class ReservationsList(UserList):
                 self.append(newReserv)
 
     def __str__(self):
+        '''
+        str method for printing purposes
+        '''
+
         output = ""
 
         for reservation in self:
