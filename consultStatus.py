@@ -17,32 +17,6 @@ from operator import attrgetter
 from Time import Time
 
 
-def readVehiclesFile(file_name):
-    """
-    Reads a file with a list of vehicles into a collection.
-    Requires:
-    file_name is str with the name of a .txt file containing
-    a list of vehicles organized as in the examples provided in
-    the general specification (omitted here for the sake of readability).
-    Ensures:
-    dict where each item corresponds to a driver listed in
-    file with name file_name, a key is the string with the plate of a vehicle,
-    and a value is the list with the other elements belonging to that
-    plate, in the order provided in the lines of the file.
-    """
-
-    inFile = removeHeader(open(file_name, "r"))
-
-    vehiclesDict = {}
-    for line in inFile:
-        vehicleData = line.rstrip().split(", ")
-        vehiclePlate = vehicleData.pop(INDEXVehiclePlateInDict)
-        vehicleModel, vehicleAutonomy, vehicleKms = vehicleData
-        newVehicle = Vehicle(vehiclePlate, vehicleModel, vehicleAutonomy, vehicleKms)
-        vehiclesDict[vehiclePlate] = newVehicle
-
-    return vehiclesDict
-
 
 def readServicesFile(file_name):
     """Reads a file with a list of services into a collection.
