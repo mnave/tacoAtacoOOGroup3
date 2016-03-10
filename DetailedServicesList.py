@@ -4,7 +4,7 @@ from copy import deepcopy
 from ServicesList import ServicesList
 from constants import *
 from Time import Time
-from operator import attrgetter
+
 
 class DetailedServicesList(UserList):
 
@@ -67,6 +67,7 @@ class DetailedServicesList(UserList):
 
         for service in ex_services_of_drivers_with_no_services:
             service.noService()
+            service.resetAccumTime()
             self.append(service)
 
     def nextDriver(self, reservation):
@@ -142,14 +143,19 @@ class DetailedServicesList(UserList):
 
                 service = waiting4ServicesList.pop(i)
                 service.updateOneService(reservation)
-                new_services_list.append(deepcopy(service))
+
+                copy_service = deepcopy(service)
+                copy_service.resetAccumTime()
+                new_services_list.append(copy_service)
 
                 # makes driver and vehicle available again, after charging
                 if service.getServiceDriverStatus() == STATUSCharging:
 
                     service.afterCharge()
-                    new_services_list.append(service)
                     waiting4ServicesList.append(deepcopy(service))
+
+                    service.resetAccumTime()
+                    new_services_list.append(service)
 
                 elif service.getServiceDriverStatus() == STATUSStandBy:
                     waiting4ServicesList.append(deepcopy(service))
@@ -190,7 +196,7 @@ class DetailedServicesList(UserList):
         for line in h:
             f.write(line + '\n')
 
-        services_p = sorted(services_p, key=attrgetter('_servArrivalHour', '_servDriver'))
+        services_p.sort()
 
         for service in services_p:
             line = service.getServiceDriver() + ", " + service.getServicePlate() + ", " + service.getServiceClient() + ", " + \
