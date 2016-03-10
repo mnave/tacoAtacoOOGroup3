@@ -116,10 +116,10 @@ class Service(object):
         elif self.getServiceArrivalHour() > other_detailedService.getServiceArrivalHour():
             return False
         else:
-                if self.getServiceDriver() < other_detailedService.getServiceDriver():
-                    return True
-                else:
-                    return False
+            if self.getServiceDriver() < other_detailedService.getServiceDriver():
+                return True
+            else:
+                return False
 
     # detailed service information is missing
     def __str__(self):

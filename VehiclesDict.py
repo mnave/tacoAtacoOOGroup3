@@ -1,12 +1,11 @@
 from UserDict import UserDict
 from headerRelated import removeHeader
-from Time import Time
 from constants import *
 from Vehicle import Vehicle
 
-class VehiclesDict(UserDict):
 
-    def __init__(self, file_name = None):
+class VehiclesDict(UserDict):
+    def __init__(self, file_name=None):
         UserDict.__init__(self)
 
         inFile = removeHeader(open(file_name, "r"))
@@ -25,5 +24,3 @@ class VehiclesDict(UserDict):
             output += vehicle.getPlate() + "\n"
 
         return output
-
-

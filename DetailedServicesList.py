@@ -6,8 +6,8 @@ from constants import *
 from Time import Time
 
 
-class DetailedServicesList(UserList):
 
+class DetailedServicesList(UserList):
     def __init__(self, drivers_p=None, vehicles_p=None, services_p=None):
         UserList.__init__(self)
 
@@ -200,14 +200,9 @@ class DetailedServicesList(UserList):
 
         for service in services_p:
             line = service.getServiceDriver() + ", " + service.getServicePlate() + ", " + service.getServiceClient() + ", " + \
-                   str(service.getServiceDepartHour()) + ", " + str(service.getServiceArrivalHour()) + ", " + service.getServiceCircuit() + ", " + \
+                   str(service.getServiceDepartHour()) + ", " + str(
+                service.getServiceArrivalHour()) + ", " + service.getServiceCircuit() + ", " + \
                    service.getServiceCircuitKms() + ", " + service.getServiceDriverStatus()
             f.write(line + '\n')
 
         f.close()
-
-
-
-
-
-

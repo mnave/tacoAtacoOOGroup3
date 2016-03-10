@@ -1,8 +1,5 @@
-
-
 class Time:
-
-    def __init__(self, time = None):
+    def __init__(self, time=None):
         """Creates a new time.
 
         Requires: time is a str with the formar HH:MM.
@@ -14,7 +11,6 @@ class Time:
             t = time.split(":")
             self._hours = int(t[0])
             self._minutes = int(t[1])
-
 
     def getHours(self):
         return self._hours
@@ -118,5 +114,3 @@ class Time:
             result += minutes
 
         return result
-
-
