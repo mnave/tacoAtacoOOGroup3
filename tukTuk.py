@@ -13,6 +13,7 @@ from outputStatus import writeServicesFile
 from headerRelated import createNewHeader, getHeader
 from timeTT import changeFormatTime, getPreviousPeriod
 from consultStatus import *
+from DriversDict import DriversDict
 
 
 
@@ -125,7 +126,7 @@ def update(nextPeriod, driversFileName, vehiclesFileName,
 
         header = createNewHeader(servicesFileName, nextPeriod)
 
-        drivers = readDriversFile(driversFileName)
+        drivers = DriversDict(driversFileName)
         vehicles = readVehiclesFile(vehiclesFileName)
         services = readServicesFile(servicesFileName)
         reservations = readReservationsFile(reservationsFileName)

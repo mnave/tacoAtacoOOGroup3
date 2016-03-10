@@ -17,37 +17,6 @@ from operator import attrgetter
 from Time import Time
 
 
-
-# DOCUMENTATION NOT UPDATED
-
-def readDriversFile(file_name):
-    """Reads a file with a list of drivers into a collection.
-
-    Requires:
-    file_name is str with the name of a .txt file containing
-    a list of drivers organized as in the examples provided in
-    the general specification (omitted here for the sake of readability).
-    Ensures:
-    dict where each item corresponds to a driver listed in
-    file with name file_name, a key is the string with the name of a driver,
-    and a value is the list with the other elements belonging to that
-    driver, in the order provided in the lines of the file.
-    """
-
-    inFile = removeHeader(open(file_name, "r"))
-    driversDict = {}
-    for line in inFile:
-        driverData = line.rstrip().split(", ")
-        driverName = driverData.pop(INDEXDriverName)
-        driverEntryTime, driverAccumTime = driverData
-        driverEntryTime = Time(driverEntryTime)
-        driverAccumTime = Time(driverAccumTime)
-        newDriver = Driver(driverName, driverEntryTime, driverAccumTime)
-        driversDict[driverName] = newDriver
-
-    return driversDict
-
-
 def readVehiclesFile(file_name):
     """
     Reads a file with a list of vehicles into a collection.
