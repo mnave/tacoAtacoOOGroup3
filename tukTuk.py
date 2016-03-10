@@ -6,7 +6,6 @@
 # 48392 Mariana Vieira De Almeida Nave
 
 import sys
-from planning import updateServices
 from headerRelated import createNewHeader, getHeader
 from timeTT import changeFormatTime, getPreviousPeriod
 from consultStatus import *
@@ -15,6 +14,7 @@ from VehiclesDict import VehiclesDict
 from ReservationsList import ReservationsList
 from ServicesList import ServicesList
 from DetailedServicesList import DetailedServicesList
+from constants import *
 
 nextPeriod = sys.argv[1]
 driversFileName = sys.argv[2]
@@ -135,7 +135,7 @@ def update(nextPeriod, driversFileName, vehiclesFileName,
         else:
             waiting4services = DetailedServicesList(drivers, vehicles, services)
 
-        new_services = updateServices(reservations, waiting4services)
+        new_services = waiting4services.updateServices(reservations)
 
         new_services.writeServicesFile(file_name, header)
 
