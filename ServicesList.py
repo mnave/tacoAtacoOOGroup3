@@ -14,7 +14,6 @@ from Service import Service
 
 
 class ServicesList(UserList):
-
     """A collection of Services. The behaviour of this collection is similar to the one of the list type"""
 
     def __init__(self, file_name=None):
@@ -65,3 +64,39 @@ class ServicesList(UserList):
 
         # returns output without the last newline char
         return output.strip()
+
+    def emptyServices(self, drivers, vehicles):
+        """Creates an accessory ServicesList to be used in the first working period,
+        after attribution of vehicles to the available drivers.
+
+
+        Requires: drivers and vehicles are collections of drivers and vehicles, respectively.
+        Ensures: A ServicesList regarding the working period prior to the first of the day (ie 0709).
+        This will be useful if one considers the first working period of the day (0911),
+        where vehicles are not attributed to drivers and no service List is available.
+        Thus, vehicles, lexicographic sorted by plate, are attributed to drivers
+        according to their entry hour. All the service-related information is
+        set as a "no service" (_no_client_, _no_circuit_, service kms = 0), Arrival and Departure
+        hours are set as the Driver's entry hour and being ready to work,
+        drivers' status is standby, of course!
+        """
+
+        lstDrivers = []
+        lstVehicles = []
+        for i in drivers.values():
+            lstDrivers.append(i)
+
+        for j in vehicles.values():
+            lstVehicles.append(j._plate)
+
+        # sort drivers for the 1st period: 0911
+        d = sorted(lstDrivers, key=lambda driver: driver.getDriverEntryHour())
+        v = sorted(lstVehicles)
+
+        for i in range(len(d)):
+            driverName = d[i].getDriverName()
+            vehiclePlate = v[i]
+            drv = d[i]
+            serv = Service(driverName, vehiclePlate, "", drv.getDriverEntryHour(), drv.getDriverEntryHour(), "", "", "")
+            serv.noService()
+            self.append(serv)
