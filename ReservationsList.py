@@ -6,7 +6,7 @@ from Reservation import Reservation
 
 
 class ReservationsList(UserList):
-    ''' Collection of Reservations.
+    """ Collection of Reservations.
     UserList works as wrapper for list objects, allowing to manipulate ReservationsList
     object with all the built-in list methods.
 
@@ -16,7 +16,7 @@ class ReservationsList(UserList):
 
     Ensures: Each object is a list with all the information for one reservation
     as one can find for each line of the ReservationsXXYY.txt.
-    '''
+    """
 
     def __init__(self, file_name=None):
         UserList.__init__(self)
