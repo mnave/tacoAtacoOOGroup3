@@ -1,3 +1,11 @@
+# -*- coding: utf-8 -*-
+
+# 2015-2016 Complementos de Programacao
+# Grupo 3
+# 43134 Luís Filipe Leal Campos
+# 48392 Mariana Vieira De Almeida Nave
+
+
 from UserList import UserList
 from DetailedService import DetailedService
 from copy import deepcopy
@@ -135,23 +143,25 @@ class DetailedServicesList(UserList):
 
         for reservation in reservations:
 
-            # checks if reservation would pass km limit of vehicle or time limit of driver
+            # Checks if reservation would pass km limit of vehicle or time limit of driver
             # and chooses another driver if that's the case
             i = waiting4ServicesList.nextDriver(reservation)
 
-            # if there is no driver available to a reservation, try get some to work on the next reservation
+            # If there is no driver available to a reservation, try get some to work on the next reservation
             if i == len(waiting4ServicesList):
                 next
             else:
 
+                # Creates a new service.
                 service = waiting4ServicesList.pop(i)
                 service.updateOneService(reservation)
 
+                # Sets the AccumTime of service to 0 for sorting reasons.
                 copy_service = deepcopy(service)
                 copy_service.resetAccumTime()
                 new_services_list.append(copy_service)
 
-                # makes driver and vehicle available again, after charging
+                # Makes driver and vehicle available again, after charging
                 if service.getServiceDriverStatus() == STATUSCharging:
 
                     service.afterCharge()
@@ -163,45 +173,43 @@ class DetailedServicesList(UserList):
                 elif service.getServiceDriverStatus() == STATUSStandBy:
                     waiting4ServicesList.append(deepcopy(service))
 
-                # sorts waiting4ServicesList so that drivers available earlier are assigned services first
+                # Sorts waiting4ServicesList so that drivers available earlier are assigned services first
                 waiting4ServicesList.sort()
 
-        # adds to new_services_list the drivers that had no service in this period
+        # Adds to new_services_list the drivers that had no service in this period
         new_services_list.addNoServiceDriver(waiting4ServicesList)
 
         new_services_list.sort()
 
         return new_services_list
 
-    def writeServicesFile(services_p, file_name_p, header_p):
+    def writeServicesFile(self, file_name, header):
         """Writes a collection of services into a file.
 
         Requires:
-        services_p is a list with the structure as in the output of
-        updateServices representing the services in a period p;
-        file_name_p is a str with the name of a .txt file whose end (before
+        self is a ServiceList, each Service representing the services in a period p;
+        file_name is a str with the name of a .txt file whose end (before
         the .txt suffix) indicates the period p, as in the examples provided in
         the general specification (omitted here for the sake of readability);
         and header is a string with a header concerning period p, as in
         the examples provided in the general specification (omitted here for
         the sake of readability).
         Ensures:
-        writing of file named file_name_p representing the collection of
-        services in services_p and organized as in the examples provided in
+        writing of file named file_name representing the collection of
+        services in self and organized as in the examples provided in
         the general specification (omitted here for the sake of readability);
-        in the listing in this file keep the ordering of services in services_p.
         """
 
-        f = open(file_name_p + '.txt', 'w')
+        f = open(file_name + '.txt', 'w')
 
-        h = header_p.split(',')
+        h = header.split(',')
 
         for line in h:
             f.write(line + '\n')
 
-        services_p.sort()
+        self.sort()
 
-        for service in services_p:
+        for service in self:
             line = service.getServiceDriver() + ", " + service.getServicePlate() + ", " + service.getServiceClient() + ", " + \
                    str(service.getServiceDepartHour()) + ", " + str(
                 service.getServiceArrivalHour()) + ", " + service.getServiceCircuit() + ", " + \
