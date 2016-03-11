@@ -6,14 +6,27 @@ from constants import *
 from Time import Time
 
 
-
 class DetailedServicesList(UserList):
-    def __init__(self, drivers_p=None, vehicles_p=None, services_p=None):
+
+    """A collection of DetailedServices. The behaviour of this collection is similar to the one of the list type"""
+
+    def __init__(self, drivers=None, vehicles=None, services=None):
+        """Creates a new DetailedServicesList composed by DetailedServices that are extensions
+        of Services with more informatioun about the driver a vehicles.
+
+        Requires: drivers is a DriverList, vehicles is a VehicleList and services is a ServiceList. drivers, vehicles
+        and services concern the same period.
+        Ensures: a DetailedServicesList object whose members are DetailedService objects resulting from the
+        extension of Service objects with information of Driver and Veicle objects.
+        If some of the arguments is not given, it creates an empty DetailedServicesList"""
+
+        # Creates empty DetailedServicesList
         UserList.__init__(self)
 
-        if (drivers_p is not None) and (vehicles_p is not None) and (services_p is not None):
+        # If some of the arguments is not give, DetailedServicesList stays empty
+        if (drivers is not None) and (vehicles is not None) and (services is not None):
 
-            serviceList = deepcopy(services_p)
+            serviceList = deepcopy(services)
             serviceList.reverse()
 
             driversInWaitingList = []
@@ -32,9 +45,9 @@ class DetailedServicesList(UserList):
             # Creates a list of services with further data items
             for service in detailedWaitingList:
                 drivername = service.getServiceDriver()
-                driver = drivers_p[drivername]
+                driver = drivers[drivername]
                 vehicleplate = service.getServicePlate()
-                vehicle = vehicles_p[vehicleplate]
+                vehicle = vehicles[vehicleplate]
                 detailedService = DetailedService(driver, vehicle, service)
                 self.append(detailedService)
 
