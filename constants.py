@@ -1,4 +1,4 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
 # 2015-2016 Complementos de Programacao
 # Grupo 3
@@ -88,7 +88,6 @@ STATUSStandBy = "standby"
 # Status of driver with no service assigned yet
 STATUSNoServiceYet = "00:00"
 
-
 # In a reservation list:
 # Index of element with requested start hour
 INDEXClientNameInReservation = 0
@@ -105,14 +104,12 @@ INDEXCircuitInReservation = 3
 # Index of circuit length in kms
 INDEXCircuitKmsInReservation = 4
 
-
 # In a vehicles dict
 # Index of element with vehicle's plate
 INDEXVehiclePlateInDict = 0
 
 # Index of element with vehicle's autonomy
 INDEXVehicleAutonomyInDict = 1
-
 
 # In a drivers dict
 # Index of element with driver's beggining of activity time
@@ -121,7 +118,7 @@ INDEXDriverBeginInDict = 0
 # Index of element with driver's accumulated time
 INDEXAccumulatedTimeInDict = 1
 
-#in a drivers list
+# in a drivers list
 INDEXDriverEntryHour = 1
 
 INDEXVehiclePlateinList = 0
