@@ -26,14 +26,13 @@ class DetailedServicesList(UserList):
         # If some of the arguments is not give, DetailedServicesList stays empty
         if (drivers is not None) and (vehicles is not None) and (services is not None):
 
-            serviceList = deepcopy(services)
-            serviceList.reverse()
+            services.reverse()
 
             driversInWaitingList = []
             detailedWaitingList = ServicesList()
 
             # Obtains sublist SL
-            for service in serviceList:
+            for service in services:
                 driver = service.getServiceDriver()
                 driverTerminated = service.getServiceDriverStatus() == STATUSTerminated
                 if (driver not in driversInWaitingList) and (not driverTerminated):
