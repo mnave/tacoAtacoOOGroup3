@@ -1,3 +1,11 @@
+# -*- coding: utf-8 -*-
+
+# 2015-2016 Complementos de Programacao
+# Grupo 3
+# 43134 Luís Filipe Leal Campos
+# 48392 Mariana Vieira De Almeida Nave
+
+
 from UserDict import UserDict
 from headerRelated import removeHeader
 from Time import Time
@@ -6,7 +14,7 @@ from Driver import Driver
 
 
 class DriversDict(UserDict):
-    ''' Collection of Drivers.
+    """ Collection of Drivers.
     UserDict works as wrapper for dict objects, allowing to manipulate DriversDict
     object with all the built-in dictionary methods.
 
@@ -17,7 +25,7 @@ class DriversDict(UserDict):
     Ensures: Each object is a dict with all the information regarding one driver.
     DriversDict key corresponds to Drivers' name, and values to the remaining information
     that one can find in each line of the driversXXYY.txt.
-    '''
+    """
 
     def __init__(self, file_name=None):
         UserDict.__init__(self)
@@ -34,12 +42,10 @@ class DriversDict(UserDict):
 
                 self[driverName] = newDriver
 
-
     def __str__(self):
-        '''
-        str method for printing purposes
-        '''
-
+        """
+        A string representain of a DriversDict
+        """
 
         output = ""
         for driver in self.values():
