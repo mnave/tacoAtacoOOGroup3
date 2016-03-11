@@ -11,6 +11,13 @@ from constants import *
 
 
 class DetailedService(Service):
+    """ Creates a DetailedService object, subclass of Service.
+
+    Requires: a Service object with all the respective attributes.
+    Ensures: a DetailedService object - a Service object enriched with three
+    attributes: drivers' accumulated time and vehicles' Autonomy and Kms done.
+    """
+
     def __init__(self, driver, vehicle, service):
         Service.__init__(self, service.getServiceDriver(), service.getServicePlate(), service.getServiceClient(), \
                          service.getServiceDepartHour(), service.getServiceArrivalHour(), service.getServiceCircuit(), \
@@ -52,7 +59,7 @@ class DetailedService(Service):
         self.setVehicleKmsDone("0")
 
     def updateOneService(self, reservation):
-        """Assign a driver with her vehicle to a service that was reserved.
+        """Assign a driver and his vehicle to a service that was reserved.
 
         Requires:
         reservation is a Reservation object.
