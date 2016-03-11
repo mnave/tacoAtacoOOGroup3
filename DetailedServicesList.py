@@ -60,13 +60,9 @@ class DetailedServicesList(UserList):
         of new services.
 
         Requires:
-        new_services is a list of lists with the structure of the output of
-        consultStatus.readServicesFile although not necessarily ordered;
-        waiting4Services is a list of lists with the structure of
-        consultStatus.waiting4ServicesList
+        waiting4ServicesList is a DetailedServicesList.
         Ensures:
-        a list of lists similar to new_services but with list(s), corresponding
-        to drivers/vehicles which had no service in the current, appended to it.
+        Adds the drivers that are not in self but are in waiting4ServicesList to self.
         """
         # list of names of drivers with services
         names_of_drivers_with_services = [service.getServiceDriver() for service in self]
@@ -85,10 +81,9 @@ class DetailedServicesList(UserList):
     def nextDriver(self, reservation):
         """Returns the index of the driver/vehicle to work on the reservation.
 
-        Requires:
-        reservation is a Reservation object.
-        self is a ServiceList object containing Services with the detailed attributes defined.
-        Ensures:
+        Requires: reservation is a Reservation object.
+        Ensures: an int corresponding the the position in self of the driver who's going to work
+        on the reservation.
 
         """
         i = 0
@@ -102,20 +97,16 @@ class DetailedServicesList(UserList):
 
         return i
 
-    def updateServices(self, reservations_p):
+    def updateServices(self, reservations):
         """Assigns drivers with their vehicles to services that were reserved.
 
         Requires:
-        reservations_p is a list with a structure as in the output of
-        consultStatus.readReservationsFile; waiting4ServicesList_prevp is a list
-        with the structure as in the output of consultStatus.waiting4ServicesList;
-        objects in reservations_p concern a period p, and objects in
-        waiting4ServicesList_prevp concern a period immediately preceding p.
+        reservations is a Reservation object. objects in reservations concern a period p,
+        and objects in self concern a period immediately preceding p.
         Ensures:
-        list L of lists, where each list has the structure of
-        consultStatus.readServicesFile, representing the services to be provided
+        a DetailedServicesList, representing the services to be provided
         in a period starting in the beginning of the period p upon they having
-        been reserved as they are represented in reservations_p;
+        been reserved as they are represented in reservations;
         Reservations with earlier booking times are served first (lexicographic
         order of clients' names is used to resolve eventual ties);
         Drivers available earlier are assigned services first (lexicographic
@@ -142,7 +133,7 @@ class DetailedServicesList(UserList):
 
         new_services_list = DetailedServicesList()
 
-        for reservation in reservations_p:
+        for reservation in reservations:
 
             # checks if reservation would pass km limit of vehicle or time limit of driver
             # and chooses another driver if that's the case
