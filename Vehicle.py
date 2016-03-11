@@ -1,4 +1,4 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
 # 2015-2016 Complementos de Programacao
 # Grupo 3
@@ -78,4 +78,13 @@ class Vehicle(object):
         """
 
         self._kms_done = Kms_done
+
+    def __str__(self):
+        """A string representation of a vehicle"""
+
+        return "Plate: " + self.getPlate() + "\n" + \
+               "Model: " + self.getVehicleModel() + "\n" + \
+               "Autonomy: " + self.getVehicleAutonomy() + "\n" + \
+               "Kms Done: " + self.getVehicleKmsDone()
+
 
