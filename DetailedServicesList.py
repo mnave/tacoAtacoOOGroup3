@@ -29,7 +29,7 @@ class DetailedServicesList(UserList):
             services.reverse()
 
             driversInWaitingList = []
-            detailedWaitingList = ServicesList()
+            waitingList = ServicesList()
 
             # Obtains sublist SL
             for service in services:
@@ -39,10 +39,10 @@ class DetailedServicesList(UserList):
                     if service.getServiceDriverStatus() == STATUSCharging:
                         service.resetVehic()
                     driversInWaitingList.append(driver)
-                    detailedWaitingList.append(service)
+                    waitingList.append(service)
 
             # Creates a list of services with further data items
-            for service in detailedWaitingList:
+            for service in waitingList:
                 drivername = service.getServiceDriver()
                 driver = drivers[drivername]
                 vehicleplate = service.getServicePlate()
