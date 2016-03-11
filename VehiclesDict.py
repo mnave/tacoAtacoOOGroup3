@@ -49,4 +49,5 @@ class VehiclesDict(UserDict):
         for vehicle in self.values():
             output += vehicle.getPlate() + "\n"
 
-        return output
+        # returns output without the last newline char
+        return output.strip()
