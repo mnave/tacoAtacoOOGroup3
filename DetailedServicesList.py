@@ -129,20 +129,22 @@ class DetailedServicesList(UserList):
         in each case above.
         """
 
+        waiting4ServicesList = deepcopy(self)
+
         new_services_list = DetailedServicesList()
 
         for reservation in reservations:
 
             # checks if reservation would pass km limit of vehicle or time limit of driver
             # and chooses another driver if that's the case
-            i = self.nextDriver(reservation)
+            i = waiting4ServicesList.nextDriver(reservation)
 
             # if there is no driver available to a reservation, try get some to work on the next reservation
-            if i == len(self):
+            if i == len(waiting4ServicesList):
                 next
             else:
 
-                service = self.pop(i)
+                service = waiting4ServicesList.pop(i)
                 service.updateOneService(reservation)
 
                 copy_service = deepcopy(service)
@@ -153,19 +155,19 @@ class DetailedServicesList(UserList):
                 if service.getServiceDriverStatus() == STATUSCharging:
 
                     service.afterCharge()
-                    self.append(deepcopy(service))
+                    waiting4ServicesList.append(deepcopy(service))
 
                     service.resetAccumTime()
                     new_services_list.append(service)
 
                 elif service.getServiceDriverStatus() == STATUSStandBy:
-                    self.append(deepcopy(service))
+                    waiting4ServicesList.append(deepcopy(service))
 
-                # sorts self so that drivers available earlier are assigned services first
-                self.sort()
+                # sorts waiting4ServicesList so that drivers available earlier are assigned services first
+                waiting4ServicesList.sort()
 
         # adds to new_services_list the drivers that had no service in this period
-        new_services_list.addNoServiceDriver(self)
+        new_services_list.addNoServiceDriver(waiting4ServicesList)
 
         new_services_list.sort()
 
