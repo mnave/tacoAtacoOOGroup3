@@ -26,7 +26,7 @@ class ServicesList(UserList):
         the general specification (omitted here for the sake of readability).
         Ensures:
         if file_name is given:
-            a ServiceList, composed by Services that correspond to the services listed
+            a ServiceList, composed by objects of class Service that correspond to the services listed
             in file with name file_name. In this ServiceList, drivers terminating their services earlier
             have priority over the ones terminating later; lexicographic order of drivers's names
             decides eventual ties in each case above.
