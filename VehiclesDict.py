@@ -13,7 +13,6 @@ from Vehicle import Vehicle
 
 
 class VehiclesDict(UserDict):
-
     """A collection of Vehicles. The behaviour of this collection is similar to the one of the dict type"""
 
     def __init__(self, file_name=None):

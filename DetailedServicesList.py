@@ -15,17 +15,18 @@ from Time import Time
 
 
 class DetailedServicesList(UserList):
-
-    """A collection of DetailedServices. The behaviour of this collection is similar to the one of the list type"""
+    """A collection of DetailedServices.
+    The behaviour of this collection is similar to the one of the list type"""
 
     def __init__(self, drivers=None, vehicles=None, services=None):
-        """Creates a new DetailedServicesList composed by DetailedServices that are extensions
-        of Services with more informatioun about the driver a vehicles.
+        """Creates a new DetailedServicesList composed by DetailedServices that
+        are extensions of Services with more information about the driver and vehicles.
 
-        Requires: drivers is a DriverList, vehicles is a VehicleList and services is a ServiceList. drivers, vehicles
-        and services concern the same period.
-        Ensures: a DetailedServicesList object whose members are DetailedService objects resulting from the
-        extension of Service objects with information of Driver and Veicle objects.
+        Requires: drivers is a DriverList, vehicles is a VehicleList and services is a
+        ServiceList. drivers, vehicles and services concern the same period.
+        Ensures: a DetailedServicesList object whose members are DetailedService objects
+        resulting from the extension of Service objects with information of Driver and
+        Vehicle objects.
         If some of the arguments is not given, it creates an empty DetailedServicesList"""
 
         # Creates empty DetailedServicesList
@@ -212,7 +213,7 @@ class DetailedServicesList(UserList):
         for service in self:
             line = service.getServiceDriver() + ", " + service.getServicePlate() + ", " + service.getServiceClient() + ", " + \
                    str(service.getServiceDepartHour()) + ", " + str(
-                service.getServiceArrivalHour()) + ", " + service.getServiceCircuit() + ", " + \
+                    service.getServiceArrivalHour()) + ", " + service.getServiceCircuit() + ", " + \
                    service.getServiceCircuitKms() + ", " + service.getServiceDriverStatus()
             f.write(line + '\n')
 

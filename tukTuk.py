@@ -8,7 +8,6 @@
 import sys
 from headerRelated import createNewHeader, getHeader
 from timeTT import changeFormatTime, getPreviousPeriod
-from consultStatus import *
 from DriversDict import DriversDict
 from VehiclesDict import VehiclesDict
 from ReservationsList import ReservationsList
@@ -130,8 +129,9 @@ def update(nextPeriod, driversFileName, vehiclesFileName,
 
         # 1st period
         if nextPeriod == "0911" and ("0911" in reservationsFileName):
-            empty_services = emptyServices(drivers, vehicles)
-            waiting4services = DetailedServicesList(drivers, vehicles, empty_services)
+            tempServices = ServicesList()
+            tempServices.emptyServices(drivers, vehicles)
+            waiting4services = DetailedServicesList(drivers, vehicles, tempServices)
         else:
             waiting4services = DetailedServicesList(drivers, vehicles, services)
 
