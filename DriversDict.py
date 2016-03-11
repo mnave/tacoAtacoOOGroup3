@@ -19,7 +19,7 @@ class DriversDict(UserDict):
     that one can find in each line of the driversXXYY.txt.
     '''
 
-    def __init__(self, file_name = None):
+    def __init__(self, file_name=None):
         UserDict.__init__(self)
 
         if file_name is not None:
