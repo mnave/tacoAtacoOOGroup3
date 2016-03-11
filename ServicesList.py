@@ -55,3 +55,13 @@ class ServicesList(UserList):
                 newService = Service(servDriver, servPlate, servClient, servDeparTime, servArrivalTime, \
                                      servCircuit, servCircuitKms, servDriverStatus)
                 self.append(newService)
+
+    def __str__(self):
+        """String representation of the ServiceList. Returns the driver's names."""
+
+        output = ""
+        for service in self:
+            output += service.getServiceDriver() + '\n'
+
+        # returns output without the last newline char
+        return output.strip()
