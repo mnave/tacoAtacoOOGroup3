@@ -79,6 +79,22 @@ class Vehicle(object):
 
         self._kms_done = Kms_done
 
+    def __eq__(self, other_vehicle):
+        """Returns True if self and other_vehicle plates are equal. False otherwise."""
+
+        if self.getPlate() == other_vehicle.getPlate():
+            return True
+
+        return False
+
+    def __lt__(self, other_vehicle):
+        """Returns True if self plate is lexicographically smaller than other_vehicle plate. False otherwise."""
+
+        if self.getPlate() < other_vehicle.getPlate():
+            return True
+
+        return False
+
     def __str__(self):
         """A string representation of a vehicle"""
 
@@ -86,5 +102,3 @@ class Vehicle(object):
                "Model: " + self.getVehicleModel() + "\n" + \
                "Autonomy: " + self.getVehicleAutonomy() + "\n" + \
                "Kms Done: " + self.getVehicleKmsDone()
-
-
