@@ -12,9 +12,9 @@ class Driver(object):
     def __init__(self, Name, EntryHour, AccumTime):
         """Creates a new driver.
 
-        Requires: Name is a string representing the name of driver. EntryHour and AccumTime are strings represeting time
-        in the format "HH:MM". EntryHour represents the the drivers's entry hour and AccumTime represents the driver's
-        accumulated time since the beggining of the workday.
+        Requires: Name is a string representing the name of driver. EntryHour and AccumTime are Time objects.
+        EntryHour represents the the drivers's entry hour and AccumTime represents the driver's accumulated time
+        since the beggining of the workday.
         Ensures: Creation of a new Driver object.
         """
         self._name = Name
