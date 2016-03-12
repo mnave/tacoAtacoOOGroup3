@@ -65,7 +65,7 @@ class ServicesList(UserList):
         This will be useful if one considers the first working period of the day (0911),
         where vehicles are not attributed to drivers and no service List is available.
         Thus, vehicles, lexicographic sorted by plate, are attributed to drivers
-        according to their entry hour. All the service-related information is
+        according to their entry hour (and name, in case of tie). All the service-related information is
         set as a "no service" (_no_client_, _no_circuit_, service kms = 0), Arrival and Departure
         hours are set as the Driver's entry hour and being ready to work,
         drivers' status is standby, of course!
@@ -77,7 +77,7 @@ class ServicesList(UserList):
             lstDrivers.append(i)
 
         for j in vehicles.values():
-            lstVehicles.append(j._plate)
+            lstVehicles.append(j.getPlate())
 
         # sort drivers for the 1st period: 0911
         d = sorted(lstDrivers)
