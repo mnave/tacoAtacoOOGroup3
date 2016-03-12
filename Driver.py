@@ -48,7 +48,7 @@ class Driver(object):
     def setDriverEntryHour(self, EntryHour):
         """Set the entry hour of the driver.
 
-        Requires: EntryHour is a string represeting time in the format "HH:MM".
+        Requires: EntryHour is a Time object.
         Ensures: self.getDriverEntryHour() == EntryHour.
         """
 
@@ -57,7 +57,7 @@ class Driver(object):
     def setDriverAccumTime(self, AccumTime):
         """Set the accumulated time of the driver.
 
-        Requires: AccumTime is a string represeting time in the format "HH:MM".
+        Requires: AccumTime is a Time object.
         Ensures: self.getDriverAccumTime() == AccumTime.
         """
 
