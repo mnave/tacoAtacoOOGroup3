@@ -181,7 +181,7 @@ class Service(object):
         self.setServiceDepartHour(departHour)
         self.setServiceArrivalHour(arrivalHour)
 
-    def __lt__(self, other_detailedService):
+    def __lt__(self, other_Service):
         """Services with a lower _servArrivalHour are considered less than ones with a higher
         _servArrivalHour attribute. In case of equal _servArrivalHour values, the lower DetailedService
         if the one with the lower _accumTime. In the case of equal _accumTime values, the lower service
@@ -189,15 +189,18 @@ class Service(object):
         """
 
         # Compare by arrival hour.
-        if self.getServiceArrivalHour() < other_detailedService.getServiceArrivalHour():
+        if self.getServiceArrivalHour() < other_Service.getServiceArrivalHour():
             return True
-        elif self.getServiceArrivalHour() == other_detailedService.getServiceArrivalHour():
+        elif self.getServiceArrivalHour() == other_Service.getServiceArrivalHour():
 
             # Compare by Driver name.
-            if self.getServiceDriver() < other_detailedService.getServiceDriver():
+            if self.getServiceDriver() < other_Service.getServiceDriver():
                 return True
 
         return False
+
+    def __eq__(self, other_Service):
+        pass
 
     def __str__(self):
         """String representation of the service."""

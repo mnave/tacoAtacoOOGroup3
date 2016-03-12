@@ -129,6 +129,9 @@ class DetailedService(Service):
 
         return False
 
+    def __eq__(self, other_DetailedService):
+        pass
+
     def __str__(self):
         return Service.__str__(self) + \
                "\nAccum Time: " + self._accumTime + \
