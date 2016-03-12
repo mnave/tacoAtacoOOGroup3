@@ -62,3 +62,30 @@ class Driver(object):
         """
 
         self._accumTime = AccumTime
+
+    def __eq__(self, other_driver):
+        """Returns True if self and other_driver names are equal. False otherwise."""
+
+        if self.getDriverName() == other_driver.getDriverName():
+            return True
+
+        return False
+
+    def __lt__(self, other_driver):
+        """Returns True if self entry hour is smaller than other_driver entry hour. If they are the same,
+        returns True if self driver name is lexicographically smaller than other_driver name. False otherwise."""
+
+        if self.getDriverEntryHour() < other_driver.getDriverEntryHour():
+            return True
+        else:
+            if self.getDriverName() < other_driver.getDriverName():
+                return True
+
+        return False
+
+    def __str__(self):
+        """A string representation of a driver"""
+
+        return "Name: " + self.getDriverName() + "\n" + \
+               "Entry Hour: " + self.getDriverEntryHour() + "\n" + \
+               "Accumulated Time: " + self.getDriverAccumTime()
