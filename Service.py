@@ -158,8 +158,8 @@ class Service(object):
         self.setServiceCircuitKms("0")
         self.setServiceDriverStatus(STATUSStandBy)
 
-    def calculateNewStartAndEndHour(self, reservation):
-        """Updates the Service starting and end time considering the new reservation.
+    def calculateDepartAndArrivalHour(self, reservation):
+        """Calculates the Service departing and arrival hour considering the new reservation.
 
         Requires:
         reservation is a Reservation object.
@@ -175,11 +175,11 @@ class Service(object):
             delay = self.getServiceArrivalHour().diff(reservation.getReservRequestedStartHour())
 
         # calculates the depart and arrival hour of the new service, considering the possible delay.
-        startHour = reservation.getReservRequestedStartHour().add(delay)
-        endHour = reservation.getReservRequestedEndHour().add(delay)
+        departHour = reservation.getReservRequestedStartHour().add(delay)
+        arrivalHour = reservation.getReservRequestedEndHour().add(delay)
 
-        self.setServiceDepartHour(startHour)
-        self.setServiceArrivalHour(endHour)
+        self.setServiceDepartHour(departHour)
+        self.setServiceArrivalHour(arrivalHour)
 
     def __lt__(self, other_detailedService):
         """Services with a lower _servArrivalHour are considered less than ones with a higher

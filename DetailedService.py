@@ -70,7 +70,7 @@ class DetailedService(Service):
         self.setServiceClient(reservation.getReservClient())
 
         # checks if it's going to be a delay, that is, if the driver/vehicle is not available at the requested time
-        self.calculateNewStartAndEndHour(reservation)
+        self.calculateDepartAndArrivalHour(reservation)
 
         self.setServiceCircuit(reservation.getReservCircuit())
         self.setServiceCircuitKms(reservation.getReservCircuitKms())
