@@ -191,14 +191,13 @@ class Service(object):
         # Compare by arrival hour.
         if self.getServiceArrivalHour() < other_detailedService.getServiceArrivalHour():
             return True
-        elif self.getServiceArrivalHour() > other_detailedService.getServiceArrivalHour():
-            return False
-        else:
+        elif self.getServiceArrivalHour() == other_detailedService.getServiceArrivalHour():
+
             # Compare by Driver name.
             if self.getServiceDriver() < other_detailedService.getServiceDriver():
                 return True
-            else:
-                return False
+
+        return False
 
     def __str__(self):
         """String representation of the service."""
