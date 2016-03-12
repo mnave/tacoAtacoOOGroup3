@@ -14,7 +14,7 @@ class Reservation(object):
         """Creates a new Reservation object.
 
         Requires: reservClient is a string representing the name of the client. reservRequestedStartHour
-        and reservRequestedEndHour are strings representing the requested times for the beginning and end,
+        and reservRequestedEndHour Time objects representing the requested times for the beginning and end,
         respectively,  of the reservation. reservCircuit is a string with the circuit reserved and
         reservCircuitKms is a string with the Kms of the reserved circuit.
         Ensures: Creation of a new Reservation object."""
