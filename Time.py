@@ -1,4 +1,6 @@
 class Time:
+    """A representation of time"""
+
     def __init__(self, time=None):
         """Creates a new time.
 
@@ -13,15 +15,29 @@ class Time:
             self._minutes = int(t[1])
 
     def getHours(self):
+        """Hours of Time"""
+
         return self._hours
 
     def getMinutes(self):
+        """Minutes of Time"""
+
         return self._minutes
 
     def setHours(self, hours):
+        """Changes hours of Time.
+
+        Requires: hours is an int and hours >= 0 and hours < 24
+        Ensures: self.getHours() == hours"""
+
         self._hours = hours
 
     def setMinutes(self, minutes):
+        """Changes minutes of Time.
+
+        Requires: minutes is an int and minutes >= 0 and hours < 60
+        Ensurse: self.getMinutes() = minutes"""
+
         self._minutes = minutes
 
     def add(self, other_time):
@@ -69,23 +85,33 @@ class Time:
         return result
 
     def __eq__(self, other_time):
+        """Method for testing equality betweeen Times
+
+        Requires: other_time is a Time object.
+        Ensures: returns True if minutes and hours of self and other_time are equal. False otherwise."""
+
         if self.getHours() == other_time.getHours() and self.getMinutes() == other_time.getMinutes():
             return True
-        else:
-            return False
+
+        return False
 
     def __lt__(self, other_time):
+        """Method for comparing Times.
+
+        Requires: other_time is a Time object.
+        Ensures. returns True if hour of self is lower than time of other_time. If the hours are equal,
+        returns True if minutes of self are lower than minutes of other_time. False otherwise."""
+
         if self.getHours() < other_time.getHours():
             return True
         elif self.getHours() == other_time.getHours():
             if self.getMinutes() < other_time.getMinutes():
                 return True
-            else:
-                return False
-        else:
-            return False
+
+        return False
 
     def __le__(self, other_time):
+
         if self < other_time:
             return True
         elif self == other_time:
