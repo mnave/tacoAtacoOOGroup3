@@ -11,7 +11,7 @@ from constants import *
 
 
 class DetailedService(Service):
-    """A DetailedService. Similar to Servie but with more attributes and methods"""
+    """A DetailedService. Similar to Service but with more attributes and methods"""
 
     def __init__(self, driver, vehicle, service):
         """Creates a DetailedService object, subclass of Service.
