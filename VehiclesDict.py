@@ -27,8 +27,9 @@ class VehiclesDict(UserDict):
             a VehiclesDict, composed by objects of class Vehicle that correspond to the vehicles listed
             in file with name file_name.
         if file_name is none:
-            a empty ServiceList.
+            a empty VehiclesList.
         """
+
         UserDict.__init__(self)
 
         inFile = removeHeader(open(file_name, "r"))
