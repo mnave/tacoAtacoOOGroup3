@@ -54,7 +54,7 @@ class Reservation(object):
         """Sets the name of the client of the reservation.
 
         Requires: reservClient is a str representing the client name.
-        Ensures: getReservClient() == reservClient  """
+        Ensures: self.getReservClient() == reservClient  """
 
         self._reservClient = reservClient
 
@@ -62,7 +62,7 @@ class Reservation(object):
         """Sets the requested start hour of the reservation.
 
         Requires: reservRequestedStartHour is a Time object representing the requested start hour of the service.
-        Ensures: getReservRequestedStartHour() == reservRequestedStartHour  """
+        Ensures: self.getReservRequestedStartHour() == reservRequestedStartHour  """
 
         self._reservRequestedStartHour = reservRequestedStartHour
 
@@ -70,7 +70,7 @@ class Reservation(object):
         """Sets the requested end hour of the reservation.
 
         Requires: reservRequestedEndHour is a Time object representing the requested end hour of the service.
-        Ensures: getReservRequestedEndHour() == reservRequestedEndHour"""
+        Ensures: self.getReservRequestedEndHour() == reservRequestedEndHour"""
 
         self._reservRequestedEndHour = reservRequestedEndHour
 
@@ -78,7 +78,7 @@ class Reservation(object):
         """Sets the requested circuit name of the reservation.
 
         Requires: reservCircuit is a str representing the name of the circuit.
-        Ensures: getReservCircuit() == reservCircuit  """
+        Ensures: self.getReservCircuit() == reservCircuit  """
 
         self._reservCircuit = reservCircuit
 
@@ -86,7 +86,7 @@ class Reservation(object):
         """Sets the distance, in kms, of the requested circuit of the reservation.
 
         Requires: reservCircuitKms is a str representing the distance of the circuit, in kilometers.
-        Ensures: getReservCircuitKms(() == reservCircuitKms"""
+        Ensures: self.getReservCircuitKms(() == reservCircuitKms"""
 
         self._reservCircuitKms = reservCircuitKms
 
