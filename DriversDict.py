@@ -17,17 +17,23 @@ class DriversDict(UserDict):
     """ Collection of Drivers.
     UserDict works as wrapper for dict objects, allowing to manipulate DriversDict
     object with all the built-in dictionary methods.
-
-    Requires: a driverXXYY.txt. In case of file_name = None, can be initiated
-    through the UserDict constructor.
-    All dictionary methods are inherited and thus, DriversDict works as a subclass of UserDict.
-
-    Ensures: Each object is a dict with all the information regarding one driver.
-    DriversDict key corresponds to Drivers' name, and values to the remaining information
-    that one can find in each line of the driversXXYY.txt.
     """
 
     def __init__(self, file_name=None):
+        """Creates a DriversDict composed by Driver objects,
+        from a file with a list of drivers.
+
+        Requires: If given, file_name is str with the name of a .txt file containing
+        a list of drivers organized as in the examples provided in
+        the general specification (omitted here for the sake of readability).
+
+        Ensures:
+        if file_name is given:
+            a DriversDict, composed by objects of class Driver that correspond to the drivers listed
+            in file with name file_name.
+        if file_name is none:
+            a empty DriversList."""
+
         UserDict.__init__(self)
 
         if file_name is not None:
@@ -45,7 +51,6 @@ class DriversDict(UserDict):
     def __eq__(self, otherDriversDict):
         if self.__dict__ == otherDriversDict.__dict__:
             return True
-
 
     def __str__(self):
         """
