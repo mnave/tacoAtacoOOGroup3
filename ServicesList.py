@@ -7,10 +7,12 @@
 
 
 from UserList import UserList
+
+from Service import Service
 from Time import Time
 from constants import *
 from headerRelated import removeHeader
-from Service import Service
+
 
 
 class ServicesList(UserList):
@@ -73,13 +75,15 @@ class ServicesList(UserList):
 
         lstDrivers = []
         lstVehicles = []
+
         for i in drivers.values():
             lstDrivers.append(i)
 
         for j in vehicles.values():
             lstVehicles.append(j.getPlate())
 
-        # sort drivers for the 1st period: 0911
+        # sort drivers for the 1st period (0911) according to Drivers' EntryHour
+        # and in case of tie, Drivers' name
         d = sorted(lstDrivers)
         v = sorted(lstVehicles)
 
@@ -91,6 +95,10 @@ class ServicesList(UserList):
             serv.noService()
             self.append(serv)
             j += 1
+
+    def __eq__(self, other_ServicesList):
+        pass
+
 
     def __str__(self):
         """String representation of the ServiceList. Returns the driver's names."""
