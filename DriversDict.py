@@ -42,6 +42,11 @@ class DriversDict(UserDict):
 
                 self[driverName] = newDriver
 
+    def __eq__(self, otherDriversDict):
+        if self.__dict__ == otherDriversDict.__dict__:
+            return True
+
+
     def __str__(self):
         """
         A string representain of a DriversDict
