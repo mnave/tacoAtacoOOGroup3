@@ -17,16 +17,22 @@ class ReservationsList(UserList):
     """ Collection of Reservations.
     UserList works as wrapper for list objects, allowing to manipulate ReservationsList
     object with all the built-in list methods.
-
-    Requires: a ReservationsXXYY.txt. In case of file_name = None, can be initiated
-    through the UserList constructor. All UserList methods are inherited and thus,
-    ReservationsList works as a subclass of UserList.
-
-    Ensures: Each object is a list with all the information for one reservation
-    as one can find for each line of the ReservationsXXYY.txt.
     """
 
     def __init__(self, file_name=None):
+        """Creates a ReservationList composed by Reservation objects, from a file with a list of reservations.
+
+        Requires: If given, file_name is str with the name of a .txt file containing
+        a list of reservations organized as in the examples provided in
+        the general specification (omitted here for the sake of readability).
+
+        Ensures:
+        if file_name is given:
+                a ReservationList, composed by objects of class Service that correspond to the services listed
+                in file with name file_name.
+        if file_name is none:
+                a empty ServiceList."""
+
         UserList.__init__(self)
 
         if file_name is not None:
