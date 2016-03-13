@@ -42,7 +42,7 @@ class VehiclesDict(UserDict):
             self[vehiclePlate] = newVehicle
 
     def __eq__(self, otherVehicleDict):
-        """comparison of instances of VehicleDict object."""
+        """Comparison of instances of VehicleDict object."""
 
         if self.__dict__ == otherVehicleDict.__dict__:
             return True
