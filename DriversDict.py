@@ -49,8 +49,12 @@ class DriversDict(UserDict):
                 self[driverName] = newDriver
 
     def __eq__(self, otherDriversDict):
+        """Comparison of instances of DriversDict object"""
+
         if self.__dict__ == otherDriversDict.__dict__:
             return True
+
+        return False
 
     def __str__(self):
         """
