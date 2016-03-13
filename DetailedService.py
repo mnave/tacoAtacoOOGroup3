@@ -11,14 +11,16 @@ from constants import *
 
 
 class DetailedService(Service):
-    """ Creates a DetailedService object, subclass of Service.
-
-    Requires: a Service object with all the respective attributes.
-    Ensures: a DetailedService object - a Service object enriched with three
-    attributes: drivers' accumulated time and vehicles' Autonomy and Kms done.
-    """
+    """A DetailedService. Similar to Servie but with more attributes and methods"""
 
     def __init__(self, driver, vehicle, service):
+        """Creates a DetailedService object, subclass of Service.
+
+        Requires: driver is a Driver object, vehicle is a Vehicle object and service is a Service object.
+        Ensures: a DetailedService object - a Service object enriched with three
+        attributes: drivers' accumulated time and vehicles' Autonomy and Kms done.
+        """
+
         Service.__init__(self, service.getServiceDriver(), service.getServicePlate(), service.getServiceClient(), \
                          service.getServiceDepartHour(), service.getServiceArrivalHour(), service.getServiceCircuit(), \
                          service.getServiceCircuitKms(), service.getServiceDriverStatus())
@@ -27,24 +29,49 @@ class DetailedService(Service):
         self._vehicleAutonomy = vehicle.getVehicleAutonomy()
 
     def getAccumTime(self):
+        """The driver's accumulated time since the beggining of the working day. """
+
         return self._accumTime
 
     def getVehicleKmsDone(self):
+        """The distance (in kms) traveled by the vehicle since the last time it was charged. """
+
         return self._vehicleKmsDone
 
     def getVehicleAutonomy(self):
+        """The autonomy (in kms) of the vehicle. """
+
         return self._vehicleAutonomy
 
     def setAccumTime(self, AccumTime):
+        """Sets the driver's accumulated time since the beggining of the working day.
+
+        Requires: AccumTime
+        Ensures: self.getAccumTime() == AccumTime"""
+
         self._accumTime = AccumTime
 
     def setVehicleAutonomy(self, vehicAutonomy):
+        """Sets the distance (in kms) traveled by the vehicle since the last time it was charged.
+
+        Requires: vehicAutonomy
+        Ensures: self.getVehicleKmsDone() == vehicAutonomy"""
+
         self._vehicleAutonomy = vehicAutonomy
 
     def setVehicleKmsDone(self, kmsDone):
+        """Sets the autonomy (in kms) of the vehicle.
+
+        Requires: kmsDone
+        Ensures: self.getVehicleAutonomy() == kmsDone"""
+
         self._vehicleKmsDone = kmsDone
 
     def resetAccumTime(self):
+        """Sets the accumlated time of the driver to 0.
+
+        Ensures: self.setAccumTime() = 0"""
+
         self._accumTime = 0
 
     def afterCharge(self):
@@ -133,6 +160,8 @@ class DetailedService(Service):
         pass
 
     def __str__(self):
+        """A str representation of a DetailedService"""
+
         return Service.__str__(self) + \
                "\nAccum Time: " + self._accumTime + \
                "\nvehiclePlate: " + self._vehiclePlate + \
