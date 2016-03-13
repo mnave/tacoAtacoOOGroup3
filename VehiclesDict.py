@@ -40,8 +40,13 @@ class VehiclesDict(UserDict):
 
             self[vehiclePlate] = newVehicle
 
+    def __eq__(self, otherVehicleDict):
+        """comparison of instances of VehicleDict object"""
+        if self.__dict__ == otherVehicleDict.__dict__:
+            return True
+
     def __str__(self):
-        """String representation of the ServiceList. Returns the vehicles plates."""
+        """String representation of the ServiceList. Returns the vehicles' plates."""
 
         output = ""
 
