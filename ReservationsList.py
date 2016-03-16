@@ -19,6 +19,21 @@ class ReservationsList(UserList):
     object with all the built-in list methods.
     """
 
+    # Index of element with requested start hour in a line of a reservations file
+    INDEXClientNameInReservation = 0
+
+    # Index of element with requested start hour in a line of a reservations file
+    INDEXRequestedStartHour = 1
+
+    # Index of element with requested start hour in a line of a reservations file
+    INDEXRequestedEndHour = 2
+
+    # Index of circuit id in a line of a reservations file
+    INDEXCircuitInReservation = 3
+
+    # Index of circuit length in kms in a line of a reservations file
+    INDEXCircuitKmsInReservation = 4
+
     def __init__(self, file_name=None):
         """Creates a ReservationList composed by Reservation objects, from a file with a list of reservations.
 
@@ -40,11 +55,11 @@ class ReservationsList(UserList):
 
             for line in inFile:
                 reservData = line.rstrip().split(", ")
-                reservClient = reservData[INDEXClientNameInReservation]
-                reservRequestedStartTime = Time(reservData[INDEXRequestedStartHour])
-                reservRequestedEndTime = Time(reservData[INDEXRequestedEndHour])
-                reservCircuit = reservData[INDEXCircuitInReservation]
-                reservCircuitKms = reservData[INDEXCircuitKmsInReservation]
+                reservClient = reservData[ReservationsList.INDEXClientNameInReservation]
+                reservRequestedStartTime = Time(reservData[ReservationsList.INDEXRequestedStartHour])
+                reservRequestedEndTime = Time(reservData[ReservationsList.INDEXRequestedEndHour])
+                reservCircuit = reservData[ReservationsList.INDEXCircuitInReservation]
+                reservCircuitKms = reservData[ReservationsList.INDEXCircuitKmsInReservation]
                 newReserv = Reservation(reservClient, reservRequestedStartTime, reservRequestedEndTime, reservCircuit,
                                         reservCircuitKms)
                 self.append(newReserv)

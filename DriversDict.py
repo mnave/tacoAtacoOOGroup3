@@ -19,6 +19,9 @@ class DriversDict(UserDict):
     object with all the built-in dictionary methods.
     """
 
+    # Index of element with driver's name in a line of a drivers file
+    INDEXDriverName = 0
+
     def __init__(self, file_name=None):
         """Creates a DriversDict composed by Driver objects,
         from a file with a list of drivers.
@@ -40,7 +43,7 @@ class DriversDict(UserDict):
             inFile = removeHeader(open(file_name, "r"))
             for line in inFile:
                 driverData = line.rstrip().split(", ")
-                driverName = driverData.pop(INDEXDriverName)
+                driverName = driverData.pop(DriversDict.INDEXDriverName)
                 driverEntryTime, driverAccumTime = driverData
                 driverEntryTime = Time(driverEntryTime)
                 driverAccumTime = Time(driverAccumTime)

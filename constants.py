@@ -42,40 +42,6 @@ INDEXDate = 3
 # Index of elements with the period
 INDEXPeriod = 5
 
-# In a service list:
-# Index of element with driver's name
-INDEXDriverName = 0
-
-# Index of element with vehicle's plate
-INDEXVehiclePlate = 1
-
-# Index of element with clients's name
-INDEXClientName = 2
-
-# Index of departure hour
-INDEXDepartureHour = 3
-
-# Index of arrival hour
-INDEXArrivalHour = 4
-
-# Index of circuit id
-INDEXCircuitId = 5
-
-# Index of circuit kms
-INDEXCircuitKms = 6
-
-# Index of driver's status
-INDEXDriverStatus = 7
-
-# Index of driver's accumlated time
-INDEXAccumulatedTime = 8
-
-# Index of element with car's autonomy in kms
-INDEXINDEXVehicAutonomy = 9
-
-# Index of element with accumulated kms
-INDEXAccumulatedKms = 10
-
 # Status of driver with no time left in the day
 STATUSTerminated = "terminates"
 
@@ -88,35 +54,6 @@ STATUSStandBy = "standby"
 # Status of driver with no service assigned yet
 STATUSNoServiceYet = "00:00"
 
-# In a reservation list:
-# Index of element with requested start hour
-INDEXClientNameInReservation = 0
-
-# Index of element with requested start hour
-INDEXRequestedStartHour = 1
-
-# Index of element with requested start hour
-INDEXRequestedEndHour = 2
-
-# Index of circuit id
-INDEXCircuitInReservation = 3
-
-# Index of circuit length in kms
-INDEXCircuitKmsInReservation = 4
-
-# In a vehicles dict
-# Index of element with vehicle's plate
-INDEXVehiclePlateInDict = 0
-
-# Index of element with vehicle's autonomy
-INDEXVehicleAutonomyInDict = 1
-
-# In a drivers dict
-# Index of element with driver's beggining of activity time
-INDEXDriverBeginInDict = 0
-
-# Index of element with driver's accumulated time
-INDEXAccumulatedTimeInDict = 1
 
 # in a drivers list
 INDEXDriverEntryHour = 1

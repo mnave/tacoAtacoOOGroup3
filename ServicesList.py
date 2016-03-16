@@ -18,6 +18,39 @@ from headerRelated import removeHeader
 class ServicesList(UserList):
     """A collection of Services. The behaviour of this collection is similar to the one of the list type"""
 
+    # Index of element with driver's name in a line of a services file
+    INDEXDriverName = 0
+
+    # Index of element with vehicle's plate in a line of a services file
+    INDEXVehiclePlate = 1
+
+    # Index of element with clients's name in a line of a services file
+    INDEXClientName = 2
+
+    # Index of departure hour in a line of a services file
+    INDEXDepartureHour = 3
+
+    # Index of arrival hour in a line of a services file
+    INDEXArrivalHour = 4
+
+    # Index of circuit id in a line of a services file
+    INDEXCircuitId = 5
+
+    # Index of circuit kms in a line of a services file
+    INDEXCircuitKms = 6
+
+    # Index of driver's status in a line of a services file
+    INDEXDriverStatus = 7
+
+    # Index of driver's accumlated time in a line of a services file
+    INDEXAccumulatedTime = 8
+
+    # Index of element with car's autonomy in kms in a line of a services file
+    INDEXINDEXVehicAutonomy = 9
+
+    # Index of element with accumulated kms in a line of a services file
+    INDEXAccumulatedKms = 10
+
     def __init__(self, file_name=None):
         """Creates a ServicesList composed by Services objects,
         from a file with a list of services.
@@ -45,14 +78,14 @@ class ServicesList(UserList):
 
             for line in inFile:
                 servData = line.rstrip().split(", ")
-                servDriver = servData[INDEXDriverName]
-                servPlate = servData[INDEXVehiclePlate]
-                servClient = servData[INDEXClientName]
-                servDeparTime = Time(servData[INDEXDepartureHour])
-                servArrivalTime = Time(servData[INDEXArrivalHour])
-                servCircuit = servData[INDEXCircuitId]
-                servCircuitKms = servData[INDEXCircuitKms]
-                servDriverStatus = servData[INDEXDriverStatus]
+                servDriver = servData[ServicesList.INDEXDriverName]
+                servPlate = servData[ServicesList.INDEXVehiclePlate]
+                servClient = servData[ServicesList.INDEXClientName]
+                servDeparTime = Time(servData[ServicesList.INDEXDepartureHour])
+                servArrivalTime = Time(servData[ServicesList.INDEXArrivalHour])
+                servCircuit = servData[ServicesList.INDEXCircuitId]
+                servCircuitKms = servData[ServicesList.INDEXCircuitKms]
+                servDriverStatus = servData[ServicesList.INDEXDriverStatus]
                 newService = Service(servDriver, servPlate, servClient, servDeparTime, servArrivalTime, \
                                      servCircuit, servCircuitKms, servDriverStatus)
                 self.append(newService)

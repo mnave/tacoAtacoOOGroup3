@@ -15,6 +15,9 @@ from Vehicle import Vehicle
 class VehiclesDict(UserDict):
     """A collection of Vehicles. The behaviour of this collection is similar to the one of the dict type"""
 
+    # Index of element with vehicle's plate in a line of a vehicles file
+    INDEXVehiclePlate = 0
+
     def __init__(self, file_name=None):
         """Creates a VehicleDict composed by vehicles objects,
         from a file with a list of vehicles.
@@ -35,7 +38,7 @@ class VehiclesDict(UserDict):
         inFile = removeHeader(open(file_name, "r"))
         for line in inFile:
             vehicleData = line.rstrip().split(", ")
-            vehiclePlate = vehicleData.pop(INDEXVehiclePlateInDict)
+            vehiclePlate = vehicleData.pop(VehiclesDict.INDEXVehiclePlate)
             vehicleModel, vehicleAutonomy, vehicleKms = vehicleData
             newVehicle = Vehicle(vehiclePlate, vehicleModel, vehicleAutonomy, vehicleKms)
 
