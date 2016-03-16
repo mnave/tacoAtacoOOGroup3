@@ -12,6 +12,7 @@ from copy import deepcopy
 from ServicesList import ServicesList
 from constants import *
 from Time import Time
+from Driver import Driver
 
 
 class DetailedServicesList(UserList):
@@ -43,9 +44,9 @@ class DetailedServicesList(UserList):
             # Obtains sublist SL
             for service in services:
                 driver = service.getServiceDriver()
-                driverTerminated = service.getServiceDriverStatus() == STATUSTerminated
+                driverTerminated = service.getServiceDriverStatus() == Driver.STATUSTerminated
                 if (driver not in driversInWaitingList) and (not driverTerminated):
-                    if service.getServiceDriverStatus() == STATUSCharging:
+                    if service.getServiceDriverStatus() == Driver.STATUSCharging:
                         service.resetVehic()
                     driversInWaitingList.append(driver)
                     waitingList.append(service)
@@ -163,7 +164,7 @@ class DetailedServicesList(UserList):
                 new_services_list.append(copy_service)
 
                 # Makes driver and vehicle available again, after charging
-                if service.getServiceDriverStatus() == STATUSCharging:
+                if service.getServiceDriverStatus() == Driver.STATUSCharging:
 
                     service.afterCharge()
                     waiting4ServicesList.append(deepcopy(service))
@@ -171,7 +172,7 @@ class DetailedServicesList(UserList):
                     service.resetAccumTime()
                     new_services_list.append(service)
 
-                elif service.getServiceDriverStatus() == STATUSStandBy:
+                elif service.getServiceDriverStatus() == Driver.STATUSStandBy:
                     waiting4ServicesList.append(deepcopy(service))
 
                 # Sorts waiting4ServicesList so that drivers available earlier are assigned services first

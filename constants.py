@@ -42,14 +42,7 @@ INDEXDate = 3
 # Index of elements with the period
 INDEXPeriod = 5
 
-# Status of driver with no time left in the day
-STATUSTerminated = "terminates"
 
-# Status of car charging battery
-STATUSCharging = "charges"
-
-# Status of driver waiting for next service
-STATUSStandBy = "standby"
 
 # Status of driver with no service assigned yet
 STATUSNoServiceYet = "00:00"

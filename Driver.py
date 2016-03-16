@@ -9,6 +9,15 @@
 class Driver(object):
     """Driver of a tuk tuk from Taco-a-Taco"""
 
+    # Status of driver with no time left in the day
+    STATUSTerminated = "terminates"
+
+    # Status of car charging battery
+    STATUSCharging = "charges"
+
+    # Status of driver waiting for next service
+    STATUSStandBy = "standby"
+
     def __init__(self, Name, EntryHour, AccumTime):
         """Creates a new driver.
 

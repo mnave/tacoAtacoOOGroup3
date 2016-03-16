@@ -7,6 +7,7 @@
 
 from constants import *
 from Time import Time
+from Driver import Driver
 
 
 class Service(object):
@@ -156,7 +157,7 @@ class Service(object):
         self.setServiceClient(NOCLIENT)
         self.setServiceCircuit(NOCIRCUIT)
         self.setServiceCircuitKms("0")
-        self.setServiceDriverStatus(STATUSStandBy)
+        self.setServiceDriverStatus(Driver.STATUSStandBy)
 
     def calculateDepartAndArrivalHour(self, reservation):
         """Calculates the Service departing and arrival hour considering the new reservation.

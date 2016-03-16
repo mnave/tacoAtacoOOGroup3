@@ -6,6 +6,7 @@
 # 48392 Mariana Vieira De Almeida Nave
 
 from Service import Service
+from Driver import Driver
 from Time import Time
 from constants import *
 
@@ -82,7 +83,7 @@ class DetailedService(Service):
         self.setServiceDepartHour(self.getServiceArrivalHour())
         self.setServiceCircuit(NOCIRCUIT)
         self.setServiceCircuitKms("0")
-        self.setServiceDriverStatus(STATUSStandBy)
+        self.setServiceDriverStatus(Driver.STATUSStandBy)
         self.setVehicleKmsDone("0")
 
     def updateOneService(self, reservation):
@@ -117,14 +118,14 @@ class DetailedService(Service):
 
         # Adds the rest of the information, depending on the allowed time and kms left
         if allowed_time_left < Time(TIMEThreshold):
-            self.setServiceDriverStatus(STATUSTerminated)
+            self.setServiceDriverStatus(Driver.STATUSTerminated)
 
         elif allowed_kms_left < AUTONThreshold:
-            self.setServiceDriverStatus(STATUSCharging)
+            self.setServiceDriverStatus(Driver.STATUSCharging)
             self.setServiceCircuitKms(reservation.getReservCircuitKms())
 
         else:
-            self.setServiceDriverStatus(STATUSStandBy)
+            self.setServiceDriverStatus(Driver.STATUSStandBy)
 
         self.setVehicleAutonomy(self.getVehicleAutonomy())
 
