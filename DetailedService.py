@@ -7,6 +7,7 @@
 
 from Service import Service
 from Driver import Driver
+from Vehicle import Vehicle
 from Time import Time
 from constants import *
 
@@ -79,7 +80,7 @@ class DetailedService(Service):
         """Updates a service to a after charge status."""
 
         self.setServiceClient(NOCLIENT)
-        self.setServiceArrivalHour(self.getServiceArrivalHour().add(Time("01:00")))
+        self.setServiceArrivalHour(self.getServiceArrivalHour().add(Vehicle.RECHDURATION))
         self.setServiceDepartHour(self.getServiceArrivalHour())
         self.setServiceCircuit(NOCIRCUIT)
         self.setServiceCircuitKms("0")
@@ -120,7 +121,7 @@ class DetailedService(Service):
         if allowed_time_left < Driver.TIMEThreshold:
             self.setServiceDriverStatus(Driver.STATUSTerminated)
 
-        elif allowed_kms_left < AUTONThreshold:
+        elif allowed_kms_left < Vehicle.AUTONThreshold:
             self.setServiceDriverStatus(Driver.STATUSCharging)
             self.setServiceCircuitKms(reservation.getReservCircuitKms())
 

@@ -5,9 +5,17 @@
 # 43134 Luís Filipe Leal Campos
 # 48392 Mariana Vieira De Almeida Nave
 
+from Time import Time
 
 class Vehicle(object):
     """A tuk tuk from Taco-a-Taco."""
+
+    # Limit of vehicle's autonomy in kms left to be able
+    # to be assigned a next service
+    AUTONThreshold = 15
+
+    # Duration of the recharging operation
+    RECHDURATION = Time("01:00")
 
     def __init__(self, Plate, Model, Autonomy, Kms_done):
         """Creates a new vehicle.
