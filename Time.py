@@ -1,3 +1,11 @@
+# -*- coding: utf-8 -*-
+
+# 2015-2016 Complementos de Programacao
+# Grupo 3
+# 43134 Luís Filipe Leal Campos
+# 48392 Mariana Vieira De Almeida Nave
+
+
 class Time:
     """A representation of time"""
 
