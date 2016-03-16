@@ -79,10 +79,10 @@ class DetailedService(Service):
     def afterCharge(self):
         """Updates a service to a after charge status."""
 
-        self.setServiceClient(NOCLIENT)
+        self.setServiceClient(DetailedService.NOCLIENT)
         self.setServiceArrivalHour(self.getServiceArrivalHour().add(Vehicle.RECHDURATION))
         self.setServiceDepartHour(self.getServiceArrivalHour())
-        self.setServiceCircuit(NOCIRCUIT)
+        self.setServiceCircuit(DetailedService.NOCIRCUIT)
         self.setServiceCircuitKms("0")
         self.setServiceDriverStatus(Driver.STATUSStandBy)
         self.setVehicleKmsDone("0")

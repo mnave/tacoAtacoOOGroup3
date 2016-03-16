@@ -7,13 +7,6 @@
 
 # This module records the constants used in the application
 
-
-# No client assigned
-NOCLIENT = "_no_client_"
-
-# No circuit assigned
-NOCIRCUIT = "_no_circuit_"
-
 # In a file:
 # Number of line in a header
 NUMBEROfLinesInHeader = 7

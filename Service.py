@@ -13,6 +13,12 @@ from Driver import Driver
 class Service(object):
     """A Taca-a-Taco service"""
 
+    # No client assigned
+    NOCLIENT = "_no_client_"
+
+    # No circuit assigned
+    NOCIRCUIT = "_no_circuit_"
+
     def __init__(self, servDriver, servPlate, servClient, servDepartHour, servArrivalHour, servCircuit, \
                  servCircuitKms, servDriverStatus):
 
@@ -154,8 +160,8 @@ class Service(object):
     def noService(self):
         """Update a service's list when there is no service."""
 
-        self.setServiceClient(NOCLIENT)
-        self.setServiceCircuit(NOCIRCUIT)
+        self.setServiceClient(Service.NOCLIENT)
+        self.setServiceCircuit(Service.NOCIRCUIT)
         self.setServiceCircuitKms("0")
         self.setServiceDriverStatus(Driver.STATUSStandBy)
 
