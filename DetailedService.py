@@ -106,7 +106,7 @@ class DetailedService(Service):
         # Calculates how much work time is left for the driver after this service
         duration = reservation.duration()
         new_accumulated_hours = self.getAccumTime().add(duration)
-        allowed_time_left = Time(TIMELimit).diff(new_accumulated_hours)
+        allowed_time_left = Driver.TIMELimit.diff(new_accumulated_hours)
 
         # Calculates how much kms are left fot the vehicle after this service
         new_accumulated_kms = int(self.getVehicleKmsDone()) + int(self.getServiceCircuitKms())
@@ -117,7 +117,7 @@ class DetailedService(Service):
         self.setVehicleKmsDone(new_accumulated_kms)
 
         # Adds the rest of the information, depending on the allowed time and kms left
-        if allowed_time_left < Time(TIMEThreshold):
+        if allowed_time_left < Driver.TIMEThreshold:
             self.setServiceDriverStatus(Driver.STATUSTerminated)
 
         elif allowed_kms_left < AUTONThreshold:

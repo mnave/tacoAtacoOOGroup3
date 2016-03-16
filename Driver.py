@@ -5,6 +5,8 @@
 # 43134 Luís Filipe Leal Campos
 # 48392 Mariana Vieira De Almeida Nave
 
+from Time import Time
+
 
 class Driver(object):
     """Driver of a tuk tuk from Taco-a-Taco"""
@@ -17,6 +19,13 @@ class Driver(object):
 
     # Status of driver waiting for next service
     STATUSStandBy = "standby"
+
+    # Limit of driver's daily allowed time to drive
+    TIMELimit = Time("05:00")
+
+    # Limit of driver's daily allowed time left to be able
+    # to be assigned a next service
+    TIMEThreshold = Time("00:30")
 
     def __init__(self, Name, EntryHour, AccumTime):
         """Creates a new driver.

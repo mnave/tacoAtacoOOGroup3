@@ -102,7 +102,7 @@ class DetailedServicesList(UserList):
         # while cycle stops also when all the drivers were checked
         while i < len(self) and \
                 (int(reservation.getReservCircuitKms()) >= self[i].calculateKmsLeft() or
-                         reservation.duration() >= Time(TIMELimit).diff(self[i].getAccumTime())):
+                         reservation.duration() >= Driver.TIMELimit.diff(self[i].getAccumTime())):
             i += 1
 
         return i

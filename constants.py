@@ -8,13 +8,6 @@
 # This module records the constants used in the application
 
 
-# Limit of driver's daily allowed time to drive
-TIMELimit = "05:00"
-
-# Limit of driver's daily allowed time left to be able
-# to be assigned a next service
-TIMEThreshold = "00:30"
-
 # Limit of vehicle's autonomy in kms left to be able
 # to be assigned a next service
 AUTONThreshold = 15
