@@ -8,8 +8,6 @@
 from Service import Service
 from Driver import Driver
 from Vehicle import Vehicle
-from Time import Time
-from constants import *
 
 
 class DetailedService(Service):

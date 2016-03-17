@@ -5,21 +5,30 @@
 # 43134 Luís Filipe Leal Campos
 # 48392 Mariana Vieira De Almeida Nave
 
-import sys
-from headerRelated import createNewHeader, getHeader
-from timeTT import changeFormatTime, getPreviousPeriod
+from DetailedServicesList import DetailedServicesList
 from DriversDict import DriversDict
-from VehiclesDict import VehiclesDict
 from ReservationsList import ReservationsList
 from ServicesList import ServicesList
-from DetailedServicesList import DetailedServicesList
-from constants import *
+from TimeTT import Time
+from VehiclesDict import VehiclesDict
+from fileUtil import *
 
-nextPeriod = sys.argv[1]
-driversFileName = sys.argv[2]
-vehiclesFileName = sys.argv[3]
-servicesFileName = sys.argv[4]
-reservationsFileName = sys.argv[5]
+# In a the header list:
+# Index of elements with name of company
+INDEXCompany = 1
+
+# Index of elements with the date
+INDEXDate = 3
+# Index of elements with the period
+INDEXPeriod = 5
+
+
+#
+# nextPeriod = sys.argv[1]
+# driversFileName = sys.argv[2]
+# vehiclesFileName = sys.argv[3]
+# servicesFileName = sys.argv[4]
+# reservationsFileName = sys.argv[5]
 
 
 def checkPreConditions(nextPeriod, driversFileName, vehiclesFileName,
@@ -32,16 +41,15 @@ def checkPreConditions(nextPeriod, driversFileName, vehiclesFileName,
     and True otherwise
     """
 
-    headerDrivers = getHeader(driversFileName)
-    headerVehicles = getHeader(vehiclesFileName)
-    headerServices = getHeader(servicesFileName)
-    headerReservations = getHeader(reservationsFileName)
+    headerDrivers = fileUtil(driversFileName).getHeader()
+    headerVehicles = fileUtil(vehiclesFileName).getHeader()
+    headerServices = fileUtil(servicesFileName).getHeader()
+    headerReservations = fileUtil(reservationsFileName).getHeader()
 
-    previousPeriod = getPreviousPeriod(nextPeriod)
-
+    previousPeriod = Time().getPreviousPeriod(nextPeriod)
     # Changes the format of the period to the one in the header of files
-    nextPeriodOther = changeFormatTime(nextPeriod)
-    previousPeriodOther = changeFormatTime(previousPeriod)
+    nextPeriodOther = nextPeriod[0:2] + ":00 - " + nextPeriod[2:4] + ":00"
+    previousPeriodOther = previousPeriod[0:2] + ":00 - " + previousPeriod[2:4] + ":00"
 
     # NextPeriod is a str from the set 0911, 1113, ..., 1921
     if nextPeriod not in ['0911', '1113', '1315', '1517', '1719', '1921']:
@@ -120,7 +128,7 @@ def update(nextPeriod, driversFileName, vehiclesFileName,
 
         file_name = "output" + nextPeriod
 
-        header = createNewHeader(servicesFileName, nextPeriod)
+        header = fileUtil(servicesFileName).createNewHeader(nextPeriod)
 
         drivers = DriversDict(driversFileName)
         vehicles = VehiclesDict(vehiclesFileName)
@@ -142,5 +150,4 @@ def update(nextPeriod, driversFileName, vehiclesFileName,
     else:
         raise IOError('File names and/or headers not consistent.')
 
-
-update(nextPeriod, driversFileName, vehiclesFileName, servicesFileName, reservationsFileName)
+# update(nextPeriod, driversFileName, vehiclesFileName, servicesFileName, reservationsFileName)
