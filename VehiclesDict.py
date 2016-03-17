@@ -34,7 +34,7 @@ class VehiclesDict(UserDict):
 
         UserDict.__init__(self)
 
-        inFile = fileUtil(file_name)
+        inFile = FileUtil(file_name)
         for line in inFile.getContent():
             vehicleData = line.rstrip().split(", ")
             vehiclePlate = vehicleData.pop(VehiclesDict.INDEXVehiclePlate)
