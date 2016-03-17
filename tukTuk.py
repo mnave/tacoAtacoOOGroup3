@@ -23,12 +23,12 @@ INDEXDate = 3
 INDEXPeriod = 5
 
 
-#
-# nextPeriod = sys.argv[1]
-# driversFileName = sys.argv[2]
-# vehiclesFileName = sys.argv[3]
-# servicesFileName = sys.argv[4]
-# reservationsFileName = sys.argv[5]
+
+nextPeriod = sys.argv[1]
+driversFileName = sys.argv[2]
+vehiclesFileName = sys.argv[3]
+servicesFileName = sys.argv[4]
+reservationsFileName = sys.argv[5]
 
 
 def checkPreConditions(nextPeriod, driversFileName, vehiclesFileName,
@@ -150,4 +150,4 @@ def update(nextPeriod, driversFileName, vehiclesFileName,
     else:
         raise IOError('File names and/or headers not consistent.')
 
-# update(nextPeriod, driversFileName, vehiclesFileName, servicesFileName, reservationsFileName)
+update(nextPeriod, driversFileName, vehiclesFileName, servicesFileName, reservationsFileName)
