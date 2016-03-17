@@ -7,10 +7,9 @@
 
 
 from UserDict import UserDict
-from headerRelated import removeHeader
-from Time import Time
-from constants import *
 from Driver import Driver
+from TimeTT import Time
+from fileUtil import *
 
 
 class DriversDict(UserDict):
@@ -40,8 +39,8 @@ class DriversDict(UserDict):
         UserDict.__init__(self)
 
         if file_name is not None:
-            inFile = removeHeader(open(file_name, "r"))
-            for line in inFile:
+            inFile = fileUtil(file_name)
+            for line in inFile.getContent():
                 driverData = line.rstrip().split(", ")
                 driverName = driverData.pop(DriversDict.INDEXDriverName)
                 driverEntryTime, driverAccumTime = driverData
@@ -69,4 +68,3 @@ class DriversDict(UserDict):
             output += driver.getDriverName() + "\n"
 
         return output
-

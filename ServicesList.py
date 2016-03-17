@@ -7,12 +7,9 @@
 
 
 from UserList import UserList
-
 from Service import Service
-from Time import Time
-from constants import *
-from headerRelated import removeHeader
-
+from TimeTT import Time
+from fileUtil import *
 
 
 class ServicesList(UserList):
@@ -74,9 +71,9 @@ class ServicesList(UserList):
         # if file_name is given, self is populated with Services corresponding to the
         # services on the file file_name
         if file_name is not None:
-            inFile = removeHeader(open(file_name, "r"))
+            inFile = fileUtil(file_name)
 
-            for line in inFile:
+            for line in inFile.getContent():
                 servData = line.rstrip().split(", ")
                 servDriver = servData[ServicesList.INDEXDriverName]
                 servPlate = servData[ServicesList.INDEXVehiclePlate]
@@ -131,7 +128,6 @@ class ServicesList(UserList):
 
     def __eq__(self, other_ServicesList):
         pass
-
 
     def __str__(self):
         """String representation of the ServiceList. Returns the driver's names."""

@@ -7,12 +7,10 @@
 
 
 from UserList import UserList
-from DetailedService import DetailedService
 from copy import deepcopy
-from ServicesList import ServicesList
-from constants import *
-from Time import Time
+from DetailedService import DetailedService
 from Driver import Driver
+from ServicesList import ServicesList
 
 
 class DetailedServicesList(UserList):

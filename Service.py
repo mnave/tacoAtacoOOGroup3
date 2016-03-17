@@ -5,9 +5,9 @@
 # 43134 Luís Filipe Leal Campos
 # 48392 Mariana Vieira De Almeida Nave
 
-from constants import *
-from Time import Time
+
 from Driver import Driver
+from TimeTT import Time
 
 
 class Service(object):

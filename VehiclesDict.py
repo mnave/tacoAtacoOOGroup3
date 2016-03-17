@@ -7,9 +7,8 @@
 
 
 from UserDict import UserDict
-from headerRelated import removeHeader
-from constants import *
 from Vehicle import Vehicle
+from fileUtil import *
 
 
 class VehiclesDict(UserDict):
@@ -35,8 +34,8 @@ class VehiclesDict(UserDict):
 
         UserDict.__init__(self)
 
-        inFile = removeHeader(open(file_name, "r"))
-        for line in inFile:
+        inFile = fileUtil(file_name)
+        for line in inFile.getContent():
             vehicleData = line.rstrip().split(", ")
             vehiclePlate = vehicleData.pop(VehiclesDict.INDEXVehiclePlate)
             vehicleModel, vehicleAutonomy, vehicleKms = vehicleData

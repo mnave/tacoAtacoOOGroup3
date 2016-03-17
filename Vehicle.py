@@ -5,7 +5,8 @@
 # 43134 Luís Filipe Leal Campos
 # 48392 Mariana Vieira De Almeida Nave
 
-from Time import Time
+from TimeTT import Time
+
 
 class Vehicle(object):
     """A tuk tuk from Taco-a-Taco."""

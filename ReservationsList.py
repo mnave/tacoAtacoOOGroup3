@@ -7,10 +7,9 @@
 
 
 from UserList import UserList
-from headerRelated import removeHeader
-from constants import *
-from Time import Time
+from TimeTT import Time
 from Reservation import Reservation
+from fileUtil import *
 
 
 class ReservationsList(UserList):
@@ -51,9 +50,9 @@ class ReservationsList(UserList):
         UserList.__init__(self)
 
         if file_name is not None:
-            inFile = removeHeader(open(file_name, "r"))
+            inFile = fileUtil(file_name)
 
-            for line in inFile:
+            for line in inFile.getContent():
                 reservData = line.rstrip().split(", ")
                 reservClient = reservData[ReservationsList.INDEXClientNameInReservation]
                 reservRequestedStartTime = Time(reservData[ReservationsList.INDEXRequestedStartHour])

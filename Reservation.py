@@ -10,7 +10,6 @@ class Reservation(object):
     """ A Taco-a-Taco Reservation"""
 
     def __init__(self, reservClient, reservRequestedStartHour, reservRequestedEndHour, reservCircuit, reservCircuitKms):
-
         """Creates a new Reservation object.
 
         Requires: reservClient is a string representing the name of the client. reservRequestedStartHour
@@ -103,4 +102,3 @@ class Reservation(object):
                "Requested End Hour: " + self.getReservRequestedEndHour() + "\n" + \
                "Circuit name: " + self.getReservCircuit() + "\n" + \
                "Distance (in kms): " + self.getReservCircuitKms()
-
