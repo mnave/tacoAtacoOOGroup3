@@ -7,7 +7,7 @@
 
 
 class Time:
-    """A representation of time"""
+    """A representation of time."""
 
     def __init__(self, time=None):
         """Creates a new time.
