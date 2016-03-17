@@ -39,7 +39,7 @@ class DriversDict(UserDict):
         UserDict.__init__(self)
 
         if file_name is not None:
-            inFile = fileUtil(file_name)
+            inFile = FileUtil(file_name)
             for line in inFile.getContent():
                 driverData = line.rstrip().split(", ")
                 driverName = driverData.pop(DriversDict.INDEXDriverName)

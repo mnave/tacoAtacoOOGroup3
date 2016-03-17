@@ -41,10 +41,10 @@ def checkPreConditions(nextPeriod, driversFileName, vehiclesFileName,
     and True otherwise
     """
 
-    headerDrivers = fileUtil(driversFileName).getHeader()
-    headerVehicles = fileUtil(vehiclesFileName).getHeader()
-    headerServices = fileUtil(servicesFileName).getHeader()
-    headerReservations = fileUtil(reservationsFileName).getHeader()
+    headerDrivers = FileUtil(driversFileName).getHeader()
+    headerVehicles = FileUtil(vehiclesFileName).getHeader()
+    headerServices = FileUtil(servicesFileName).getHeader()
+    headerReservations = FileUtil(reservationsFileName).getHeader()
 
     previousPeriod = Time().getPreviousPeriod(nextPeriod)
     # Changes the format of the period to the one in the header of files
@@ -128,7 +128,7 @@ def update(nextPeriod, driversFileName, vehiclesFileName,
 
         file_name = "output" + nextPeriod
 
-        header = fileUtil(servicesFileName).createNewHeader(nextPeriod)
+        header = FileUtil(servicesFileName).createNewHeader(nextPeriod)
 
         drivers = DriversDict(driversFileName)
         vehicles = VehiclesDict(vehiclesFileName)

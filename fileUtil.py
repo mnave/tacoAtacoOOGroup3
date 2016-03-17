@@ -1,4 +1,4 @@
-class fileUtil():
+class FileUtil():
     """ A class to handle file reading and header creation"""
 
     # Index of elements with the period
@@ -37,7 +37,7 @@ class fileUtil():
 
         header = self.getHeader()
 
-        header[fileUtil.INDEXPeriod] = new_period
+        header[FileUtil.INDEXPeriod] = new_period
 
         # Turns header into string, each line separated by commas. To understand the
         # use of commas, see outputStatus.writeServicesFile

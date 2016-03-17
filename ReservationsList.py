@@ -50,7 +50,7 @@ class ReservationsList(UserList):
         UserList.__init__(self)
 
         if file_name is not None:
-            inFile = fileUtil(file_name)
+            inFile = FileUtil(file_name)
 
             for line in inFile.getContent():
                 reservData = line.rstrip().split(", ")

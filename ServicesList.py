@@ -71,7 +71,7 @@ class ServicesList(UserList):
         # if file_name is given, self is populated with Services corresponding to the
         # services on the file file_name
         if file_name is not None:
-            inFile = fileUtil(file_name)
+            inFile = FileUtil(file_name)
 
             for line in inFile.getContent():
                 servData = line.rstrip().split(", ")
