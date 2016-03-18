@@ -1,23 +1,28 @@
 class FileUtil():
-    """ A class to handle file reading and header creation"""
+    """ A Class representing a Taco-a-Taco file."""
 
-    # Index of elements with the period
+    # Line of the header which as information about the period
     INDEXPeriod = 5
 
     def __init__(self, file_name, numLines=7):
-        """ Reads a file and separates the content from the header
-        Requires: a file_name which is a .txt file"""
+        """Creates a FileUtil object.
+
+        Requires: file_name is a str of the name of a Taco-a-Taco file
+        organized as explained in the general specification. numLines
+        is the number of lines occupied by the header in the file.
+        """
+
         fileLines = open(file_name, 'r').readlines()
         self._header = fileLines[:numLines]
         self._content = fileLines[numLines:]
 
     def getContent(self):
-        """Removes the header of the file_name"""
+        """The content of a FilUtil."""
 
         return self._content
 
     def getHeader(self):
-        """Gets the header of the file_name."""
+        """The header of a FileUtil."""
 
         return self._header
 
