@@ -14,10 +14,9 @@ from TimeTT import Time
 from VehiclesDict import VehiclesDict
 from FileUtil import *
 
-# In a the header list:
+# In header:
 # Index of elements with name of company
 INDEXCompany = 1
-
 # Index of elements with the date
 INDEXDate = 3
 # Index of elements with the period
