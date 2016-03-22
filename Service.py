@@ -155,7 +155,7 @@ class Service(object):
     def resetVehic(self):
         """Changes the status of a driver/vehicle to 'standby'."""
 
-        self.setServiceDriverStatus(STATUSStandBy)
+        self.setServiceDriverStatus(Driver.STATUSStandBy)
 
     def noService(self):
         """Update a service's list when there is no service."""
