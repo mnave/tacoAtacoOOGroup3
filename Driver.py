@@ -95,7 +95,7 @@ class Driver(object):
 
         if self.getDriverEntryHour() < other_driver.getDriverEntryHour():
             return True
-        else:
+        elif self.getDriverEntryHour() == other_driver.getDriverEntryHour():
             if self.getDriverName() < other_driver.getDriverName():
                 return True
 
