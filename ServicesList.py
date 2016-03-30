@@ -103,19 +103,10 @@ class ServicesList(UserList):
         drivers' status is standby, of course!
         """
 
-        lstDrivers = []
-        lstVehicles = []
-
-        for i in drivers.values():
-            lstDrivers.append(i)
-
-        for j in vehicles.values():
-            lstVehicles.append(j.getPlate())
-
         # sort drivers for the 1st period (0911) according to Drivers' EntryHour
         # and in case of tie, Drivers' name
-        d = sorted(lstDrivers)
-        v = sorted(lstVehicles)
+        d = sorted(drivers.values())
+        v = sorted(vehicles.keys())
 
         j = 0
         for i in d:
